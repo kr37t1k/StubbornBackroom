@@ -1,15 +1,15 @@
-# Psycho Backrooms - Ursina Version
+# StubbornBackroom - Psycho Cube
 
-This is a 3D horror exploration game inspired by the Backrooms phenomenon, implemented using Ursina (Panda3D) instead of pygame. The game features psychological elements, procedural generation, and dream-like effects.
+This is a 3D *horror* exploration game inspired by the `Backrooms` phenomenon, implemented using Ursina (Panda3D) instead of pygame. The game features psychological elements, procedural generation, and dream-like effects.
 
 ## Features
 
-- **Procedural Backrooms Generation**: Infinite, maze-like rooms generated using hash-based algorithm
+- **Procedural Backrooms Generation**: Infinite, maze-like ~~rooms~~ generated using hash-based algorithm
 - **Psychological Effects**: Dream zones with different effects (slow, fast, glitch, panic)
 - **First-Person Exploration**: Navigate through the endless backrooms
 - **Dynamic Environment**: Walls, floors, ceilings, and random objects
 - **Dream Messages**: Random psychological messages appear during gameplay
-- **Player Stats**: Track dream level, sanity, and reality stability
+- **Player Stats**: Track dream level, sanity, and reality __stability__
 
 ## Game Mechanics
 

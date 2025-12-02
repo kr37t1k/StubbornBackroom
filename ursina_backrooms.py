@@ -1,443 +1,321 @@
-"""
-Ursina-based Psycho Backrooms Game
-A 3D horror exploration game with psychological elements
-"""
-from ursina import *
-from ursina.prefabs.first_person_controller import FirstPersonController
-import math
+import json
 import random
-
-class BackroomsWorld:
-    def __init__(self, seed=None):
-        self.seed = seed or random.randint(0, 999999)
-        random.seed(self.seed)
-        
-        pass  # Removed noise parameters since we're using hash-based generation
-        
-        # Room types
-        self.room_types = {
-            0: 'empty',    # Empty space (walkable)
-            1: 'wall',     # Wall
-            2: 'room',     # Small room
-            3: 'junction', # T-junction
-            4: 'corner',   # Corner
-            5: 'open',     # Open space
-        }
-        
-        # Psycho elements
-        self.dream_zones = {}
-        self.generate_dream_zones()
-        
-        # Store generated chunks to avoid regenerating
-        self.chunks = {}
-    
-    def generate_dream_zones(self):
-        """Generate areas with special dream effects"""
-        for i in range(10):
-            x = random.randint(-50, 50)
-            y = random.randint(-50, 50)
-            radius = random.uniform(3.0, 8.0)
-            effect = random.choice(['slow', 'fast', 'float', 'glitch', 'panic'])
-            
-            self.dream_zones[(x, y)] = {
-                'radius': radius,
-                'effect': effect,
-                'intensity': random.uniform(0.3, 0.8)
-            }
-    
-    def get_cell(self, x, y):
-        """Get cell type at world coordinates"""
-        grid_x = int(x)
-        grid_y = int(y)
-        
-        # Use a faster hash-based approach instead of Perlin noise
-        # This creates pseudo-random but consistent values for each coordinate
-        hash_value = hash((grid_x, grid_y, self.seed)) % 1000
-        value = hash_value / 1000.0  # Convert to 0-1 range
-        
-        # Convert to room types
-        if value < 0.3:  # 30% chance of wall
-            return 1  # Wall
-        elif value < 0.5:  # 20% chance of room
-            return 2  # Room
-        elif value < 0.7:  # 20% chance of junction
-            return 3  # Junction
-        elif value < 0.9:  # 20% chance of corner
-            return 4  # Corner
-        else:  # 10% chance of open space
-            return 5  # Open
-    
-    def get_room_at(self, x, y):
-        """Get detailed room information at coordinates"""
-        cell_type = self.get_cell(x, y)
-        
-        # Add psycho-dream effects near dream zones
-        dream_effect = None
-        dream_intensity = 0.0
-        
-        for (zone_x, zone_y), zone_data in self.dream_zones.items():
-            distance = math.sqrt((x - zone_x) ** 2 + (y - zone_y) ** 2)
-            if distance < zone_data['radius']:
-                intensity = (zone_data['radius'] - distance) / zone_data['radius']
-                if intensity > dream_intensity:
-                    dream_intensity = intensity
-                    dream_effect = zone_data['effect']
-        
-        return {
-            'type': cell_type,
-            'dream_effect': dream_effect,
-            'dream_intensity': dream_intensity,
-            'x': x,
-            'y': y
-        }
-    
-    def generate_chunk(self, chunk_x, chunk_y, chunk_size=16):
-        """Generate a chunk of the world"""
-        chunk = []
-        for y in range(chunk_size):
-            row = []
-            for x in range(chunk_size):
-                world_x = chunk_x * chunk_size + x
-                world_y = chunk_y * chunk_size + y
-                row.append(self.get_cell(world_x, world_y))
-            chunk.append(row)
-        return chunk
-    
-    def get_dream_effect_at(self, x, y):
-        """Get current dream effect at position"""
-        for (zone_x, zone_y), zone_data in self.dream_zones.items():
-            distance = math.sqrt((x - zone_x) ** 2 + (y - zone_y) ** 2)
-            if distance < zone_data['radius']:
-                intensity = (zone_data['radius'] - distance) / zone_data['radius']
-                return zone_data['effect'], intensity
-        return None, 0.0
+from ursina import Ursina, Entity, Vec3, color, held_keys, mouse, camera, time, destroy, Text, Sky, DirectionalLight
 
 
-class DreamPlayer(FirstPersonController):
-    def __init__(self, world=None, **kwargs):
-        super().__init__(**kwargs)
-        
-        # Player stats
-        self.speed = 3
-        self.dream_level = 0.0  # 0.0 = awake, 1.0 = deep dream
-        self.sanity = 100.0
-        self.reality_stability = 1.0  # 1.0 = stable, 0.0 = distorted
-        
-        # Psycho effects
-        self.glitch_timer = 0
-        self.panic_mode = False
-        self.panic_timer = 0
-        
-        # Visual effects
-        self.breathing_effect = 0
-        self.breathing_direction = 1
-        
-        # World reference
-        self.world = world
-        
-        # Initialize position
-        self.position = Vec3(5.5, 1, 5.5)
-    
-    def update(self):
-        # Call parent update
-        super().update()
-        
-        # Update dream effects
-        self.update_dream_effects()
-        self.update_psycho_effects()
-        self.update_ui()
-    
-    def update_dream_effects(self):
-        """Update dream level based on environment"""
-        # Get dream effect at current position
-        if self.world:
-            effect, intensity = self.world.get_dream_effect_at(self.position.x, self.position.z)
-        else:
-            effect, intensity = None, 0.0
-        
-        if effect:
-            if effect == 'slow':
-                self.speed = max(1, 3 * (1 - intensity * 0.5))
-            elif effect == 'fast':
-                self.speed = min(8, 3 * (1 + intensity * 0.5))
-            elif effect == 'glitch':
-                self.glitch_timer = max(self.glitch_timer, intensity * 2.0)
-            elif effect == 'panic':
-                self.panic_mode = True
-                self.panic_timer = intensity * 5.0
-                self.sanity = max(0, self.sanity - intensity * 0.1)
-        
-        # Gradually return to normal when not in dream zones
-        if not effect:
-            self.speed = 3  # Reset to normal speed
-    
-    def update_psycho_effects(self):
-        """Update psychological effects"""
-        # Update glitch effect
-        if self.glitch_timer > 0:
-            self.glitch_timer -= time.dt
-            # Add random distortion
-            if random.random() < 0.1:
-                self.rotation_y += random.uniform(-2, 2)
-        
-        # Update panic mode
-        if self.panic_mode:
-            self.panic_timer -= time.dt
-            if self.panic_timer <= 0:
-                self.panic_mode = False
-        
-        # Update breathing effect
-        self.breathing_direction *= -1 if abs(self.breathing_effect) > 0.1 else 1
-        self.breathing_effect += self.breathing_direction * 0.5 * time.dt
-        self.breathing_effect = max(-0.1, min(0.1, self.breathing_effect))
-        
-        # Apply breathing effect to camera
-        self.y += self.breathing_effect * 0.1
-    
-    def update_ui(self):
-        """Update UI elements"""
-        # This would update health, sanity, etc. in a real implementation
-        pass
+def rgb_to_color(rgb_list):
+    """Convert RGB list to Ursina color object"""
+    if len(rgb_list) >= 3:
+        return color.rgb(rgb_list[0], rgb_list[1], rgb_list[2])
+    else:
+        return color.white
 
 
 class PsychoBackroomsGame:
     def __init__(self):
-        # Initialize Ursina app
         self.app = Ursina()
-        
-        # Set window properties
-        window.title = 'Psycho Backrooms - Ursina'
-        window.borderless = False
-        window.fullscreen = False
-        window.exit_button.visible = False
-        window.fps_counter.enabled = True
-        
-        # Create game objects
-        self.world = BackroomsWorld(seed=42)
-        self.player = DreamPlayer(world=self.world)
-        
-        # Create the backrooms environment
-        self.create_backrooms()
-        
-        # Create UI elements
-        self.create_ui()
-        
-        # Audio (if available)
-        self.setup_audio()
-        
-        # Game state
-        self.game_paused = False
+        self.player = None
+        self.world_data = {}
+        self.loaded_chunks = {}
         self.dream_messages = [
-            "you are safe here...",
-            "the walls breathe softly...",
-            "listen to the hum...",
-            "time flows like honey...",
-            "reality is gentle...",
-            "you belong here...",
-            "the dream protects you...",
-            "soft edges, soft mind...",
-            "the walls are watching...",
-            "something moves in the distance...",
-            "the fluorescent lights flicker...",
-            "you hear footsteps behind you...",
-            "the temperature drops...",
-            "your sanity is fading...",
-            "the exit is always one room away..."
+            "The walls are breathing...",
+            "You feel a presence watching you...",
+            "Reality feels unstable here...",
+            "Something is not right...",
+            "The silence is deafening...",
+            "Time moves differently here...",
+            "You're not alone...",
+            "The walls whisper...",
+            "You feel lost...",
+            "The fluorescent lights flicker...",
+            "Your sanity is slipping...",
+            "The air tastes strange...",
+            "You can't remember how you got here...",
+            "The rooms repeat endlessly...",
+            "Your footsteps echo...",
+            "The walls seem to pulse...",
+            "You hear breathing...",
+            "The temperature drops...",
+            "You feel dizzy...",
+            "The lights dim..."
         ]
-        self.current_message = random.choice(self.dream_messages)
+        self.current_message = ""
         self.message_timer = 0
-        
-        # Bind input
-        self.setup_input()
-    
-    def create_backrooms(self):
-        """Create the backrooms environment"""
-        # Create a grid of rooms based on the world generation
-        chunk_size = 16
-        world_size = 8  # 8x8 chunks - reduced for faster loading
-        
-        for chunk_x in range(-world_size//2, world_size//2):
-            for chunk_y in range(-world_size//2, world_size//2):
-                chunk = self.world.generate_chunk(chunk_x, chunk_y, chunk_size)
-                
-                for x in range(chunk_size):
-                    for y in range(chunk_size):
-                        world_x = chunk_x * chunk_size + x
-                        world_y = chunk_y * chunk_size + y
-                        
-                        cell_type = chunk[y][x]
-                        
-                        # Create walls where needed
-                        if cell_type == 1:  # Wall
-                            wall = Entity(
-                                model='cube',
-                                color=color.white,
-                                scale=(1, 3, 1),
-                                position=(world_x, 1.5, world_y),
-                                collider='box',
-                                texture='white_cube',
-                                texture_scale=(0.5, 0.5)
-                            )
-                            # Add subtle color variation to walls
-                            wall.color = color.rgb(
-                                random.randint(230, 255),
-                                random.randint(220, 240),
-                                random.randint(200, 220)
-                            )
-                        elif cell_type in [2, 3, 4, 5]:  # Room types
-                            # Create floor
-                            floor = Entity(
-                                model='cube',
-                                color=color.white,
-                                scale=(1, 0.1, 1),
-                                position=(world_x, 0, world_y),
-                                collider='box',
-                                texture='white_cube',
-                                texture_scale=(0.5, 0.5)
-                            )
-                            # Add subtle color variation to floors
-                            floor.color = color.rgb(
-                                random.randint(240, 255),
-                                random.randint(230, 250),
-                                random.randint(210, 230)
-                            )
-        
-        # Create ceiling
-        ceiling = Entity(
-            model='plane',
-            color=color.white,
-            scale=(world_size * chunk_size, 1, world_size * chunk_size),
-            position=(0, 3, 0),
-            rotation=(0, 0, 180),
-            texture='white_cube',
-            texture_scale=(world_size * chunk_size * 0.1, world_size * chunk_size * 0.1)
-        )
-        ceiling.color = color.rgb(255, 255, 245)  # Slightly off-white ceiling
-        
-        # Add some random details to make it more interesting
-        self.add_details()
-        
-        # Add lighting
-        DirectionalLight().look_at(Vec3(1, -1, -1))
-        AmbientLight(color=color.rgba(100, 100, 100, 255))
-    
-    def add_details(self):
-        """Add additional details to make the backrooms more interesting"""
-        # Add some random fluorescent lights
-        for i in range(50):
-            x = random.randint(-50, 50)
-            z = random.randint(-50, 50)
-            # Only place lights in open areas
-            if self.world.get_cell(x, z) != 1:  # Not a wall
-                light = Entity(
-                    model='cube',
-                    color=color.yellow,
-                    scale=(0.2, 0.1, 0.2),
-                    position=(x, 2.9, z),
-                    texture='white_cube'
-                )
-                light.color = color.rgb(255, 255, 200)  # Warm light
-        
-        # Add some random objects to make it feel more eerie
-        for i in range(30):
-            x = random.randint(-50, 50)
-            z = random.randint(-50, 50)
-            if self.world.get_cell(x, z) != 1:  # Not a wall
-                obj_type = random.choice(['chair', 'table', 'box'])
-                if obj_type == 'chair':
-                    chair = Entity(
-                        model='cube',
-                        color=color.brown,
-                        scale=(0.5, 0.8, 0.5),
-                        position=(x, 0.4, z),
-                        texture='white_cube'
-                    )
-                    chair.color = color.rgb(139, 69, 19)  # Brown
-                elif obj_type == 'table':
-                    table = Entity(
-                        model='cube',
-                        color=color.gray,
-                        scale=(1.2, 0.2, 0.8),
-                        position=(x, 0.6, z),
-                        texture='white_cube'
-                    )
-                    table.color = color.rgb(200, 200, 200)  # Gray
-                elif obj_type == 'box':
-                    box = Entity(
-                        model='cube',
-                        color=color.gray,
-                        scale=(0.6, 0.6, 0.6),
-                        position=(x, 0.3, z),
-                        texture='white_cube'
-                    )
-                    box.color = color.rgb(180, 180, 180)  # Light gray
-    
-    def create_ui(self):
-        """Create UI elements"""
-        # Dream message
-        self.message_text = Text(
-            text=self.current_message,
-            origin=(0, 0),
-            position=(-0.8, 0.4),
-            scale=1.5,
-            color=color.orange
-        )
-        
-        # Player status
+        self.sanity = 75
+        self.reality_stability = 80
+        self.speed_effects = []
+        self.glitch_effects = []
+        self.panic_effects = []
+
+        # Load world data
+        self.load_world_data()
+        self.setup_game()
+
+    def load_world_data(self):
+        """Load pre-generated world data"""
+        try:
+            with open('generated_world.json', 'r') as f:
+                self.world_data = json.load(f)
+            print(f"Loaded {len(self.world_data)} rooms from generated_world.json")
+        except FileNotFoundError:
+            print("Error: generated_world.json not found. Please run generate_rooms.py first.")
+            exit()
+
+    def setup_game(self):
+        """Setup game environment"""
+        # Sky and lighting
+        Sky(color=color.dark_gray)
+
+        # Directional light for better visibility
+        self.directional_light = DirectionalLight()
+        self.directional_light.look_at(Vec3(-1, -1, -1))
+        self.directional_light.color = color.white
+        self.directional_light.intensity = 0.5
+
+        # Ground plane
+        Entity(model='plane', scale=100, texture='white_cube', texture_scale=(100, 100),
+               rotation_x=90, color=color.gray)
+
+        # Player setup
+        self.player = Entity(model='cube', color=color.blue, scale=1, collider='box')
+        self.player.y = 1.5  # Eye level
+
+        # Camera setup
+        camera.parent = self.player
+        camera.position = Vec3(0, 0, 0)
+        camera.rotation = Vec3(0, 0, 0)
+
+        # Load initial chunks around player
+        self.load_chunks_around_player()
+
+        # Initial dream message
+        self.update_dream_message()
+
+        # UI
         self.status_text = Text(
-            text="",
-            origin=(0, 0),
-            position=(-0.8, -0.4),
-            scale=1.2,
+            position=Vec3(-0.8, 0.4, 0),
+            scale=1.5,
             color=color.white
         )
-        
-        # Controls help
-        self.controls_text = Text(
-            text="WASD: Move | Mouse: Look | ESC: Quit",
-            origin=(0, 0),
-            position=(0.7, -0.45),
-            scale=0.8,
-            color=color.gray
+        self.message_text = Text(
+            position=Vec3(0, 0.3, 0),
+            scale=2,
+            color=color.orange,
+            origin=(0, 0)
         )
-    
-    def setup_audio(self):
-        """Setup audio system"""
-        # Placeholder for audio implementation
-        pass
-    
-    def setup_input(self):
-        """Setup input handling"""
-        self.input_handler = InputHandler()
-        self.input_handler.bind('escape', 'quit_game')
-    
-    def update_ui(self):
-        """Update UI elements"""
-        # Update dream message periodically
-        self.message_timer += time.dt
-        if self.message_timer > 5:  # Change message every 5 seconds
-            self.current_message = random.choice(self.dream_messages)
-            self.message_text.text = self.current_message
-            self.message_timer = 0
-        
-        # Update player status
-        self.status_text.text = f"POS: {self.player.position.x:.1f}, {self.player.position.z:.1f}\nDREAM: {self.player.dream_level:.1f}\nSANITY: {self.player.sanity:.0f}%"
-    
-    def input(self, key):
-        """Handle input"""
-        if key == 'escape':
-            application.quit()
-    
+
+        # Game loop
+        self.app.update = self.update
+
+    def load_chunks_around_player(self):
+        """Load chunks around player position"""
+        px, pz = int(self.player.x), int(self.player.z)
+
+        # Clear existing chunks
+        for chunk in self.loaded_chunks.values():
+            for entity in chunk:
+                destroy(entity)
+        self.loaded_chunks.clear()
+
+        # Load new chunks (3x3 grid around player)
+        for x in range(px - 1, px + 2):
+            for z in range(pz - 1, pz + 2):
+                self.load_chunk(x, z)
+
+    def load_chunk(self, chunk_x, chunk_z):
+        """Load a single chunk from pre-generated data"""
+        entities = []
+
+        # Generate rooms in this chunk
+        for dx in range(2):
+            for dz in range(2):
+                room_x = chunk_x * 2 + dx
+                room_z = chunk_z * 2 + dz
+                room_key = f"{room_x},{room_z}"
+
+                if room_key in self.world_data:
+                    room = self.world_data[room_key]
+                    room_entities = self.create_room(room_x, room_z, room)
+                    entities.extend(room_entities)
+
+        self.loaded_chunks[(chunk_x, chunk_z)] = entities
+
+    def create_room(self, x, z, room_data):
+        """Create a room based on pre-generated data"""
+        entities = []
+
+        # Floor
+        floor_color = rgb_to_color(room_data['floor_color'])
+        floor = Entity(
+            model='plane',
+            scale=10,
+            position=Vec3(x * 10, 0, z * 10),
+            rotation=Vec3(90, 0, 0),
+            color=floor_color,
+            collider='mesh'
+        )
+        entities.append(floor)
+
+        # Ceiling
+        ceiling = Entity(
+            model='plane',
+            scale=10,
+            position=Vec3(x * 10, 5, z * 10),
+            rotation=Vec3(-90, 0, 0),
+            color=color.gray,
+            collider='mesh'
+        )
+        entities.append(ceiling)
+
+        # Walls
+        wall_color = rgb_to_color(room_data['wall_color'])
+        wall_positions = [
+            (x * 10, 2.5, z * 10 + 5),  # North
+            (x * 10, 2.5, z * 10 - 5),  # South
+            (x * 10 + 5, 2.5, z * 10),  # East
+            (x * 10 - 5, 2.5, z * 10)  # West
+        ]
+
+        for pos in wall_positions:
+            wall = Entity(
+                model='cube',
+                scale=(10, 5, 1),
+                position=pos,
+                color=wall_color,
+                collider='box'
+            )
+            entities.append(wall)
+
+        # Furniture
+        furniture_colors = {
+            'chair': color.brown,
+            'table': color.brown,
+            'lamp': color.yellow,
+            'plant': color.green,
+            'bookshelf': color.brown,
+            'couch': color.red
+        }
+
+        for furn in room_data['furniture']:
+            furn_color = furniture_colors.get(furn['type'], color.brown)
+            furn_entity = Entity(
+                model='cube',
+                scale=1,
+                position=Vec3(
+                    x * 10 + furn['position'][0],
+                    furn['position'][1],
+                    z * 10 + furn['position'][2]
+                ),
+                rotation_y=furn['rotation'],
+                color=furn_color
+            )
+            entities.append(furn_entity)
+
+        # Light
+        if room_data['has_light'] and room_data['light']:
+            light_color = rgb_to_color(room_data['light']['color'])
+            light_entity = Entity(
+                model='sphere',
+                scale=0.2,
+                position=Vec3(x * 10, 4, z * 10),
+                color=light_color
+            )
+            entities.append(light_entity)
+
+        # Apply dream zone effects
+        if room_data['dream_zone']:
+            self.apply_dream_zone_effects(x, z, room_data['dream_effects'])
+
+        return entities
+
+    def apply_dream_zone_effects(self, x, z, effects):
+        """Apply dream zone effects to player"""
+        for effect in effects:
+            if effect == 'slow':
+                self.speed_effects.append((x, z, time.time() + 5))
+            elif effect == 'fast':
+                self.speed_effects.append((x, z, time.time() + 5))
+            elif effect == 'glitch':
+                self.glitch_effects.append((x, z, time.time() + 3))
+            elif effect == 'panic':
+                self.panic_effects.append((x, z, time.time() + 4))
+
+    def update_dream_message(self):
+        """Update dream message periodically"""
+        self.current_message = random.choice(self.dream_messages)
+        self.message_timer = 5  # Show for 5 seconds
+
     def update(self):
-        """Main update loop"""
-        if not self.game_paused:
-            self.update_ui()
-    
-    def run(self):
-        """Run the game"""
-        self.app.run()
+        """Main game update loop"""
+        # Player movement
+        self.player.y = 1.5  # Maintain eye level
+        speed = 5 * time.dt
+
+        # Apply speed effects
+        player_chunk_x = int(self.player.x // 20)
+        player_chunk_z = int(self.player.z // 20)
+
+        for x, z, end_time in self.speed_effects:
+            if time.time() < end_time and abs(player_chunk_x - x // 10) <= 1 and abs(player_chunk_z - z // 10) <= 1:
+                room_key = f"{x},{z}"
+                if room_key in self.world_data:
+                    room = self.world_data[room_key]
+                    if 'fast' in room.get('dream_effects', []):
+                        speed *= 1.5
+                    elif 'slow' in room.get('dream_effects', []):
+                        speed *= 0.7
+
+        # Movement with WASD
+        if held_keys['w']:
+            self.player.position += self.player.forward * speed
+        if held_keys['s']:
+            self.player.position -= self.player.forward * speed
+        if held_keys['a']:
+            self.player.position -= self.player.right * speed
+        if held_keys['d']:
+            self.player.position += self.player.right * speed
+
+        # Mouse look
+        camera.rotation_y += mouse.velocity[0] * 100 * time.dt
+        camera.rotation_x -= mouse.velocity[1] * 100 * time.dt
+        camera.rotation_x = max(min(camera.rotation_x, 90), -90)
+
+        # Check if player moved to new chunk
+        chunk_x = int(self.player.x // 20)
+        chunk_z = int(self.player.z // 20)
+        if (chunk_x, chunk_z) not in self.loaded_chunks:
+            self.load_chunks_around_player()
+
+        # Update dream message timer
+        if self.message_timer > 0:
+            self.message_timer -= time.dt
+            self.message_text.text = self.current_message
+            if self.message_timer <= 0:
+                self.message_text.text = ""
+        else:
+            if random.random() < 0.001:  # 0.1% chance per frame
+                self.update_dream_message()
+
+        # Update status text
+        self.status_text.text = f"Sanity: {int(self.sanity)}%\nReality: {int(self.reality_stability)}%"
+
+        # Apply psychological effects
+        if random.random() < 0.0005:  # Random sanity drain
+            self.sanity = max(0, self.sanity - 0.1)
+        if random.random() < 0.0005:  # Random reality instability
+            self.reality_stability = max(0, self.reality_stability - 0.1)
+
+        # Handle glitch effects
+        for x, z, end_time in self.glitch_effects[:]:
+            if time.time() >= end_time:
+                self.glitch_effects.remove((x, z, end_time))
+
+        # Handle panic effects
+        for x, z, end_time in self.panic_effects[:]:
+            if time.time() >= end_time:
+                self.panic_effects.remove((x, z, end_time))
 
 
 if __name__ == "__main__":
     game = PsychoBackroomsGame()
-    game.run()
+    game.app.run()
