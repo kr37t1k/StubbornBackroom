@@ -85,6 +85,10 @@ class PsychoBackroomsGame:
         camera.position = Vec3(0, 0, 0)
         camera.rotation = Vec3(0, 0, 0)
 
+        # Mouse look setup
+        mouse.locked = True  # Lock mouse to center of screen for FPS controls
+        self.sensitivity = 40  # Mouse sensitivity
+
         # Load initial chunks around player
         self.load_chunks_around_player()
 
@@ -266,19 +270,55 @@ class PsychoBackroomsGame:
                         speed *= 0.7
 
         # Movement with WASD
-        if held_keys['w']:
-            self.player.position += self.player.forward * speed
-        if held_keys['s']:
-            self.player.position -= self.player.forward * speed
-        if held_keys['a']:
-            self.player.position -= self.player.right * speed
-        if held_keys['d']:
-            self.player.position += self.player.right * speed
+        if held_keys['w'] or held_keys['up arrow']:
+            self.player.position += Vec3(
+                self.player.forward[0],
+                0,
+                self.player.forward[2]
+            ) * speed
+        if held_keys['s'] or held_keys['down arrow']:
+            self.player.position -= Vec3(
+                self.player.forward[0],
+                0,
+                self.player.forward[2]
+            ) * speed
+        if held_keys['a'] or held_keys['left arrow']:
+            self.player.position -= Vec3(
+                self.player.right[0],
+                0,
+                self.player.right[2]
+            ) * speed
+        if held_keys['d'] or held_keys['right arrow']:
+            self.player.position += Vec3(
+                self.player.right[0],
+                0,
+                self.player.right[2]
+            ) * speed
+
+        # Jump with spacebar
+        if held_keys['space'] and self.player.y <= 1.5:
+            self.player.y += 0.1
+            self.player.velocity = Vec3(0, 5, 0)  # Jump velocity
+        else:
+            self.player.velocity = Vec3(0, -9.8 * time.dt, 0)  # Gravity
+            self.player.y += self.player.velocity[1] * time.dt
+            if self.player.y <= 1.5:
+                self.player.y = 1.5
+                self.player.velocity = Vec3(0, 0, 0)
 
         # Mouse look
-        camera.rotation_y += mouse.velocity[0] * 100 * time.dt
-        camera.rotation_x -= mouse.velocity[1] * 100 * time.dt
-        camera.rotation_x = max(min(camera.rotation_x, 90), -90)
+        if mouse.locked:
+            camera.rotation_y += mouse.velocity[0] * self.sensitivity
+            camera.rotation_x -= mouse.velocity[1] * self.sensitivity
+            camera.rotation_x = max(min(camera.rotation_x, 90), -90)
+        
+        # Toggle mouse lock with escape key
+        if held_keys['escape']:
+            mouse.locked = not mouse.locked
+            if mouse.locked:
+                print("Mouse locked - FPS mode")
+            else:
+                print("Mouse unlocked")
 
         # Check if player moved to new chunk
         chunk_x = int(self.player.x // 20)
