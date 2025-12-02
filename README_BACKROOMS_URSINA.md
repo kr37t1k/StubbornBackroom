@@ -26,11 +26,6 @@ To run this game, you'll need Python 3.7+ and the following dependencies:
 pip install ursina noise
 ```
 
-Or install from requirements.txt:
-```bash
-pip install -r requirements.txt
-```
-
 ## Running the Game
 
 ```bash
