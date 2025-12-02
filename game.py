@@ -4,6 +4,7 @@ import math
 import random
 import sys
 from raycast import Raycaster
+from advanced_raycast import AdvancedRaycaster, PygameRaycastRenderer
 from world import BackroomsWorld
 from player import DreamPlayer
 from audio import BackgroundMusic
@@ -16,7 +17,8 @@ pygame.display.set_caption("StubbornBackroom: Psycho Dream")
 clock = pygame.time.Clock()
 
 # Create game objects
-raycaster = Raycaster(WIDTH, HEIGHT)
+raycaster = AdvancedRaycaster(WIDTH, HEIGHT)  # Use advanced raycaster
+pygame_renderer = PygameRaycastRenderer(WIDTH, HEIGHT)  # Advanced pygame renderer
 world = BackroomsWorld(seed=42)
 
 # Run background music
@@ -47,55 +49,8 @@ message_timer = 0
 
 
 def render_3d_view(rays):
-    """✅ FIXED: Working 3D rendering"""
-    # Clear screen with fog color
-    screen.fill((200, 180, 150))
-
-    # Draw floor
-    for y in range(HEIGHT // 2, HEIGHT):
-        intensity = (y - HEIGHT // 2) / (HEIGHT // 2)
-        color = (
-            int(250 * (1 - intensity * 0.2)),
-            int(240 * (1 - intensity * 0.2)),
-            int(210 * (1 - intensity * 0.3))
-        )
-        pygame.draw.line(screen, color, (0, y), (WIDTH, y))
-
-    # Draw ceiling
-    for y in range(0, HEIGHT // 2):
-        intensity = y / (HEIGHT // 2)
-        color = (
-            int(255 * (1 - intensity * 0.1)),
-            int(255 * (1 - intensity * 0.1)),
-            int(245 * (1 - intensity * 0.2))
-        )
-        pygame.draw.line(screen, color, (0, y), (WIDTH, y))
-
-    # ✅ FIXED: Draw walls properly
-    for ray in rays:
-        distance = ray['distance']
-        if distance < 15:  # Draw only visible walls
-            # Correct wall height calculation
-            wall_height = int((HEIGHT * 0.8) / distance)
-
-            # Center wall vertically
-            wall_top = max(0, (HEIGHT - wall_height) // 2)
-            wall_bottom = min(HEIGHT, wall_top + wall_height)
-
-            # Get wall color
-            color = raycaster.get_wall_color(ray['wall_type'], ray)
-
-            # Draw wall strip
-            if wall_top < wall_bottom:
-                pygame.draw.line(
-                    screen, color,
-                    (ray['x'], wall_top),
-                    (ray['x'], wall_bottom),
-                    2  # Width of 2 pixels for smoother look
-                )
-
-    # Draw player view center marker
-    pygame.draw.circle(screen, (255, 200, 150), (WIDTH // 2, HEIGHT // 2), 5, 2)
+    """Enhanced 3D rendering using the advanced renderer"""
+    pygame_renderer.render_3d_view(rays, screen, player.x, player.y, player.angle)
 
 
 def render_ui():

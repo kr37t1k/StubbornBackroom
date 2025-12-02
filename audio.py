@@ -1,20 +1,44 @@
-import pyglet.media as media
+import pygame
+import os
 
 class BackgroundMusic:
     def __init__(self):
-        self.music = media.load("./atomiste.mp3")
-        self.player = media.Player
-    def play_audio_no(self):
-        self.player = media.Player()
-        self.player.queue(preload)
-        self.player.play()
-
+        try:
+            if os.path.exists("./atomiste.mp3"):
+                pygame.mixer.init()
+                self.music = pygame.mixer.Sound("./atomiste.mp3")
+                self.channel = None
+            else:
+                self.music = None
+                print("Warning: atomiste.mp3 not found, audio disabled")
+        except pygame.error:
+            self.music = None
+            print("Warning: Audio system not available, audio disabled")
+    
     def play_audio(self):
-        self.player = self.music.play()
-        self.player.volume = 1.0
+        if self.music:
+            try:
+                self.channel = self.music.play(-1)  # -1 for loop forever
+            except pygame.error:
+                print("Warning: Could not play audio")
+    
     def mute(self):
-        self.player.volume = 0
+        if self.music:
+            try:
+                self.music.set_volume(0)
+            except pygame.error:
+                pass
+    
     def pause(self):
-        self.player.pause()
+        if self.channel:
+            try:
+                self.channel.pause()
+            except pygame.error:
+                pass
+    
     def normalize(self):
-        self.player.volume = 1.0
+        if self.music:
+            try:
+                self.music.set_volume(1.0)
+            except pygame.error:
+                pass
