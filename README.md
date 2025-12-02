@@ -4,7 +4,7 @@ This is a 3D horror exploration game inspired by the Backrooms phenomenon, imple
 
 ## Features
 
-- **Procedural Backrooms Generation**: Infinite, maze-like rooms generated using Perlin noise
+- **Procedural Backrooms Generation**: Infinite, maze-like rooms generated using hash-based algorithm
 - **Psychological Effects**: Dream zones with different effects (slow, fast, glitch, panic)
 - **First-Person Exploration**: Navigate through the endless backrooms
 - **Dynamic Environment**: Walls, floors, ceilings, and random objects
@@ -23,7 +23,7 @@ This is a 3D horror exploration game inspired by the Backrooms phenomenon, imple
 To run this game, you'll need Python 3.7+ and the following dependencies:
 
 ```bash
-pip install ursina noise
+pip install ursina
 ```
 
 Or install from requirements.txt:
@@ -55,7 +55,7 @@ python ursina_backrooms.py
 
 The game uses:
 - Ursina engine (built on Panda3D) for 3D rendering
-- Perlin noise for procedural world generation
+- Hash-based algorithm for procedural world generation
 - First-person controller for movement
 - Custom world generation system
 - Dynamic UI elements
@@ -72,7 +72,7 @@ The game includes various psychological effects:
 ## World Generation
 
 The backrooms world is procedurally generated using:
-- Perlin noise algorithm for smooth transitions
+- Hash-based algorithm for consistent room types
 - Chunk-based generation for performance
 - Multiple room types (hallways, junctions, corners, open spaces)
 - Dream zones with special effects scattered throughout
