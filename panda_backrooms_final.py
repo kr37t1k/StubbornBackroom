@@ -297,7 +297,14 @@ class PandaBackrooms(ShowBase):
         
         # Mouse look setup
         self.disableMouse()
-        self.mouse.setMode(MouseWatcherRegion.M_absolute)  # Set absolute mouse mode
+        self.mouseWatcherNode = base.mouseWatcherNode
+        # Initialize mouse coordinates to current position to avoid first-frame jump
+        if self.mouseWatcherNode.hasMouse():
+            self.prev_mouse_x = self.mouseWatcherNode.getMouseX()
+            self.prev_mouse_y = self.mouseWatcherNode.getMouseY()
+        else:
+            self.prev_mouse_x = 0
+            self.prev_mouse_y = 0
         
         # Create 3D environment
         self.create_3d_environment()
@@ -453,9 +460,8 @@ class PandaBackrooms(ShowBase):
             mouse_y = self.mouseWatcherNode.getMouseY()
             
             # Calculate mouse movement since last frame
-            if hasattr(self, 'prev_mouse_x'):
-                mouse_delta_x = mouse_x - self.prev_mouse_x
-                self.player.angle += mouse_delta_x * 0.03  # Sensitivity
+            mouse_delta_x = mouse_x - self.prev_mouse_x
+            self.player.angle += mouse_delta_x * 0.03  # Sensitivity
             
             self.prev_mouse_x = mouse_x
             self.prev_mouse_y = mouse_y
