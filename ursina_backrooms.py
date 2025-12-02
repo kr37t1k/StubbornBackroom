@@ -6,19 +6,13 @@ from ursina import *
 from ursina.prefabs.first_person_controller import FirstPersonController
 import math
 import random
-import noise
-import numpy as np
 
 class BackroomsWorld:
     def __init__(self, seed=None):
         self.seed = seed or random.randint(0, 999999)
         random.seed(self.seed)
         
-        # Noise parameters for procedural generation
-        self.scale = 10.0
-        self.octaves = 4
-        self.persistence = 0.5
-        self.lacunarity = 2.0
+        pass  # Removed noise parameters since we're using hash-based generation
         
         # Room types
         self.room_types = {
@@ -56,31 +50,22 @@ class BackroomsWorld:
         grid_x = int(x)
         grid_y = int(y)
         
-        # Use Perlin noise for smooth transitions
-        nx = grid_x / self.scale
-        ny = grid_y / self.scale
+        # Use a faster hash-based approach instead of Perlin noise
+        # This creates pseudo-random but consistent values for each coordinate
+        hash_value = hash((grid_x, grid_y, self.seed)) % 1000
+        value = hash_value / 1000.0  # Convert to 0-1 range
         
-        value = noise.pnoise2(
-            nx, ny,
-            octaves=self.octaves,
-            persistence=self.persistence,
-            lacunarity=self.lacunarity,
-            repeatx=1024,
-            repeaty=1024,
-            base=self.seed
-        )
-        
-        # Convert noise to room types
-        if value < -0.6:
+        # Convert to room types
+        if value < 0.3:  # 30% chance of wall
             return 1  # Wall
-        elif value < -0.2:
+        elif value < 0.5:  # 20% chance of room
             return 2  # Room
-        elif value < 0.2:
+        elif value < 0.7:  # 20% chance of junction
             return 3  # Junction
-        elif value < 0.6:
+        elif value < 0.9:  # 20% chance of corner
             return 4  # Corner
-        else:
-            return 1  # Wall (more walls for maze-like structure)
+        else:  # 10% chance of open space
+            return 5  # Open
     
     def get_room_at(self, x, y):
         """Get detailed room information at coordinates"""
@@ -269,7 +254,7 @@ class PsychoBackroomsGame:
         """Create the backrooms environment"""
         # Create a grid of rooms based on the world generation
         chunk_size = 16
-        world_size = 20  # 20x20 chunks
+        world_size = 8  # 8x8 chunks - reduced for faster loading
         
         for chunk_x in range(-world_size//2, world_size//2):
             for chunk_y in range(-world_size//2, world_size//2):
