@@ -23,12 +23,20 @@ pip install panda3d noise
 
 ## Running the Game
 ```bash
+# Original Pygame-based version
+python game.py
+
+# Original Panda3D version
 python panda_backrooms_game.py
+
+# New FPS-style Panda3D version (recommended)
+python launch_game.py
 ```
 
-Controls:
-- WASD: Move around
-- Mouse: Look around
+Controls for new FPS-style version:
+- WASD: 8-direction movement (forward, backward, strafe left/right)
+- Mouse: Look around (click to lock/unlock mouse cursor)
+- Space: Jump
 - ESC: Quit
 
 ## Assets
