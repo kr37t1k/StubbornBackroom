@@ -1,2 +1,2 @@
-#ursina>=6.1.2
 panda3d
+noise
