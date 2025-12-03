@@ -1,25 +1,73 @@
 ```
-# Generated/compiled files
+# Compiled and build artifacts
 *.pyc
 __pycache__/
+*.o
+*.obj
+*.out
+*.class
+*.dll
+*.so
+*.a
 
-# Test and coverage
+# Dependencies
+.venv/
+venv/
+node_modules/
+dist/
+build/
+target/
+.gradle/
+.mypy_cache/
 .pytest_cache/
-.coverage
-coverage/
 
-# Environment files
+# Logs and temp files
+*.log
+*.tmp
+*.swp
+*.swo
+
+# Environment
 .env
 .env.local
 *.env.*
 
-# Logs
-*.log
-
-# Temp files
-*.tmp
+# Editors
+.vscode/
+.idea/
 *.swp
+*.swo
 
-# Generated levels
-levels/generated_level.json
+# System files
+.DS_Store
+Thumbs.db
+
+# Coverage
+coverage/
+htmlcov/
+.coverage
+
+# Compressed files
+*.zip
+*.gz
+*.tar
+*.tgz
+*.bz2
+*.xz
+*.7z
+*.rar
+*.zst
+*.lz4
+*.lzh
+*.cab
+*.arj
+*.rpm
+*.deb
+*.Z
+*.lz
+*.lzo
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.tar.zst
 ```
