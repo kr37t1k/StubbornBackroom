@@ -4,6 +4,7 @@
 
 import math
 import random
+import time
 from dataclasses import dataclass
 from typing import Tuple, List, Dict, Optional
 
@@ -20,7 +21,7 @@ class Config:
     window_type = 'windowed'  # ['windowed', 'fullscreen', 'borderless']
     fps: int = 70
     title: str = "StubbornBackroom: Psycho Dream"
-    map: Path = "./maps/simulation.json"
+    map: Path = "./maps/backrooms_style.json"
     player_speed: float = 5.0
     mouse_sensitivity: tuple = (75, 75)
     gravity: float = -8
@@ -216,7 +217,7 @@ class BackroomsGame(Entity):
         # Create ceiling entity
         ceiling = Entity(
             model='plane',
-            texture='textures/wall_texture.png',
+            texture='textures/roof_texture.png',
             texture_scale=Vec2(10, 10),
             scale=ceiling_size,
             rotation_x=-90,  # Flip to face down
@@ -237,11 +238,11 @@ class BackroomsGame(Entity):
                     # Create a wall at this position
                     wall = Entity(
                         model='cube',
-                        texture='textures/roof_texture.png',
-                        texture_scale=Vec2(1, 1),
+                        texture='textures/wall_texture.png',
+                        texture_scale=Vec2(2, 2),
                         scale=(1, 3, 1),  # Width, height, depth
                         x=x,
-                        y=2,  # Center height
+                        y=1.5,  # Center height (half of 3)
                         z=y,
                         color=color.white
                     )
@@ -268,7 +269,7 @@ class BackroomsGame(Entity):
             elif key.endswith(' up') and key[:-3] in self.key_states:
                 self.key_states[key[:-3]] = False
             elif 'r' in key: #fix plz
-                self.player.position = Vec3(2.5, 2.5, -0.5)  # Reset position
+                self.player.position = Vec3(self.map.start_pos[0] + 0.5, 1.5, self.map.start_pos[1] + 0.5)  # Reset position
             elif key == 'escape':
                 application.quit()
         
@@ -276,15 +277,28 @@ class BackroomsGame(Entity):
     
     def setup_lighting(self):
         """Set up basic lighting for the scene"""
-        # Ambient light
-        AmbientLight(color=color.rgb(77, 77, 51))  # Slightly yellowish ambient
+        # Ambient light - more yellowish for backrooms feel
+        AmbientLight(color=color.rgb(100, 85, 30))  # More yellow/sepia tone
         
-        # Directional light (sun-like)
+        # Multiple point lights to simulate flickering fluorescent lights
+        # Create several lights at different positions above the floor
+        for x in range(0, self.map.width, 10):  # Every 10 units
+            for z in range(0, self.map.height, 10):  # Every 10 units
+                if random.random() > 0.3:  # Not all lights
+                    light = PointLight(
+                        position=Vec3(x, 2.8, z),  # Just under the ceiling
+                        color=color.rgb(220, 220, 150),  # Warm yellow light
+                        intensity=random.uniform(0.3, 0.8),  # Varying intensities
+                        range=10
+                    )
+                    # Add some lights that flicker
+                    if random.random() > 0.7:
+                        light.intensity = random.uniform(0.1, 0.2)  # Dimmer for flickering effect
+        
+        # A subtle directional light for general illumination
         self.directional_light = DirectionalLight()
-        self.directional_light.color = color.rgb(204, 191, 128)  # Warm yellow light
+        self.directional_light.color = color.rgb(180, 170, 100)  # Warm yellow light
         self.directional_light.rotation = Vec3(45, -45, 0)
-        
-        # Player flashlight will be handled by the player controller
     
     def setup_audio(self):
         """Set up audio system"""
@@ -304,7 +318,8 @@ class BackroomsGame(Entity):
         """Set up the first person player controller"""
         # Create first person controller
         self.player = FirstPersonController()
-        self.player.position = Vec3(2.5, 2.5, -0.5)  # Start position
+        # Start position at the beginning of the maze
+        self.player.position = Vec3(self.map.start_pos[0] + 0.5, 1.5, self.map.start_pos[1] + 0.5)  # Start position adjusted for wall height
         self.player.speed = self.player_speed
         
         # Set mouse sensitivity
@@ -318,7 +333,7 @@ class BackroomsGame(Entity):
         elif key.endswith(' up') and key[:-3] in self.key_states:
             self.key_states[key[:-3]] = False
         elif key == 'r':
-            self.player.position = Vec3(2.5, 2.5, 1.5)  # Reset position
+            self.player.position = Vec3(self.map.start_pos[0] + 0.5, 1.5, self.map.start_pos[1] + 0.5)  # Reset position
         elif key == 'escape':
             application.quit()
     
@@ -348,10 +363,20 @@ class BackroomsGame(Entity):
         """Update hallucination effects"""
         # Change lighting randomly when hallucinating
         if self.hallucination_level > 0.5:
-            flicker = random.random() < 0.02  # 2% chance each frame
+            flicker = random.random() < 0.05  # 5% chance each frame for more frequent flickering
             if flicker:
-                new_light_color = color.hsv(random.randint(0, 360), random.uniform(0.5, 1.0), random.uniform(0.3, 1.0))
+                # Create more unsettling color shifts
+                hue_shift = random.uniform(0, 360)
+                saturation = random.uniform(0.3, 1.0)
+                value = random.uniform(0.2, 0.8)
+                new_light_color = color.hsv(hue_shift, saturation, value)
                 self.directional_light.color = new_light_color
+        
+        # Add occasional sound effects for immersion
+        current_time = time.time()
+        if current_time - self.last_sound_time > random.uniform(10, 30) and random.random() < 0.3:
+            # In a real implementation, we would play ambient sounds here
+            self.last_sound_time = current_time
     
     def apply_visual_distortion(self):
         """Apply visual distortion effects when reality is unstable"""
