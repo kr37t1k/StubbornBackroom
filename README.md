@@ -4,7 +4,7 @@ Welcome to the 3D Backrooms Python 3.11 Prototype - "StubbornBackroom: Psycho Dr
 
 ## Project Overview
 
-This project is a 3D backrooms exploration game built with Panda3D, featuring:
+This project is a 3D backrooms exploration game built with Ursina, featuring:
 - First-person exploration in an infinite maze-like environment
 - Reality distortion system that affects the player's perception
 - Procedural maze generation
@@ -27,19 +27,19 @@ This project is a 3D backrooms exploration game built with Panda3D, featuring:
 │   └── atomiste.mp3           # Background music
 ├── 3d_models/                 # 3D models
 │   └── model.blend            # Blender model file
-└── GUIDE_PANDA3D.md           # Panda3D development guide
+└── GUIDE_PANDA3D.md           # Ursina development guide
 ```
 
 ## How to Run
 
 ### Prerequisites
 - Python 3.11+
-- Panda3D library
+- Ursina library
 
 ### Running the Game
 ```bash
 # Install dependencies
-pip install panda3d
+pip install -r requirements.txt
 
 # Run the main game
 python game.py
@@ -64,7 +64,6 @@ python maps/map_editor.py
 - **W/S/A/D**: Move forward/backward/left/right
 - **Mouse**: Look around (movement follows mouse direction)
 - **Space**: Jump
-- **Right Mouse Button**: Toggle mouse cursor visibility
 - **Escape**: Exit the game
 
 ## Features
@@ -97,7 +96,7 @@ python maps/map_editor.py
 
 ## Development Notes
 
-The game uses the Panda3D engine and follows these key concepts:
+The game uses the Ursina engine and follows these key concepts:
 - First-person camera with mouse look
 - Collision detection with walls
 - Procedural content generation
@@ -106,6 +105,6 @@ The game uses the Panda3D engine and follows these key concepts:
 
 ## Troubleshooting
 
-- If the game fails to start, ensure Panda3D is properly installed
+- If the game fails to start, ensure Ursina is properly installed
 - In headless environments, the game won't display a window
 - Make sure all asset files exist in their respective directories.
