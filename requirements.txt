@@ -1,0 +1,3 @@
+# Dependencies for 3D Backrooms Python Prototype
+panda3d>=1.10.0
+numpy>=1.21.0
