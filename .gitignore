@@ -1,13 +1,14 @@
 ```
-# Python
-__pycache__/
+# Generated/compiled files
 *.pyc
-*.pyo
-*.pyd
+__pycache__/
 
-# Dependencies
-venv/
-.venv/
+# Test and coverage
+.pytest_cache/
+.coverage
+coverage/
+
+# Environment files
 .env
 .env.local
 *.env.*
@@ -15,21 +16,10 @@ venv/
 # Logs
 *.log
 
-# Editor/IDE
-.vscode/
-.idea/
-*.swp
-*.swo
+# Temp files
 *.tmp
+*.swp
 
-# Build/dist
-dist/
-build/
-*.egg-info/
-
-# Testing
-.pytest_cache/
-.coverage
-htmlcov/
-coverage/
+# Generated levels
+levels/generated_level.json
 ```
