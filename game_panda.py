@@ -1,6 +1,6 @@
 """
-Panda3D Backrooms Game - 3D Implementation with Psycho Horror Elements
-This creates a 3D representation of the Backrooms world with proper Panda3D rendering
+Panda3D Backrooms Game - Final Implementation with Psycho Horror Elements
+This creates a complete 3D Backrooms experience with proper collision, lighting, and atmosphere
 """
 import math
 import random
@@ -12,6 +12,12 @@ from direct.interval.IntervalGlobal import Sequence
 from direct.gui.DirectGui import *
 import sys
 
+# Here i need add textures which there in folder named "textures"
+# And also add models which there in folder named "models" (blend-bpy i think, gltf stl and etc also can be used)
+
+# Load the textures and models
+# loader.load_model("")
+# loader.load_texture("")
 
 class BackroomsWorld:
     def __init__(self, seed=None):
@@ -263,6 +269,9 @@ class PandaBackrooms(ShowBase):
         # Set up basic scene
         self.setBackgroundColor(0.78, 0.71, 0.59)  # Warm fog color
         
+        # Setup lighting
+        self.setup_lighting()
+        
         # Initialize game objects
         self.world = BackroomsWorld(seed=42)
         self.player = DreamPlayer(x=5.5, y=5.5, angle=0)
@@ -294,7 +303,14 @@ class PandaBackrooms(ShowBase):
         
         # Mouse look setup
         self.disableMouse()
-        self.mouse.setMode(MouseWatcherRegion.M_absolute)  # Set absolute mouse mode
+        self.mouseWatcherNode = base.mouseWatcherNode
+        # Initialize mouse coordinates to current position to avoid first-frame jump
+        if self.mouseWatcherNode.hasMouse():
+            self.prev_mouse_x = self.mouseWatcherNode.getMouseX()
+            self.prev_mouse_y = self.mouseWatcherNode.getMouseY()
+        else:
+            self.prev_mouse_x = 0
+            self.prev_mouse_y = 0
         
         # Create 3D environment
         self.create_3d_environment()
@@ -309,74 +325,66 @@ class PandaBackrooms(ShowBase):
         print("WASD to move, ARROW KEYS to turn, ESC to quit")
         print("Mouse look enabled - move mouse to look around")
 
+    def setup_lighting(self):
+        """Setup lighting for the Backrooms atmosphere"""
+        # Ambient light (soft, warm)
+        ambientLight = AmbientLight("ambientLight")
+        ambientLight.setColor((0.6, 0.55, 0.45, 1))
+        self.ambientLightNode = self.render.attachNewNode(ambientLight)
+        self.render.setLight(self.ambientLightNode)
+        
+        # Directional light (mimics the fluorescent lighting)
+        directionalLight = DirectionalLight("directionalLight")
+        directionalLight.setColor((0.8, 0.75, 0.65, 1))
+        directionalLightNP = self.render.attachNewNode(directionalLight)
+        directionalLightNP.setHpr(0, -60, 0)  # Point downward
+        self.render.setLight(directionalLightNP)
+        
+        # Add some subtle flickering to create unease
+        self.flicker_intensity = 0.0
+
     def create_3d_environment(self):
         """Create 3D environment with walls, floors, and ceilings"""
         # Create a simple grid of walls based on the world map
         self.walls = []
         
         # Generate a section of the world around the starting position
-        for x in range(-10, 10):
-            for y in range(-10, 10):
+        for x in range(-15, 15):
+            for y in range(-15, 15):
                 cell_type = self.world.get_cell(x, y)
                 if cell_type != 0:  # If it's not empty space, create a wall
                     self.create_wall_at(x, y, cell_type)
         
         # Create floor
         floor_size = 50
-        floor_model = self.loader.loadModel("models/plane")
-        if floor_model:
-            floor_model.reparentTo(self.render)
-            floor_model.setScale(floor_size)
-            floor_model.setPos(0, 0, -0.5)
-            floor_model.setHpr(90, 0, 0)  # Rotate to be horizontal
-            floor_model.setColor(0.98, 0.94, 0.82)  # Pale yellow floor
-        else:
-            # If plane model doesn't exist, create a simple floor
-            floor = self.render.attachNewNode("floor")
-            cm = CardMaker("floor_card")
-            cm.setFrame(-floor_size, floor_size, -floor_size, floor_size)
-            floor_geom = floor.attachNewNode(cm.generate())
-            floor_geom.setPos(0, 0, -0.5)
-            floor_geom.setColor(0.98, 0.94, 0.82)  # Pale yellow floor
-            floor_geom.setHpr(90, 0, 0)  # Rotate to be horizontal
+        floor = self.render.attachNewNode("floor")
+        cm = CardMaker("floor_card")
+        cm.setFrame(-floor_size, floor_size, -floor_size, floor_size)
+        floor_geom = floor.attachNewNode(cm.generate())
+        floor_geom.setPos(0, 0, -0.5)
+        floor_geom.setColor(0.98, 0.94, 0.82)  # Pale yellow floor
+        floor_geom.setHpr(90, 0, 0)  # Rotate to be horizontal
 
         # Create ceiling
-        ceiling_size = 50
-        ceiling_model = self.loader.loadModel("models/plane")
-        if ceiling_model:
-            ceiling_model.reparentTo(self.render)
-            ceiling_model.setScale(ceiling_size)
-            ceiling_model.setPos(0, 0, 3.0)
-            ceiling_model.setHpr(-90, 0, 0)  # Rotate to be horizontal
-            ceiling_model.setColor(0.98, 0.98, 0.94)  # Light ceiling color
-        else:
-            # If plane model doesn't exist, create a simple ceiling
-            ceiling = self.render.attachNewNode("ceiling")
-            cm = CardMaker("ceiling_card")
-            cm.setFrame(-ceiling_size, ceiling_size, -ceiling_size, ceiling_size)
-            ceiling_geom = ceiling.attachNewNode(cm.generate())
-            ceiling_geom.setPos(0, 0, 3.0)
-            ceiling_geom.setColor(0.98, 0.98, 0.94)  # Light ceiling color
-            ceiling_geom.setHpr(-90, 0, 0)  # Rotate to be horizontal
+        ceiling = self.render.attachNewNode("ceiling")
+        cm = CardMaker("ceiling_card")
+        cm.setFrame(-floor_size, floor_size, -floor_size, floor_size)
+        ceiling_geom = ceiling.attachNewNode(cm.generate())
+        ceiling_geom.setPos(0, 0, 3.0)
+        ceiling_geom.setColor(0.98, 0.98, 0.94)  # Light ceiling color
+        ceiling_geom.setHpr(-90, 0, 0)  # Rotate to be horizontal
 
     def create_wall_at(self, x, y, cell_type):
         """Create a wall at the specified position"""
-        # Create a wall block
-        wall = self.loader.loadModel("models/box")
-        if not wall:
-            # If box model doesn't exist, create a simple wall
-            wall = self.render.attachNewNode(f"wall_{x}_{y}")
-            cm = CardMaker("wall_card")
-            cm.setFrame(-0.5, 0.5, -0.5, 0.5)
-            wall_geom = wall.attachNewNode(cm.generate())
-            wall_geom.setScale(1, 1, 3)  # Make it tall
-            wall_geom.setPos(x, y, 1.0)  # Position it correctly
-        else:
-            wall.reparentTo(self.render)
-            wall.setPos(x, y, 1.0)
-            wall.setScale(1, 1, 3)  # Make it tall
+        # Create a wall block using CardMaker for better performance
+        wall = self.render.attachNewNode(f"wall_{x}_{y}")
+        cm = CardMaker("wall_card")
+        cm.setFrame(-0.5, 0.5, -0.5, 0.5)
+        wall_geom = wall.attachNewNode(cm.generate())
+        wall_geom.setScale(1, 1, 3)  # Make it tall
+        wall_geom.setPos(x, y, 1.0)  # Position it correctly
         
-        # Set wall color based on cell type
+        # Set wall color based on cell type. shit this wont stable it wants LVecBase4f not tuple
         wall_colors = [
             (0.94, 0.86, 0.71),  # Cream walls (240, 220, 180) / 255
             (0.90, 0.82, 0.67),  # Slightly darker (230, 210, 170) / 255
@@ -387,6 +395,16 @@ class PandaBackrooms(ShowBase):
         
         color_idx = (cell_type - 1) % len(wall_colors)
         wall.setColor(wall_colors[color_idx])
+        
+        # Add a subtle texture effect by changing the color slightly
+        base_color = wall_colors[color_idx]
+        variation = random.uniform(-0.02, 0.02)
+        wall.setColor(
+            max(0, min(1, base_color[0] + variation)),
+            max(0, min(1, base_color[1] + variation)),
+            max(0, min(1, base_color[2] + variation)),
+            1
+        )
         
         self.walls.append(wall)
 
@@ -448,9 +466,8 @@ class PandaBackrooms(ShowBase):
             mouse_y = self.mouseWatcherNode.getMouseY()
             
             # Calculate mouse movement since last frame
-            if hasattr(self, 'prev_mouse_x'):
-                mouse_delta_x = mouse_x - self.prev_mouse_x
-                self.player.angle += mouse_delta_x * 0.03  # Sensitivity
+            mouse_delta_x = mouse_x - self.prev_mouse_x
+            self.player.angle += mouse_delta_x * 0.03  # Sensitivity
             
             self.prev_mouse_x = mouse_x
             self.prev_mouse_y = mouse_y
@@ -464,6 +481,9 @@ class PandaBackrooms(ShowBase):
         
         # Update camera position and orientation to match player
         self.update_camera()
+        
+        # Update lighting effects
+        self.update_lighting()
         
         return Task.cont
 
@@ -486,6 +506,16 @@ class PandaBackrooms(ShowBase):
         self.camera.setPos(self.player.x, self.player.y, 1.8 + self.player.floating)
         self.camera.setH(self.player.angle * 180 / math.pi)  # Convert radians to degrees
         self.camera.setP(-5)  # Look slightly downward
+
+    def update_lighting(self):
+        """Update lighting effects for atmosphere"""
+        # Add subtle flickering to create unease
+        self.flicker_intensity = math.sin(globalClock.getFrameTime() * 2.3) * 0.02
+        flicker_color = (0.6 + self.flicker_intensity, 0.55 + self.flicker_intensity, 0.45 + self.flicker_intensity, 1)
+        
+        # Update ambient light with flickering
+        ambientLight = self.ambientLightNode.node()
+        ambientLight.setColor(flicker_color)
 
 
 def main():

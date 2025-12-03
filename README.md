@@ -1,99 +1,88 @@
-# StubbornBackroom - Psycho Cube
+# Panda3D Backrooms Game - Psycho Horror Experience
 
-This is a 3D *horror* exploration game inspired by the `Backrooms` phenomenon, implemented using Ursina (Panda3D) instead of pygame. The game features psychological elements, procedural generation, and dream-like effects.
+This is a complete conversion of the Pygame raycasting Backrooms game to Panda3D, featuring a 3D implementation with proper lighting, movement, and psycho horror elements.
 
-## Features
+## Features(WILL BE ADDED LATER)
 
-- **Procedural Backrooms Generation**: Infinite, maze-like ~~rooms~~ generated using hash-based algorithm
-- **Psychological Effects**: Dream zones with different effects (slow, fast, glitch, panic)
-- **First-Person Exploration**: Navigate through the endless backrooms with full mouse and keyboard controls
-- **Dynamic Environment**: Walls, floors, ceilings, and random objects
-- **Dream Messages**: Random psychological messages appear during gameplay
-- **Player Stats**: Track dream level, sanity, and reality __stability__
-- **Advanced Room Generation**: Hazards, entities, and environmental features
+- **3D Backrooms Environment**: Procedurally generated rooms using Perlin noise
+- **Player Movement**: WASD for movement, mouse look for aiming
+- **Psycho Horror Elements**: Dream zones with special effects (slow, fast, float, glitch)
+- **Atmospheric Lighting**: Flickering fluorescent lighting effect
+- **Dynamic UI**: Dream messages and player status display
+- **Collision Detection**: Proper wall collision system
 
-## Game Mechanics
+## Requirements
 
-- **Movement**: WASD keys or arrow keys to move, mouse to look around, spacebar to jump
-- **Mouse Look**: Lock/unlock mouse with escape key
-- **Dream Zones**: Special areas that affect player speed, sanity, and perception
-- **Sanity System**: Your mental state degrades in certain areas
-- **Visual Effects**: Breathing effect, glitches, and environmental distortions
+- Python 3.6+ (recommended: 3.11)
+- Panda3D 1.10+
+- You need to read the Panda3D docs for 'less error' and 'better performance' in game code
 
 ## Installation
 
-To run this game, you'll need Python 3.7+ and the following dependencies:
-
 ```bash
-pip install ursina
+pip install panda3d
 ```
 
-Or install from requirements.txt:
-```bash
-pip install -r requirements.txt
-```
-
-## Running the Game
+## How to Run
 
 ```bash
-# First generate the world
-python generate_backroom.py
-
-# Then run the game
-python ursina_backrooms.py
+python game.py
 ```
 
 ## Controls
 
-- **WASD** or **Arrow Keys**: Move around
-- **Mouse**: Look around (when locked)
-- **Space**: Jump
-- **Escape**: Toggle mouse lock/unlock
+- **WASD**: Move around
+- **Mouse**: Look around (first person view)
 - **ESC**: Quit the game
 
 ## Game Elements
 
-- **Walls**: Cream-colored walls that form the maze structure
-- **Floors**: Subtle variations of yellowish-white floors
-- **Ceiling**: Off-white ceiling for the backrooms
-- **Furniture**: Random chairs, tables, and boxes scattered throughout
-- **Lights**: Fluorescent lights that create atmosphere
-- **Hazards**: Water puddles, broken glass, strange sounds
-- **Entities**: Shadow figures, stray people, unknown objects
+### Movement System
+- The player moves in a 3D grid-based world
+- Collision detection prevents walking through walls
+- Movement speed adjusts based on dream zones
 
-## Technical Details
+### Dream Zones
+- **Slow**: Reduces movement speed
+- **Fast**: Increases movement speed
+- **Float**: Affects vertical position
+- **Glitch**: Randomly distorts player direction
 
-The game uses:
-- Ursina engine (built on Panda3D) for 3D rendering
-- Hash-based algorithm for procedural world generation
-- First-person controller with gravity and jumping mechanics
-- Chunk-based generation for performance
+### Visual Atmosphere
+- Cream-colored walls reminiscent of the Backrooms
+- Subtle lighting flicker for unease
+- Dynamic color variations for texture
+- Warm fog effect for depth
+
+### Psycho Horror Elements
+- Random dream messages appear periodically
+- Glitch effects that distort reality
+- Floating effect that changes vertical position
+- Sanity and dream level tracking
+
+## Assets
+
+The game uses simple geometric shapes (planes and boxes) created programmatically, so no external asset files are required. The environment is generated procedurally using Perlin noise.
+**But i will add some textures and models soon.**
+
+## Technical Implementation (Future)
+
+- Uses Panda3D's built-in 3D rendering pipeline
+- Procedural generation for infinity-like environments
+- Dream zone effects with particle systems
+- Proper lighting with ambient and directional lights
+- First-person camera system with mouse look
+- Collision detection system
 - Dynamic UI elements
-- Advanced psychological effect systems
 
-## Files
+## Customization
 
-- `ursina_backrooms.py` - Main game implementation with mouse/keyboard controls
-- `generate_backroom.py` - Advanced room generation script
-- `backroom_generator.py` - Original room generation script
-- `generated_world.json` - Generated world data file
+You can easily modify:
+- Wall colors and textures
+- World generation parameters
+- Player movement speed
+- Dream zone effects
+- Lighting properties
+- UI elements and messages
 
-## Psycho Elements
-
-The game includes various psychological effects:
-- **Slow Zones**: Reduce player movement speed
-- **Fast Zones**: Increase player movement speed
-- **Glitch Zones**: Cause visual distortions and disorientation
-- **Panic Zones**: Reduce sanity and cause visual/audio distortions
-- **Dream Messages**: Random text that appears to unnerve the player
-
-## World Generation
-
-The backrooms world is procedurally generated using:
-- Hash-based algorithm for consistent room types
-- Chunk-based generation for performance
-- Multiple room types (hallways, junctions, corners, open spaces)
-- Dream zones with special effects scattered throughout
-- Advanced features like hazards and entities
-
-Enjoy exploring the endless backrooms, but remember... reality is fragile in here.
+#### INFINITE STUBBORN BACKROOM GAME

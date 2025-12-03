@@ -9,6 +9,8 @@ from world import BackroomsWorld
 from player import DreamPlayer
 from audio import BackgroundMusic
 
+# There must be stable main game script
+
 # Initialize pygame
 pygame.init()
 WIDTH, HEIGHT = 1024, 768

@@ -6,6 +6,8 @@ import pygame
 from raycast import Raycaster
 # Import OpenGL and Pyglet only when needed
 
+# PyGame and OpenGL.
+
 class AdvancedRaycaster:
     def __init__(self, width, height):
         self.width = width

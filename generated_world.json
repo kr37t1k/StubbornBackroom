@@ -11,45 +11,62 @@
       {
         "type": "couch",
         "position": [
-          -1.8386074787462823,
+          2.3653467759698925,
           0.5,
-          -1.7432081065184177
+          1.3515238910159342
         ],
-        "rotation": 270
+        "rotation": 0
       },
       {
-        "type": "couch",
+        "type": "bookshelf",
         "position": [
-          2.008245985666086,
+          1.0833386976087525,
           0.5,
-          0.16617650392507777
+          -2.1595594410512837
+        ],
+        "rotation": 90
+      },
+      {
+        "type": "plant",
+        "position": [
+          -1.4704096289402477,
+          0.5,
+          -1.243104263437594
+        ],
+        "rotation": 180
+      },
+      {
+        "type": "chair",
+        "position": [
+          -0.5404961325054369,
+          0.5,
+          1.2229284092755943
+        ],
+        "rotation": 180
+      },
+      {
+        "type": "table",
+        "position": [
+          2.94980158821486,
+          0.5,
+          -0.5439973194192556
         ],
         "rotation": 270
       }
     ],
-    "has_light": true,
-    "light": {
-      "type": "directional",
-      "color": [
-        231,
-        226,
-        216
-      ],
-      "intensity": 0.929708652481062
-    },
-    "dream_zone": true,
-    "dream_effects": [
-      "glitch"
-    ],
+    "has_light": false,
+    "light": null,
+    "dream_zone": false,
+    "dream_effects": [],
     "wall_color": [
-      227,
-      239,
-      184
+      220,
+      223,
+      183
     ],
     "floor_color": [
-      200,
-      215,
-      169
+      225,
+      212,
+      162
     ]
   },
   "-5,-4": {
@@ -58,50 +75,58 @@
       0,
       -4
     ],
-    "type": "abandoned",
+    "type": "messy",
     "has_furniture": true,
     "furniture": [
       {
-        "type": "lamp",
+        "type": "table",
         "position": [
-          -1.5269864027053528,
+          -2.6280467319354788,
           0.5,
-          -2.9895668649611986
+          -0.4112178812250571
         ],
-        "rotation": 180
+        "rotation": 0
       },
       {
         "type": "bookshelf",
         "position": [
-          1.295436439235825,
+          1.4312464310254267,
           0.5,
-          1.2625158707232913
-        ],
-        "rotation": 90
-      },
-      {
-        "type": "plant",
-        "position": [
-          2.1717391954603666,
-          0.5,
-          2.0860268273054476
+          1.988082582631412
         ],
         "rotation": 0
+      },
+      {
+        "type": "bookshelf",
+        "position": [
+          0.012623812292075876,
+          0.5,
+          -0.8691157847874775
+        ],
+        "rotation": 270
       }
     ],
-    "has_light": false,
-    "light": null,
+    "has_light": true,
+    "light": {
+      "type": "point",
+      "color": [
+        233,
+        211,
+        202
+      ],
+      "intensity": 1.3380130194020037
+    },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      231,
-      228,
-      197
+      226,
+      226,
+      193
     ],
     "floor_color": [
-      206,
-      212,
-      161
+      218,
+      207,
+      182
     ]
   },
   "-5,-3": {
@@ -110,40 +135,33 @@
       0,
       -3
     ],
-    "type": "messy",
-    "has_furniture": true,
-    "furniture": [
-      {
-        "type": "lamp",
-        "position": [
-          2.385404638676178,
-          0.5,
-          -2.1628291586704567
-        ],
-        "rotation": 180
-      }
-    ],
+    "type": "clean",
+    "has_furniture": false,
+    "furniture": [],
     "has_light": true,
     "light": {
       "type": "ambient",
       "color": [
-        245,
-        223,
-        195
+        225,
+        220,
+        183
       ],
-      "intensity": 1.1612331363701023
+      "intensity": 1.2423344086308292
     },
-    "dream_zone": false,
-    "dream_effects": [],
+    "dream_zone": true,
+    "dream_effects": [
+      "glitch",
+      "panic"
+    ],
     "wall_color": [
       233,
-      234,
-      181
+      238,
+      195
     ],
     "floor_color": [
       229,
-      227,
-      180
+      213,
+      163
     ]
   },
   "-5,-2": {
@@ -152,22 +170,49 @@
       0,
       -2
     ],
-    "type": "messy",
-    "has_furniture": false,
-    "furniture": [],
-    "has_light": false,
-    "light": null,
+    "type": "empty",
+    "has_furniture": true,
+    "furniture": [
+      {
+        "type": "plant",
+        "position": [
+          -0.9216320299262595,
+          0.5,
+          -0.994429103922998
+        ],
+        "rotation": 180
+      },
+      {
+        "type": "couch",
+        "position": [
+          -0.2047556937284023,
+          0.5,
+          0.30367270342155184
+        ],
+        "rotation": 270
+      }
+    ],
+    "has_light": true,
+    "light": {
+      "type": "point",
+      "color": [
+        238,
+        250,
+        195
+      ],
+      "intensity": 1.454288343328583
+    },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      231,
-      239,
-      181
+      221,
+      233,
+      199
     ],
     "floor_color": [
-      223,
-      217,
-      181
+      203,
+      218,
+      164
     ]
   },
   "-5,-1": {
@@ -176,149 +221,42 @@
       0,
       -1
     ],
-    "type": "clean",
+    "type": "abandoned",
     "has_furniture": true,
     "furniture": [
       {
-        "type": "table",
+        "type": "lamp",
         "position": [
-          -0.19428169407241125,
+          0.46526453907403553,
           0.5,
-          2.6515214954550768
+          -0.43978884426408094
         ],
         "rotation": 0
-      }
-    ],
-    "has_light": true,
-    "light": {
-      "type": "directional",
-      "color": [
-        234,
-        208,
-        205
-      ],
-      "intensity": 0.7606684956052756
-    },
-    "dream_zone": false,
-    "dream_effects": [],
-    "wall_color": [
-      225,
-      227,
-      180
-    ],
-    "floor_color": [
-      230,
-      206,
-      180
-    ]
-  },
-  "-5,0": {
-    "position": [
-      -5,
-      0,
-      0
-    ],
-    "type": "messy",
-    "has_furniture": false,
-    "furniture": [],
-    "has_light": true,
-    "light": {
-      "type": "point",
-      "color": [
-        200,
-        240,
-        181
-      ],
-      "intensity": 0.7198561723445868
-    },
-    "dream_zone": false,
-    "dream_effects": [],
-    "wall_color": [
-      225,
-      228,
-      198
-    ],
-    "floor_color": [
-      208,
-      220,
-      183
-    ]
-  },
-  "-5,1": {
-    "position": [
-      -5,
-      0,
-      1
-    ],
-    "type": "messy",
-    "has_furniture": true,
-    "furniture": [
+      },
       {
-        "type": "table",
+        "type": "lamp",
         "position": [
-          -0.6870859735227732,
+          -0.048748116287333776,
           0.5,
-          2.2746648503963014
+          -0.4608596910337335
+        ],
+        "rotation": 180
+      },
+      {
+        "type": "chair",
+        "position": [
+          2.872323944610999,
+          0.5,
+          -0.8161051233359631
         ],
         "rotation": 180
       },
       {
         "type": "plant",
         "position": [
-          -2.723890588904313,
+          -1.740452015291189,
           0.5,
-          -1.6061035197331306
-        ],
-        "rotation": 270
-      }
-    ],
-    "has_light": true,
-    "light": {
-      "type": "directional",
-      "color": [
-        210,
-        214,
-        188
-      ],
-      "intensity": 0.8609857616791643
-    },
-    "dream_zone": false,
-    "dream_effects": [],
-    "wall_color": [
-      239,
-      226,
-      184
-    ],
-    "floor_color": [
-      226,
-      205,
-      189
-    ]
-  },
-  "-5,2": {
-    "position": [
-      -5,
-      0,
-      2
-    ],
-    "type": "empty",
-    "has_furniture": true,
-    "furniture": [
-      {
-        "type": "lamp",
-        "position": [
-          -1.8150255404878926,
-          0.5,
-          0.588190673408838
-        ],
-        "rotation": 0
-      },
-      {
-        "type": "bookshelf",
-        "position": [
-          2.77067933982938,
-          0.5,
-          0.4136410286511003
+          -0.24257756591131185
         ],
         "rotation": 90
       }
@@ -327,23 +265,202 @@
     "light": {
       "type": "directional",
       "color": [
-        215,
-        209,
-        217
+        241,
+        240,
+        183
       ],
-      "intensity": 0.588800677998047
+      "intensity": 1.1575948952563198
     },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
+      236,
       231,
-      231,
-      182
+      196
     ],
     "floor_color": [
-      214,
+      217,
       221,
-      172
+      177
+    ]
+  },
+  "-5,0": {
+    "position": [
+      -5,
+      0,
+      0
+    ],
+    "type": "empty",
+    "has_furniture": false,
+    "furniture": [],
+    "has_light": true,
+    "light": {
+      "type": "ambient",
+      "color": [
+        213,
+        201,
+        180
+      ],
+      "intensity": 1.460172492088314
+    },
+    "dream_zone": false,
+    "dream_effects": [],
+    "wall_color": [
+      240,
+      236,
+      187
+    ],
+    "floor_color": [
+      218,
+      200,
+      170
+    ]
+  },
+  "-5,1": {
+    "position": [
+      -5,
+      0,
+      1
+    ],
+    "type": "abandoned",
+    "has_furniture": true,
+    "furniture": [
+      {
+        "type": "lamp",
+        "position": [
+          -1.5950427696220222,
+          0.5,
+          -2.0318392053890726
+        ],
+        "rotation": 180
+      },
+      {
+        "type": "bookshelf",
+        "position": [
+          -1.1840624898628944,
+          0.5,
+          1.0442559623467718
+        ],
+        "rotation": 0
+      },
+      {
+        "type": "lamp",
+        "position": [
+          -1.437387842075729,
+          0.5,
+          1.92423321867855
+        ],
+        "rotation": 90
+      },
+      {
+        "type": "table",
+        "position": [
+          -1.7052575165194752,
+          0.5,
+          0.9698309611325908
+        ],
+        "rotation": 180
+      }
+    ],
+    "has_light": true,
+    "light": {
+      "type": "directional",
+      "color": [
+        247,
+        231,
+        214
+      ],
+      "intensity": 1.0292092978361502
+    },
+    "dream_zone": false,
+    "dream_effects": [],
+    "wall_color": [
+      228,
+      237,
+      196
+    ],
+    "floor_color": [
+      212,
+      207,
+      163
+    ]
+  },
+  "-5,2": {
+    "position": [
+      -5,
+      0,
+      2
+    ],
+    "type": "abandoned",
+    "has_furniture": true,
+    "furniture": [
+      {
+        "type": "bookshelf",
+        "position": [
+          -2.9480153282708743,
+          0.5,
+          0.8285869134347159
+        ],
+        "rotation": 90
+      },
+      {
+        "type": "plant",
+        "position": [
+          2.260586434114799,
+          0.5,
+          0.7446825181917949
+        ],
+        "rotation": 0
+      },
+      {
+        "type": "chair",
+        "position": [
+          -1.0038386855007915,
+          0.5,
+          0.08980366835771125
+        ],
+        "rotation": 90
+      },
+      {
+        "type": "chair",
+        "position": [
+          -0.3454410191952024,
+          0.5,
+          -2.897464758687825
+        ],
+        "rotation": 180
+      },
+      {
+        "type": "lamp",
+        "position": [
+          1.096569052994921,
+          0.5,
+          2.96496033710695
+        ],
+        "rotation": 90
+      }
+    ],
+    "has_light": true,
+    "light": {
+      "type": "ambient",
+      "color": [
+        251,
+        215,
+        213
+      ],
+      "intensity": 1.044603894834977
+    },
+    "dream_zone": false,
+    "dream_effects": [],
+    "wall_color": [
+      227,
+      229,
+      181
+    ],
+    "floor_color": [
+      206,
+      200,
+      162
     ]
   },
   "-5,3": {
@@ -353,31 +470,21 @@
       3
     ],
     "type": "empty",
-    "has_furniture": true,
-    "furniture": [
-      {
-        "type": "lamp",
-        "position": [
-          2.552613076042304,
-          0.5,
-          -1.4138677537148108
-        ],
-        "rotation": 180
-      }
-    ],
+    "has_furniture": false,
+    "furniture": [],
     "has_light": false,
     "light": null,
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      234,
-      237,
-      182
+      239,
+      222,
+      180
     ],
     "floor_color": [
-      227,
+      204,
       220,
-      174
+      178
     ]
   },
   "-5,4": {
@@ -386,24 +493,42 @@
       0,
       4
     ],
-    "type": "empty",
+    "type": "clean",
     "has_furniture": true,
     "furniture": [
       {
-        "type": "lamp",
+        "type": "chair",
         "position": [
-          -0.7604686525468791,
+          -1.7306781617787252,
           0.5,
-          2.931322999119895
+          2.9108507442505562
         ],
-        "rotation": 0
+        "rotation": 180
       },
       {
-        "type": "bookshelf",
+        "type": "chair",
         "position": [
-          2.552098392222284,
+          2.288443483907214,
           0.5,
-          -2.2227910372712234
+          -0.6625435061757878
+        ],
+        "rotation": 270
+      },
+      {
+        "type": "chair",
+        "position": [
+          1.2676605446300293,
+          0.5,
+          -1.06447824995543
+        ],
+        "rotation": 90
+      },
+      {
+        "type": "chair",
+        "position": [
+          -1.145662032638998,
+          0.5,
+          -2.989621061610743
         ],
         "rotation": 180
       }
@@ -412,25 +537,23 @@
     "light": {
       "type": "directional",
       "color": [
-        200,
-        240,
-        201
+        212,
+        236,
+        204
       ],
-      "intensity": 1.1300625373156072
+      "intensity": 0.5745647742877562
     },
-    "dream_zone": true,
-    "dream_effects": [
-      "slow"
-    ],
+    "dream_zone": false,
+    "dream_effects": [],
     "wall_color": [
-      230,
-      225,
-      195
+      229,
+      227,
+      182
     ],
     "floor_color": [
-      229,
-      220,
-      166
+      215,
+      214,
+      162
     ]
   },
   "-4,-5": {
@@ -439,32 +562,58 @@
       0,
       -5
     ],
-    "type": "empty",
-    "has_furniture": false,
-    "furniture": [],
+    "type": "abandoned",
+    "has_furniture": true,
+    "furniture": [
+      {
+        "type": "table",
+        "position": [
+          -0.31907362728812716,
+          0.5,
+          -0.011886306988618145
+        ],
+        "rotation": 0
+      },
+      {
+        "type": "table",
+        "position": [
+          -1.8649898809696168,
+          0.5,
+          -2.41329238829454
+        ],
+        "rotation": 270
+      },
+      {
+        "type": "plant",
+        "position": [
+          1.5192037870934998,
+          0.5,
+          0.5991621847892761
+        ],
+        "rotation": 0
+      }
+    ],
     "has_light": true,
     "light": {
-      "type": "directional",
+      "type": "ambient",
       "color": [
-        248,
-        230,
-        193
+        251,
+        255,
+        207
       ],
-      "intensity": 0.5323801120913867
+      "intensity": 1.4231220829730686
     },
-    "dream_zone": true,
-    "dream_effects": [
-      "fast"
-    ],
+    "dream_zone": false,
+    "dream_effects": [],
     "wall_color": [
-      228,
-      234,
-      199
+      225,
+      236,
+      190
     ],
     "floor_color": [
-      220,
-      207,
-      171
+      212,
+      213,
+      160
     ]
   },
   "-4,-4": {
@@ -474,66 +623,31 @@
       -4
     ],
     "type": "empty",
-    "has_furniture": true,
-    "furniture": [
-      {
-        "type": "couch",
-        "position": [
-          0.3392735598958154,
-          0.5,
-          2.0427131979748445
-        ],
-        "rotation": 270
-      },
-      {
-        "type": "lamp",
-        "position": [
-          -2.5115702535059445,
-          0.5,
-          2.7577535693692337
-        ],
-        "rotation": 180
-      },
-      {
-        "type": "couch",
-        "position": [
-          0.2428378033904699,
-          0.5,
-          -1.3266028589921948
-        ],
-        "rotation": 0
-      },
-      {
-        "type": "couch",
-        "position": [
-          -0.6497679469381357,
-          0.5,
-          0.942239813764048
-        ],
-        "rotation": 90
-      }
-    ],
+    "has_furniture": false,
+    "furniture": [],
     "has_light": true,
     "light": {
-      "type": "point",
+      "type": "directional",
       "color": [
-        244,
-        253,
-        184
+        247,
+        251,
+        195
       ],
-      "intensity": 0.7654992447772657
+      "intensity": 0.6062406777686219
     },
-    "dream_zone": false,
-    "dream_effects": [],
+    "dream_zone": true,
+    "dream_effects": [
+      "glitch"
+    ],
     "wall_color": [
       228,
-      229,
-      189
+      231,
+      192
     ],
     "floor_color": [
-      224,
-      207,
-      175
+      203,
+      211,
+      167
     ]
   },
   "-4,-3": {
@@ -548,61 +662,54 @@
       {
         "type": "plant",
         "position": [
-          2.735657723549096,
+          -1.2141557705010002,
           0.5,
-          -1.8314932083469289
-        ],
-        "rotation": 180
-      },
-      {
-        "type": "plant",
-        "position": [
-          2.4947868447589627,
-          0.5,
-          0.24804758130060023
-        ],
-        "rotation": 0
-      },
-      {
-        "type": "plant",
-        "position": [
-          -2.7651627863706514,
-          0.5,
-          2.1629137569418484
-        ],
-        "rotation": 180
-      },
-      {
-        "type": "table",
-        "position": [
-          2.0178468871928708,
-          0.5,
-          -1.8124379736046936
+          -2.9986915671710763
         ],
         "rotation": 270
+      },
+      {
+        "type": "couch",
+        "position": [
+          1.8958489724490368,
+          0.5,
+          0.41862283985769233
+        ],
+        "rotation": 270
+      },
+      {
+        "type": "couch",
+        "position": [
+          -1.9948988225486897,
+          0.5,
+          0.18661531024563605
+        ],
+        "rotation": 0
       }
     ],
     "has_light": true,
     "light": {
       "type": "directional",
       "color": [
-        241,
-        247,
-        219
+        208,
+        207,
+        181
       ],
-      "intensity": 0.5664215142014926
+      "intensity": 1.4799018035581741
     },
-    "dream_zone": false,
-    "dream_effects": [],
+    "dream_zone": true,
+    "dream_effects": [
+      "glitch"
+    ],
     "wall_color": [
-      228,
-      231,
-      194
+      222,
+      238,
+      180
     ],
     "floor_color": [
-      211,
-      202,
-      185
+      212,
+      220,
+      161
     ]
   },
   "-4,-2": {
@@ -611,67 +718,49 @@
       0,
       -2
     ],
-    "type": "clean",
+    "type": "empty",
     "has_furniture": true,
     "furniture": [
       {
-        "type": "couch",
+        "type": "bookshelf",
         "position": [
-          -1.0903078362026106,
+          -2.715728646857858,
           0.5,
-          -2.2821070235420704
+          0.5703746920288593
         ],
-        "rotation": 0
-      },
-      {
-        "type": "table",
-        "position": [
-          -1.6340424517255288,
-          0.5,
-          2.084213548043836
-        ],
-        "rotation": 90
-      },
-      {
-        "type": "chair",
-        "position": [
-          1.0937141539917743,
-          0.5,
-          -1.1381332068228094
-        ],
-        "rotation": 90
+        "rotation": 180
       },
       {
         "type": "bookshelf",
         "position": [
-          -1.710409428753664,
+          -0.9485539823457496,
           0.5,
-          2.441414648513037
+          -0.8917850933262277
         ],
-        "rotation": 0
+        "rotation": 90
       }
     ],
     "has_light": true,
     "light": {
       "type": "ambient",
       "color": [
-        206,
+        200,
         240,
-        186
+        197
       ],
-      "intensity": 1.052290069667454
+      "intensity": 0.8559062340075898
     },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      234,
-      225,
-      181
+      233,
+      229,
+      186
     ],
     "floor_color": [
       220,
-      212,
-      173
+      225,
+      164
     ]
   },
   "-4,-1": {
@@ -680,49 +769,32 @@
       0,
       -1
     ],
-    "type": "empty",
+    "type": "abandoned",
     "has_furniture": true,
     "furniture": [
       {
-        "type": "lamp",
+        "type": "plant",
         "position": [
-          -2.3046160484302387,
+          1.8790914950918607,
           0.5,
-          -1.7045642728199957
+          1.242311912275202
         ],
-        "rotation": 270
-      },
-      {
-        "type": "lamp",
-        "position": [
-          -0.35140724951558777,
-          0.5,
-          -1.2109073028570183
-        ],
-        "rotation": 270
+        "rotation": 0
       }
     ],
-    "has_light": true,
-    "light": {
-      "type": "ambient",
-      "color": [
-        252,
-        208,
-        199
-      ],
-      "intensity": 0.9013764241671867
-    },
+    "has_light": false,
+    "light": null,
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      225,
+      223,
       231,
       184
     ],
     "floor_color": [
-      221,
-      212,
-      189
+      216,
+      216,
+      190
     ]
   },
   "-4,0": {
@@ -731,22 +803,40 @@
       0,
       0
     ],
-    "type": "clean",
-    "has_furniture": false,
-    "furniture": [],
-    "has_light": false,
-    "light": null,
+    "type": "messy",
+    "has_furniture": true,
+    "furniture": [
+      {
+        "type": "couch",
+        "position": [
+          0.888268565475876,
+          0.5,
+          1.556922760333709
+        ],
+        "rotation": 270
+      }
+    ],
+    "has_light": true,
+    "light": {
+      "type": "point",
+      "color": [
+        218,
+        252,
+        212
+      ],
+      "intensity": 1.3964334446787423
+    },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
       235,
-      220,
-      185
+      239,
+      192
     ],
     "floor_color": [
-      205,
-      214,
-      163
+      201,
+      215,
+      170
     ]
   },
   "-4,1": {
@@ -755,52 +845,68 @@
       0,
       1
     ],
-    "type": "messy",
+    "type": "empty",
     "has_furniture": true,
     "furniture": [
       {
-        "type": "table",
+        "type": "lamp",
         "position": [
-          1.8241220559787177,
+          -2.9302263656567096,
           0.5,
-          2.933870957214526
+          0.47201709182949614
         ],
-        "rotation": 180
+        "rotation": 90
+      },
+      {
+        "type": "chair",
+        "position": [
+          0.6775127181883356,
+          0.5,
+          0.13711059127684866
+        ],
+        "rotation": 0
       },
       {
         "type": "lamp",
         "position": [
-          -0.00715072152523355,
+          -1.6988124177427628,
           0.5,
-          1.957349966854581
+          -2.197640263937555
         ],
         "rotation": 0
+      },
+      {
+        "type": "bookshelf",
+        "position": [
+          -1.1926850486876517,
+          0.5,
+          2.0180072497597976
+        ],
+        "rotation": 270
+      },
+      {
+        "type": "chair",
+        "position": [
+          1.8990701165505834,
+          0.5,
+          -1.8417352744374873
+        ],
+        "rotation": 270
       }
     ],
-    "has_light": true,
-    "light": {
-      "type": "directional",
-      "color": [
-        225,
-        203,
-        192
-      ],
-      "intensity": 1.4405900376595988
-    },
-    "dream_zone": true,
-    "dream_effects": [
-      "glitch",
-      "slow"
-    ],
+    "has_light": false,
+    "light": null,
+    "dream_zone": false,
+    "dream_effects": [],
     "wall_color": [
-      234,
-      238,
-      182
+      231,
+      228,
+      196
     ],
     "floor_color": [
-      220,
-      217,
-      172
+      214,
+      211,
+      177
     ]
   },
   "-4,2": {
@@ -809,76 +915,58 @@
       0,
       2
     ],
-    "type": "clean",
+    "type": "messy",
     "has_furniture": true,
     "furniture": [
       {
-        "type": "bookshelf",
-        "position": [
-          1.6861386254269632,
-          0.5,
-          -0.42444311558754055
-        ],
-        "rotation": 0
-      },
-      {
         "type": "couch",
         "position": [
-          -2.174197509177173,
+          -1.7638623040421277,
           0.5,
-          -2.9527882811275763
+          -0.4524886182889505
         ],
-        "rotation": 270
+        "rotation": 90
+      },
+      {
+        "type": "plant",
+        "position": [
+          -0.659456188866149,
+          0.5,
+          -0.476563477929858
+        ],
+        "rotation": 180
       },
       {
         "type": "chair",
         "position": [
-          -1.9565072870301456,
+          1.999710773149224,
           0.5,
-          1.9714994569640796
+          1.6658562374020685
         ],
-        "rotation": 0
-      },
-      {
-        "type": "lamp",
-        "position": [
-          0.12717218260512375,
-          0.5,
-          -1.7075973016763966
-        ],
-        "rotation": 270
-      },
-      {
-        "type": "chair",
-        "position": [
-          2.621937804942772,
-          0.5,
-          -0.45880484515581177
-        ],
-        "rotation": 0
+        "rotation": 180
       }
     ],
     "has_light": true,
     "light": {
-      "type": "point",
+      "type": "ambient",
       "color": [
-        224,
-        213,
-        213
+        228,
+        230,
+        184
       ],
-      "intensity": 1.3650899298498285
+      "intensity": 1.2977204602289736
     },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      239,
+      229,
       225,
-      200
+      183
     ],
     "floor_color": [
-      206,
-      202,
-      166
+      211,
+      208,
+      162
     ]
   },
   "-4,3": {
@@ -887,49 +975,40 @@
       0,
       3
     ],
-    "type": "messy",
+    "type": "empty",
     "has_furniture": true,
     "furniture": [
       {
-        "type": "lamp",
+        "type": "chair",
         "position": [
-          1.014023479596423,
+          0.02156355271332444,
           0.5,
-          2.3558729920339916
+          0.4646049020760272
         ],
-        "rotation": 0
-      },
-      {
-        "type": "couch",
-        "position": [
-          0.031314765981154125,
-          0.5,
-          2.846153578007442
-        ],
-        "rotation": 180
+        "rotation": 90
       }
     ],
     "has_light": true,
     "light": {
-      "type": "directional",
+      "type": "point",
       "color": [
-        221,
-        217,
-        205
+        212,
+        237,
+        192
       ],
-      "intensity": 0.8003868378464515
+      "intensity": 1.4383408356913554
     },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      220,
-      223,
-      199
+      229,
+      224,
+      189
     ],
     "floor_color": [
-      217,
-      211,
-      163
+      204,
+      226,
+      180
     ]
   },
   "-4,4": {
@@ -938,30 +1017,58 @@
       0,
       4
     ],
-    "type": "clean",
-    "has_furniture": false,
-    "furniture": [],
+    "type": "abandoned",
+    "has_furniture": true,
+    "furniture": [
+      {
+        "type": "chair",
+        "position": [
+          0.432383609352021,
+          0.5,
+          1.7189885939213188
+        ],
+        "rotation": 90
+      },
+      {
+        "type": "bookshelf",
+        "position": [
+          -1.0062107366687758,
+          0.5,
+          -2.7715020094818863
+        ],
+        "rotation": 180
+      },
+      {
+        "type": "couch",
+        "position": [
+          1.0445457395446205,
+          0.5,
+          0.7762334536642888
+        ],
+        "rotation": 90
+      }
+    ],
     "has_light": true,
     "light": {
       "type": "ambient",
       "color": [
-        225,
-        246,
-        210
+        248,
+        223,
+        195
       ],
-      "intensity": 0.9083889575651243
+      "intensity": 0.5137137241083792
     },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      222,
-      225,
-      197
+      240,
+      221,
+      199
     ],
     "floor_color": [
-      204,
-      218,
-      185
+      201,
+      226,
+      162
     ]
   },
   "-3,-5": {
@@ -970,67 +1077,67 @@
       0,
       -5
     ],
-    "type": "clean",
+    "type": "messy",
     "has_furniture": true,
     "furniture": [
       {
-        "type": "plant",
+        "type": "bookshelf",
         "position": [
-          -1.1496383455853176,
+          1.6972297087045893,
           0.5,
-          -2.148105404626345
+          -2.2344627226632396
         ],
         "rotation": 0
       },
       {
         "type": "plant",
         "position": [
-          2.3632275599030095,
+          -2.0105861474544278,
           0.5,
-          -1.9387944616783677
-        ],
-        "rotation": 180
-      },
-      {
-        "type": "table",
-        "position": [
-          1.7717574469123836,
-          0.5,
-          -2.8952456841562615
+          2.2339815876514644
         ],
         "rotation": 90
       },
       {
-        "type": "lamp",
+        "type": "couch",
         "position": [
-          -1.4518433394203059,
+          -1.0858350347761432,
           0.5,
-          0.23183822142411437
+          -0.4547766575137784
         ],
-        "rotation": 90
+        "rotation": 270
+      },
+      {
+        "type": "plant",
+        "position": [
+          2.742464708644608,
+          0.5,
+          2.183389429669246
+        ],
+        "rotation": 270
       }
     ],
     "has_light": true,
     "light": {
-      "type": "directional",
+      "type": "point",
       "color": [
-        228,
-        238,
-        201
+        243,
+        220,
+        185
       ],
-      "intensity": 1.32613130969655
+      "intensity": 0.9462247391606355
     },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      233,
-      222,
-      190
+      230,
+      223,
+      184
     ],
     "floor_color": [
-      206,
-      204,
-      177
+      212,
+      225,
+      187
     ]
   },
   "-3,-4": {
@@ -1043,56 +1150,63 @@
     "has_furniture": true,
     "furniture": [
       {
-        "type": "lamp",
+        "type": "plant",
         "position": [
-          2.7154654639974023,
+          1.6072665122797432,
           0.5,
-          -0.22667978486652451
+          1.5797840410918713
+        ],
+        "rotation": 270
+      },
+      {
+        "type": "plant",
+        "position": [
+          -2.4654147029179336,
+          0.5,
+          -1.5614846578906756
         ],
         "rotation": 90
       },
       {
         "type": "couch",
         "position": [
-          -2.776765802031462,
+          -0.7505189058644905,
           0.5,
-          -0.921822844649907
+          0.6181803015875134
         ],
-        "rotation": 90
+        "rotation": 180
       },
       {
-        "type": "table",
+        "type": "couch",
         "position": [
-          -2.8695970702303115,
+          -1.33759905175346,
           0.5,
-          -2.9031947854520315
+          0.6916246108096216
         ],
         "rotation": 180
       }
     ],
     "has_light": true,
     "light": {
-      "type": "directional",
+      "type": "ambient",
       "color": [
-        254,
-        231,
-        183
+        234,
+        233,
+        212
       ],
-      "intensity": 1.3425358370296339
+      "intensity": 1.2902582832816343
     },
-    "dream_zone": true,
-    "dream_effects": [
-      "slow"
-    ],
+    "dream_zone": false,
+    "dream_effects": [],
     "wall_color": [
-      237,
       240,
-      181
+      236,
+      189
     ],
     "floor_color": [
-      200,
-      213,
-      187
+      225,
+      219,
+      183
     ]
   },
   "-3,-3": {
@@ -1101,30 +1215,30 @@
       0,
       -3
     ],
-    "type": "abandoned",
+    "type": "messy",
     "has_furniture": false,
     "furniture": [],
     "has_light": true,
     "light": {
-      "type": "ambient",
+      "type": "directional",
       "color": [
-        225,
-        212,
-        192
+        214,
+        202,
+        198
       ],
-      "intensity": 1.1244043327488944
+      "intensity": 0.6371984347078427
     },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      224,
-      229,
+      240,
+      230,
       198
     ],
     "floor_color": [
-      220,
-      200,
-      176
+      219,
+      230,
+      163
     ]
   },
   "-3,-2": {
@@ -1133,59 +1247,61 @@
       0,
       -2
     ],
-    "type": "empty",
+    "type": "messy",
     "has_furniture": true,
     "furniture": [
       {
-        "type": "table",
+        "type": "chair",
         "position": [
-          2.1044766275228026,
+          1.1570557264010972,
           0.5,
-          0.9437389280170025
+          -2.064940601921867
         ],
-        "rotation": 90
+        "rotation": 270
+      },
+      {
+        "type": "chair",
+        "position": [
+          1.9815157144721152,
+          0.5,
+          -0.36992167598596115
+        ],
+        "rotation": 180
       },
       {
         "type": "bookshelf",
         "position": [
-          0.33005937820461195,
+          0.38589882023836175,
           0.5,
-          -1.1972986403784074
-        ],
-        "rotation": 270
-      },
-      {
-        "type": "plant",
-        "position": [
-          -1.0384870577181953,
-          0.5,
-          1.5991937746423561
-        ],
-        "rotation": 270
-      },
-      {
-        "type": "table",
-        "position": [
-          -0.16105482442204444,
-          0.5,
-          0.35607543796626207
+          1.7221789617413226
         ],
         "rotation": 0
       }
     ],
-    "has_light": false,
-    "light": null,
-    "dream_zone": false,
-    "dream_effects": [],
+    "has_light": true,
+    "light": {
+      "type": "point",
+      "color": [
+        241,
+        206,
+        199
+      ],
+      "intensity": 0.8744829057972362
+    },
+    "dream_zone": true,
+    "dream_effects": [
+      "glitch",
+      "slow"
+    ],
     "wall_color": [
-      234,
-      226,
-      181
+      227,
+      224,
+      197
     ],
     "floor_color": [
-      227,
-      218,
-      167
+      226,
+      210,
+      179
     ]
   },
   "-3,-1": {
@@ -1194,15 +1310,42 @@
       0,
       -1
     ],
-    "type": "abandoned",
+    "type": "clean",
     "has_furniture": true,
     "furniture": [
       {
-        "type": "couch",
+        "type": "chair",
         "position": [
-          2.807372711251653,
+          -2.0095658761439585,
           0.5,
-          -1.489434478634865
+          1.7108854790987955
+        ],
+        "rotation": 180
+      },
+      {
+        "type": "lamp",
+        "position": [
+          2.085876858566798,
+          0.5,
+          -2.355689907825653
+        ],
+        "rotation": 90
+      },
+      {
+        "type": "plant",
+        "position": [
+          1.0356139579571426,
+          0.5,
+          0.10629534749971903
+        ],
+        "rotation": 270
+      },
+      {
+        "type": "bookshelf",
+        "position": [
+          2.857311448421834,
+          0.5,
+          1.0626644360200563
         ],
         "rotation": 180
       }
@@ -1211,26 +1354,23 @@
     "light": {
       "type": "point",
       "color": [
-        218,
-        245,
-        220
+        206,
+        254,
+        181
       ],
-      "intensity": 0.9888267121231061
+      "intensity": 1.4842978551975077
     },
-    "dream_zone": true,
-    "dream_effects": [
-      "glitch",
-      "slow"
-    ],
+    "dream_zone": false,
+    "dream_effects": [],
     "wall_color": [
-      223,
       229,
-      192
+      224,
+      180
     ],
     "floor_color": [
-      200,
-      210,
-      172
+      228,
+      205,
+      182
     ]
   },
   "-3,0": {
@@ -1243,57 +1383,36 @@
     "has_furniture": true,
     "furniture": [
       {
-        "type": "lamp",
-        "position": [
-          -2.492679373239261,
-          0.5,
-          -0.2607711030430755
-        ],
-        "rotation": 0
-      },
-      {
-        "type": "table",
-        "position": [
-          -1.5054523851588222,
-          0.5,
-          2.010700145702625
-        ],
-        "rotation": 90
-      },
-      {
-        "type": "couch",
-        "position": [
-          0.2586351650751939,
-          0.5,
-          2.3663390500957266
-        ],
-        "rotation": 90
-      },
-      {
         "type": "bookshelf",
         "position": [
-          -0.7441215460643962,
+          1.921421199504442,
           0.5,
-          1.9021729645416379
+          -2.2504764661820005
         ],
         "rotation": 180
       }
     ],
-    "has_light": false,
-    "light": null,
-    "dream_zone": true,
-    "dream_effects": [
-      "panic"
-    ],
+    "has_light": true,
+    "light": {
+      "type": "point",
+      "color": [
+        216,
+        250,
+        213
+      ],
+      "intensity": 1.3518712205576895
+    },
+    "dream_zone": false,
+    "dream_effects": [],
     "wall_color": [
-      225,
-      220,
-      199
+      221,
+      231,
+      182
     ],
     "floor_color": [
-      229,
+      211,
       208,
-      174
+      175
     ]
   },
   "-3,1": {
@@ -1302,50 +1421,40 @@
       0,
       1
     ],
-    "type": "abandoned",
+    "type": "empty",
     "has_furniture": true,
     "furniture": [
       {
         "type": "table",
         "position": [
-          -0.03981568202751218,
+          -0.32760374889539623,
           0.5,
-          -1.7175158242430733
+          -0.4166672079112761
         ],
-        "rotation": 0
-      },
-      {
-        "type": "couch",
-        "position": [
-          -0.11052262786319433,
-          0.5,
-          2.723777464930521
-        ],
-        "rotation": 180
-      },
-      {
-        "type": "lamp",
-        "position": [
-          -2.065026435795546,
-          0.5,
-          -2.3109937098385567
-        ],
-        "rotation": 180
+        "rotation": 90
       }
     ],
-    "has_light": false,
-    "light": null,
+    "has_light": true,
+    "light": {
+      "type": "directional",
+      "color": [
+        223,
+        219,
+        200
+      ],
+      "intensity": 1.1397452035525841
+    },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      239,
-      231,
-      199
+      221,
+      237,
+      182
     ],
     "floor_color": [
-      203,
-      215,
-      162
+      223,
+      218,
+      161
     ]
   },
   "-3,2": {
@@ -1358,64 +1467,72 @@
     "has_furniture": true,
     "furniture": [
       {
-        "type": "lamp",
+        "type": "couch",
         "position": [
-          2.3413748684761915,
+          -2.598309023473833,
           0.5,
-          1.6116676254500408
+          -1.8371977065401155
         ],
-        "rotation": 90
-      },
-      {
-        "type": "table",
-        "position": [
-          -2.8104884298911808,
-          0.5,
-          1.9440096390227053
-        ],
-        "rotation": 180
-      },
-      {
-        "type": "lamp",
-        "position": [
-          -2.532169476888005,
-          0.5,
-          -2.638755646655037
-        ],
-        "rotation": 0
+        "rotation": 270
       },
       {
         "type": "plant",
         "position": [
-          1.383842678357401,
+          2.507899013282745,
           0.5,
-          -2.846457903328349
+          -1.4325491522577567
         ],
-        "rotation": 180
+        "rotation": 0
       },
       {
-        "type": "table",
+        "type": "lamp",
         "position": [
-          0.78044020589995,
+          -0.9931348471195958,
           0.5,
-          -0.5030626944029191
+          -2.818446438809336
+        ],
+        "rotation": 270
+      },
+      {
+        "type": "couch",
+        "position": [
+          1.3326954949267424,
+          0.5,
+          1.3024062897284825
+        ],
+        "rotation": 0
+      },
+      {
+        "type": "lamp",
+        "position": [
+          1.858549364995664,
+          0.5,
+          -2.2986561676114006
         ],
         "rotation": 270
       }
     ],
-    "has_light": false,
-    "light": null,
+    "has_light": true,
+    "light": {
+      "type": "point",
+      "color": [
+        244,
+        239,
+        188
+      ],
+      "intensity": 0.643798539205411
+    },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      225,
-      220,
-      183
+      238,
+      224,
+      189
     ],
     "floor_color": [
-      216,
-      221,
-      169
+      201,
+      201,
+      177
     ]
   },
   "-3,3": {
@@ -1427,19 +1544,29 @@
     "type": "clean",
     "has_furniture": false,
     "furniture": [],
-    "has_light": false,
-    "light": null,
-    "dream_zone": false,
-    "dream_effects": [],
+    "has_light": true,
+    "light": {
+      "type": "ambient",
+      "color": [
+        227,
+        220,
+        183
+      ],
+      "intensity": 0.7825057266007991
+    },
+    "dream_zone": true,
+    "dream_effects": [
+      "slow"
+    ],
     "wall_color": [
-      237,
       233,
-      199
+      220,
+      183
     ],
     "floor_color": [
-      207,
-      221,
-      188
+      214,
+      200,
+      183
     ]
   },
   "-3,4": {
@@ -1448,51 +1575,33 @@
       0,
       4
     ],
-    "type": "messy",
+    "type": "empty",
     "has_furniture": true,
     "furniture": [
       {
-        "type": "couch",
+        "type": "lamp",
         "position": [
-          -0.6337794085820248,
+          1.7388617771281814,
           0.5,
-          -2.95953282587641
+          1.4388849187363082
         ],
         "rotation": 90
       },
       {
-        "type": "table",
+        "type": "plant",
         "position": [
-          -0.8301656540035776,
+          2.166992557577677,
           0.5,
-          -2.3458297057683835
-        ],
-        "rotation": 180
-      },
-      {
-        "type": "chair",
-        "position": [
-          1.7702607255359082,
-          0.5,
-          -1.9364670995509188
+          -2.8869659687961127
         ],
         "rotation": 270
       },
       {
-        "type": "table",
+        "type": "chair",
         "position": [
-          1.6987445469516054,
+          1.7891290509077882,
           0.5,
-          2.5910761256901234
-        ],
-        "rotation": 180
-      },
-      {
-        "type": "couch",
-        "position": [
-          0.17406243763352824,
-          0.5,
-          -2.551090755687958
+          -0.04909421433330552
         ],
         "rotation": 0
       }
@@ -1501,23 +1610,23 @@
     "light": {
       "type": "ambient",
       "color": [
-        241,
-        216,
-        182
+        242,
+        223,
+        198
       ],
-      "intensity": 1.4112389453257221
+      "intensity": 1.2797422341263114
     },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      236,
       221,
-      181
+      234,
+      189
     ],
     "floor_color": [
-      215,
-      210,
-      185
+      209,
+      228,
+      167
     ]
   },
   "-2,-5": {
@@ -1526,30 +1635,30 @@
       0,
       -5
     ],
-    "type": "messy",
+    "type": "empty",
     "has_furniture": false,
     "furniture": [],
     "has_light": true,
     "light": {
       "type": "ambient",
       "color": [
-        203,
-        235,
-        187
+        244,
+        240,
+        215
       ],
-      "intensity": 1.312205567658358
+      "intensity": 1.3731822664356748
     },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      221,
-      227,
-      183
+      234,
+      236,
+      181
     ],
     "floor_color": [
-      230,
-      216,
-      169
+      211,
+      210,
+      184
     ]
   },
   "-2,-4": {
@@ -1558,30 +1667,67 @@
       0,
       -4
     ],
-    "type": "abandoned",
-    "has_furniture": false,
-    "furniture": [],
+    "type": "clean",
+    "has_furniture": true,
+    "furniture": [
+      {
+        "type": "plant",
+        "position": [
+          2.883615618396801,
+          0.5,
+          0.8917398266888528
+        ],
+        "rotation": 90
+      },
+      {
+        "type": "bookshelf",
+        "position": [
+          1.789565266777137,
+          0.5,
+          0.3078526870959255
+        ],
+        "rotation": 270
+      },
+      {
+        "type": "plant",
+        "position": [
+          -0.38245210841846244,
+          0.5,
+          2.3558860768663354
+        ],
+        "rotation": 90
+      },
+      {
+        "type": "couch",
+        "position": [
+          -1.775569527084875,
+          0.5,
+          0.8994218979754298
+        ],
+        "rotation": 0
+      }
+    ],
     "has_light": true,
     "light": {
       "type": "ambient",
       "color": [
-        217,
-        252,
-        199
+        224,
+        226,
+        208
       ],
-      "intensity": 1.075283221659899
+      "intensity": 1.3654537172070351
     },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      226,
-      233,
-      200
+      236,
+      240,
+      183
     ],
     "floor_color": [
-      226,
-      201,
-      180
+      209,
+      202,
+      161
     ]
   },
   "-2,-3": {
@@ -1590,76 +1736,30 @@
       0,
       -3
     ],
-    "type": "empty",
-    "has_furniture": true,
-    "furniture": [
-      {
-        "type": "couch",
-        "position": [
-          -2.4508511291333237,
-          0.5,
-          0.056944599291101294
-        ],
-        "rotation": 270
-      },
-      {
-        "type": "bookshelf",
-        "position": [
-          -0.8353736996534007,
-          0.5,
-          -0.8407406551555048
-        ],
-        "rotation": 90
-      },
-      {
-        "type": "bookshelf",
-        "position": [
-          -2.0523254766379844,
-          0.5,
-          -2.9289980656417853
-        ],
-        "rotation": 90
-      },
-      {
-        "type": "chair",
-        "position": [
-          0.17085051946985708,
-          0.5,
-          0.06648357881173528
-        ],
-        "rotation": 0
-      },
-      {
-        "type": "table",
-        "position": [
-          -2.0049544822864607,
-          0.5,
-          -0.3385653348247155
-        ],
-        "rotation": 270
-      }
-    ],
+    "type": "abandoned",
+    "has_furniture": false,
+    "furniture": [],
     "has_light": true,
     "light": {
-      "type": "point",
+      "type": "ambient",
       "color": [
-        204,
-        236,
-        220
+        250,
+        245,
+        201
       ],
-      "intensity": 1.2203435590212157
+      "intensity": 1.0786906958986267
     },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
+      227,
       238,
-      226,
-      193
+      190
     ],
     "floor_color": [
-      200,
-      202,
-      176
+      207,
+      210,
+      179
     ]
   },
   "-2,-2": {
@@ -1668,30 +1768,34 @@
       0,
       -2
     ],
-    "type": "empty",
-    "has_furniture": false,
-    "furniture": [],
-    "has_light": true,
-    "light": {
-      "type": "point",
-      "color": [
-        245,
-        202,
-        188
-      ],
-      "intensity": 1.3916067041315938
-    },
-    "dream_zone": false,
-    "dream_effects": [],
+    "type": "clean",
+    "has_furniture": true,
+    "furniture": [
+      {
+        "type": "couch",
+        "position": [
+          1.7418420331603706,
+          0.5,
+          -0.49892731796148126
+        ],
+        "rotation": 0
+      }
+    ],
+    "has_light": false,
+    "light": null,
+    "dream_zone": true,
+    "dream_effects": [
+      "panic"
+    ],
     "wall_color": [
-      239,
-      220,
-      191
+      226,
+      229,
+      192
     ],
     "floor_color": [
-      213,
-      212,
-      160
+      209,
+      215,
+      165
     ]
   },
   "-2,-1": {
@@ -1700,17 +1804,53 @@
       0,
       -1
     ],
-    "type": "clean",
+    "type": "empty",
     "has_furniture": true,
     "furniture": [
       {
-        "type": "plant",
+        "type": "chair",
         "position": [
-          0.35380488284073053,
+          2.2894776161357697,
           0.5,
-          0.9007369737187787
+          -2.007795907519717
+        ],
+        "rotation": 0
+      },
+      {
+        "type": "lamp",
+        "position": [
+          1.8964754911656012,
+          0.5,
+          -2.585997540122375
         ],
         "rotation": 180
+      },
+      {
+        "type": "table",
+        "position": [
+          -2.111837232223887,
+          0.5,
+          0.9362109166150554
+        ],
+        "rotation": 270
+      },
+      {
+        "type": "chair",
+        "position": [
+          -0.9657224320705522,
+          0.5,
+          -2.186920254871925
+        ],
+        "rotation": 90
+      },
+      {
+        "type": "table",
+        "position": [
+          -2.350248753724199,
+          0.5,
+          1.953094426386543
+        ],
+        "rotation": 270
       }
     ],
     "has_light": false,
@@ -1718,14 +1858,14 @@
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      226,
-      226,
-      200
+      220,
+      236,
+      193
     ],
     "floor_color": [
-      208,
-      215,
-      173
+      202,
+      203,
+      180
     ]
   },
   "-2,0": {
@@ -1734,49 +1874,40 @@
       0,
       0
     ],
-    "type": "clean",
+    "type": "messy",
     "has_furniture": true,
     "furniture": [
       {
-        "type": "table",
+        "type": "chair",
         "position": [
-          1.0018929369166658,
+          -2.6976492317341427,
           0.5,
-          2.540110107472043
+          -2.4696186221108976
         ],
         "rotation": 0
-      },
-      {
-        "type": "couch",
-        "position": [
-          -0.05280123989446128,
-          0.5,
-          -1.7368897573007631
-        ],
-        "rotation": 90
       }
     ],
     "has_light": true,
     "light": {
       "type": "directional",
       "color": [
-        231,
-        232,
-        193
+        205,
+        251,
+        183
       ],
-      "intensity": 1.3013416129068758
+      "intensity": 0.703681533166033
     },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      224,
-      224,
-      184
+      230,
+      229,
+      194
     ],
     "floor_color": [
-      211,
+      207,
       221,
-      175
+      178
     ]
   },
   "-2,1": {
@@ -1785,40 +1916,76 @@
       0,
       1
     ],
-    "type": "abandoned",
+    "type": "messy",
     "has_furniture": true,
     "furniture": [
       {
-        "type": "table",
+        "type": "lamp",
         "position": [
-          1.6283466040720311,
+          1.7474737849922004,
           0.5,
-          -2.327630924157936
+          2.4529810133966397
+        ],
+        "rotation": 270
+      },
+      {
+        "type": "lamp",
+        "position": [
+          2.9389965185376425,
+          0.5,
+          -0.1784186072923486
+        ],
+        "rotation": 180
+      },
+      {
+        "type": "chair",
+        "position": [
+          2.3251744342051808,
+          0.5,
+          -1.5820153159698147
+        ],
+        "rotation": 180
+      },
+      {
+        "type": "chair",
+        "position": [
+          2.041754977143942,
+          0.5,
+          -0.5698328739072664
         ],
         "rotation": 0
+      },
+      {
+        "type": "table",
+        "position": [
+          -0.027657292111478604,
+          0.5,
+          -0.542625109061178
+        ],
+        "rotation": 270
       }
     ],
     "has_light": true,
     "light": {
-      "type": "directional",
+      "type": "point",
       "color": [
-        208,
-        247,
-        181
+        239,
+        221,
+        195
       ],
-      "intensity": 1.054052565853594
+      "intensity": 0.5642789441807882
     },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      235,
-      240,
-      182
+      221,
+      237,
+      198
     ],
     "floor_color": [
-      202,
-      230,
-      173
+      229,
+      206,
+      167
     ]
   },
   "-2,2": {
@@ -1827,25 +1994,76 @@
       0,
       2
     ],
-    "type": "messy",
-    "has_furniture": false,
-    "furniture": [],
-    "has_light": false,
-    "light": null,
-    "dream_zone": true,
-    "dream_effects": [
-      "slow",
-      "glitch"
+    "type": "empty",
+    "has_furniture": true,
+    "furniture": [
+      {
+        "type": "plant",
+        "position": [
+          2.7476518566779173,
+          0.5,
+          2.9203011147054374
+        ],
+        "rotation": 0
+      },
+      {
+        "type": "couch",
+        "position": [
+          -0.039728607655169945,
+          0.5,
+          2.3683119745710135
+        ],
+        "rotation": 90
+      },
+      {
+        "type": "table",
+        "position": [
+          -0.1530498397483755,
+          0.5,
+          1.542560171382788
+        ],
+        "rotation": 180
+      },
+      {
+        "type": "bookshelf",
+        "position": [
+          2.490357691312979,
+          0.5,
+          0.6707561185108104
+        ],
+        "rotation": 180
+      },
+      {
+        "type": "lamp",
+        "position": [
+          2.796726264745703,
+          0.5,
+          2.669111362137561
+        ],
+        "rotation": 180
+      }
     ],
+    "has_light": true,
+    "light": {
+      "type": "ambient",
+      "color": [
+        216,
+        249,
+        194
+      ],
+      "intensity": 1.2325939501672134
+    },
+    "dream_zone": false,
+    "dream_effects": [],
     "wall_color": [
-      232,
-      231,
-      180
+      235,
+      239,
+      194
     ],
     "floor_color": [
-      229,
-      219,
-      171
+      225,
+      200,
+      168
     ]
   },
   "-2,3": {
@@ -1855,29 +2073,77 @@
       3
     ],
     "type": "messy",
-    "has_furniture": false,
-    "furniture": [],
+    "has_furniture": true,
+    "furniture": [
+      {
+        "type": "plant",
+        "position": [
+          2.099110995834902,
+          0.5,
+          -1.6426457298731052
+        ],
+        "rotation": 180
+      },
+      {
+        "type": "chair",
+        "position": [
+          -0.43600807075306314,
+          0.5,
+          0.42447207583687163
+        ],
+        "rotation": 0
+      },
+      {
+        "type": "couch",
+        "position": [
+          2.4448065183850103,
+          0.5,
+          1.2247513007094355
+        ],
+        "rotation": 180
+      },
+      {
+        "type": "lamp",
+        "position": [
+          -0.5264605214177402,
+          0.5,
+          -1.71252490616041
+        ],
+        "rotation": 90
+      },
+      {
+        "type": "bookshelf",
+        "position": [
+          1.000311458623516,
+          0.5,
+          -2.1036524392425493
+        ],
+        "rotation": 180
+      }
+    ],
     "has_light": true,
     "light": {
-      "type": "point",
+      "type": "directional",
       "color": [
-        235,
-        254,
-        209
+        226,
+        255,
+        189
       ],
-      "intensity": 1.2340984936498325
+      "intensity": 1.1012534829970966
     },
-    "dream_zone": false,
-    "dream_effects": [],
+    "dream_zone": true,
+    "dream_effects": [
+      "slow"
+    ],
     "wall_color": [
-      221,
-      232,
+      238,
+      222,
       184
     ],
     "floor_color": [
-      223,
-      212,
-      171
+      227,
+      218,
+      165
     ]
   },
   "-2,4": {
@@ -1886,30 +2152,78 @@
       0,
       4
     ],
-    "type": "clean",
-    "has_furniture": false,
-    "furniture": [],
+    "type": "abandoned",
+    "has_furniture": true,
+    "furniture": [
+      {
+        "type": "bookshelf",
+        "position": [
+          -2.7040198045825523,
+          0.5,
+          0.5095637548243319
+        ],
+        "rotation": 0
+      },
+      {
+        "type": "chair",
+        "position": [
+          2.546385639606311,
+          0.5,
+          -0.5299341927337533
+        ],
+        "rotation": 180
+      },
+      {
+        "type": "table",
+        "position": [
+          -2.0180115288263316,
+          0.5,
+          -0.2766710935333103
+        ],
+        "rotation": 180
+      },
+      {
+        "type": "chair",
+        "position": [
+          -1.8311043479817428,
+          0.5,
+          -1.655654866600066
+        ],
+        "rotation": 180
+      },
+      {
+        "type": "plant",
+        "position": [
+          0.8587110160646096,
+          0.5,
+          -1.5918195781295488
+        ],
+        "rotation": 0
+      }
+    ],
     "has_light": true,
     "light": {
-      "type": "directional",
+      "type": "ambient",
       "color": [
-        213,
-        218,
-        211
+        241,
+        240,
+        191
       ],
-      "intensity": 0.6510215717781821
+      "intensity": 1.1132203961802678
     },
-    "dream_zone": false,
-    "dream_effects": [],
+    "dream_zone": true,
+    "dream_effects": [
+      "slow"
+    ],
     "wall_color": [
       227,
-      226,
-      196
+      237,
+      189
     ],
     "floor_color": [
-      216,
-      209,
-      168
+      221,
+      217,
+      180
     ]
   },
   "-1,-5": {
@@ -1918,59 +2232,58 @@
       0,
       -5
     ],
-    "type": "empty",
+    "type": "abandoned",
     "has_furniture": true,
     "furniture": [
       {
+        "type": "plant",
+        "position": [
+          0.02769295996980814,
+          0.5,
+          0.35642911849027703
+        ],
+        "rotation": 180
+      },
+      {
+        "type": "plant",
+        "position": [
+          -1.7843252709630475,
+          0.5,
+          2.7392261378218787
+        ],
+        "rotation": 90
+      },
+      {
         "type": "couch",
         "position": [
-          1.7585265209682222,
+          -2.8849723363293265,
           0.5,
-          -0.008792664663276106
-        ],
-        "rotation": 0
-      },
-      {
-        "type": "table",
-        "position": [
-          2.607001284766339,
-          0.5,
-          0.14960952431536523
+          1.8213335350221929
         ],
         "rotation": 270
-      },
-      {
-        "type": "lamp",
-        "position": [
-          1.2804725141460036,
-          0.5,
-          2.2481916592667153
-        ],
-        "rotation": 270
-      },
-      {
-        "type": "table",
-        "position": [
-          -2.3550781990056118,
-          0.5,
-          -2.100003223832387
-        ],
-        "rotation": 0
       }
     ],
-    "has_light": false,
-    "light": null,
+    "has_light": true,
+    "light": {
+      "type": "ambient",
+      "color": [
+        212,
+        230,
+        210
+      ],
+      "intensity": 0.9715672408105235
+    },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
       222,
-      222,
-      192
+      229,
+      181
     ],
     "floor_color": [
-      226,
-      205,
-      177
+      223,
+      212,
+      173
     ]
   },
   "-1,-4": {
@@ -1979,58 +2292,77 @@
       0,
       -4
     ],
-    "type": "clean",
+    "type": "abandoned",
     "has_furniture": true,
     "furniture": [
       {
         "type": "couch",
         "position": [
-          -0.6002915070127663,
+          0.8800905108153256,
           0.5,
-          -2.8858249096463444
+          -0.44737141810194236
         ],
-        "rotation": 0
-      },
-      {
-        "type": "table",
-        "position": [
-          0.3562732274682343,
-          0.5,
-          0.1394138675299006
-        ],
-        "rotation": 0
+        "rotation": 270
       },
       {
         "type": "plant",
         "position": [
-          -0.3542088696659196,
+          -1.882931484480448,
           0.5,
-          -0.5572657219365098
+          0.7925327339767172
         ],
-        "rotation": 0
+        "rotation": 180
       },
       {
-        "type": "chair",
+        "type": "bookshelf",
         "position": [
-          1.0338802289930715,
+          -1.0612912971933464,
           0.5,
-          1.271110485248001
+          1.9564014531676985
+        ],
+        "rotation": 180
+      },
+      {
+        "type": "couch",
+        "position": [
+          -0.8971256862895984,
+          0.5,
+          2.9420082387835658
+        ],
+        "rotation": 180
+      },
+      {
+        "type": "couch",
+        "position": [
+          2.7165120154567273,
+          0.5,
+          -1.8452966568444482
         ],
         "rotation": 270
       }
     ],
-    "has_light": false,
-    "light": null,
-    "dream_zone": false,
-    "dream_effects": [],
+    "has_light": true,
+    "light": {
+      "type": "ambient",
+      "color": [
+        230,
+        243,
+        216
+      ],
+      "intensity": 1.4017168582059303
+    },
+    "dream_zone": true,
+    "dream_effects": [
+      "panic"
+    ],
     "wall_color": [
-      231,
-      234,
+      225,
+      223,
       182
     ],
     "floor_color": [
-      204,
-      209,
+      202,
+      212,
       170
     ]
   },
@@ -2040,76 +2372,67 @@
       0,
       -3
     ],
-    "type": "empty",
+    "type": "clean",
     "has_furniture": true,
     "furniture": [
       {
-        "type": "couch",
+        "type": "plant",
         "position": [
-          -2.515463721697655,
+          -1.8876706114643549,
           0.5,
-          0.26461680354573414
+          -0.5530743669862574
         ],
         "rotation": 0
       },
       {
-        "type": "couch",
+        "type": "chair",
         "position": [
-          2.0744582166087113,
+          -2.3603644191617006,
           0.5,
-          1.4154127181700389
-        ],
-        "rotation": 0
-      },
-      {
-        "type": "table",
-        "position": [
-          -2.2203626724530343,
-          0.5,
-          1.5989991194242812
-        ],
-        "rotation": 180
-      },
-      {
-        "type": "lamp",
-        "position": [
-          -0.2887790313926377,
-          0.5,
-          0.10127596084636803
+          -1.4487085776260205
         ],
         "rotation": 90
       },
       {
         "type": "table",
         "position": [
-          1.141789463685301,
+          2.7001823986317364,
           0.5,
-          -0.8962112417195014
+          1.2597950616998066
         ],
         "rotation": 0
+      },
+      {
+        "type": "bookshelf",
+        "position": [
+          -1.2383323242498203,
+          0.5,
+          -2.794272983408465
+        ],
+        "rotation": 180
       }
     ],
     "has_light": true,
     "light": {
-      "type": "directional",
+      "type": "ambient",
       "color": [
-        254,
-        207,
-        180
+        240,
+        218,
+        207
       ],
-      "intensity": 1.3944082504171105
+      "intensity": 1.310682859605049
     },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      234,
       239,
-      189
+      220,
+      194
     ],
     "floor_color": [
-      209,
-      221,
-      186
+      202,
+      215,
+      190
     ]
   },
   "-1,-2": {
@@ -2118,58 +2441,71 @@
       0,
       -2
     ],
-    "type": "messy",
+    "type": "abandoned",
     "has_furniture": true,
     "furniture": [
       {
-        "type": "bookshelf",
+        "type": "table",
         "position": [
-          1.7386246989411696,
+          1.4776843627808809,
           0.5,
-          2.734653928784054
+          2.9880753627020464
         ],
-        "rotation": 180
+        "rotation": 270
       },
       {
-        "type": "plant",
+        "type": "lamp",
         "position": [
-          -2.0076774460604216,
+          1.7812803706693403,
           0.5,
-          -0.8136042908883985
+          -0.5364003369173327
+        ],
+        "rotation": 270
+      },
+      {
+        "type": "table",
+        "position": [
+          1.7998732278761942,
+          0.5,
+          -0.589219948758672
         ],
         "rotation": 0
       },
       {
-        "type": "chair",
+        "type": "bookshelf",
         "position": [
-          2.747695063229112,
+          2.523746309290324,
           0.5,
-          -1.4310005547775462
+          1.768800502825652
+        ],
+        "rotation": 0
+      },
+      {
+        "type": "plant",
+        "position": [
+          0.6786554769909023,
+          0.5,
+          -2.174343708320338
         ],
         "rotation": 270
       }
     ],
-    "has_light": true,
-    "light": {
-      "type": "ambient",
-      "color": [
-        246,
-        205,
-        208
-      ],
-      "intensity": 0.7915711895469911
-    },
-    "dream_zone": false,
-    "dream_effects": [],
+    "has_light": false,
+    "light": null,
+    "dream_zone": true,
+    "dream_effects": [
+      "glitch",
+      "panic"
+    ],
     "wall_color": [
-      234,
-      231,
+      226,
+      238,
       180
     ],
     "floor_color": [
-      208,
-      228,
-      164
+      223,
+      216,
+      183
     ]
   },
   "-1,-1": {
@@ -2184,43 +2520,52 @@
       {
         "type": "lamp",
         "position": [
-          0.21454807774967044,
+          1.0621190707724617,
           0.5,
-          -0.9747734605831284
+          0.7634127496220202
         ],
-        "rotation": 270
+        "rotation": 180
+      },
+      {
+        "type": "couch",
+        "position": [
+          -2.7507713373102205,
+          0.5,
+          1.6901572742135098
+        ],
+        "rotation": 90
       },
       {
         "type": "bookshelf",
         "position": [
-          1.0915648122722565,
+          -2.2179126966089022,
           0.5,
-          -1.3635826337453507
+          -0.6097370294375057
         ],
-        "rotation": 0
+        "rotation": 180
       }
     ],
     "has_light": true,
     "light": {
-      "type": "ambient",
+      "type": "point",
       "color": [
-        212,
-        216,
-        200
+        249,
+        254,
+        197
       ],
-      "intensity": 1.262571475137643
+      "intensity": 1.3289543810673337
     },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      238,
-      222,
-      183
+      240,
+      223,
+      180
     ],
     "floor_color": [
-      219,
-      225,
-      170
+      229,
+      217,
+      188
     ]
   },
   "-1,0": {
@@ -2229,30 +2574,76 @@
       0,
       0
     ],
-    "type": "abandoned",
-    "has_furniture": false,
-    "furniture": [],
+    "type": "clean",
+    "has_furniture": true,
+    "furniture": [
+      {
+        "type": "chair",
+        "position": [
+          -2.280811668395421,
+          0.5,
+          1.9144728596854241
+        ],
+        "rotation": 270
+      },
+      {
+        "type": "bookshelf",
+        "position": [
+          0.9745646157573278,
+          0.5,
+          0.46704574809120514
+        ],
+        "rotation": 90
+      },
+      {
+        "type": "bookshelf",
+        "position": [
+          -1.2879654451614282,
+          0.5,
+          2.5801078214929882
+        ],
+        "rotation": 0
+      },
+      {
+        "type": "table",
+        "position": [
+          -2.04421120544381,
+          0.5,
+          2.9730970623913864
+        ],
+        "rotation": 90
+      },
+      {
+        "type": "couch",
+        "position": [
+          1.8479308997181878,
+          0.5,
+          2.024546940210751
+        ],
+        "rotation": 270
+      }
+    ],
     "has_light": true,
     "light": {
-      "type": "ambient",
+      "type": "directional",
       "color": [
-        202,
-        233,
-        187
+        208,
+        238,
+        199
       ],
-      "intensity": 1.4090546798462333
+      "intensity": 1.2198581512274211
     },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      221,
-      231,
-      192
+      238,
+      223,
+      187
     ],
     "floor_color": [
-      208,
-      230,
-      168
+      205,
+      212,
+      164
     ]
   },
   "-1,1": {
@@ -2261,42 +2652,142 @@
       0,
       1
     ],
+    "type": "empty",
+    "has_furniture": false,
+    "furniture": [],
+    "has_light": false,
+    "light": null,
+    "dream_zone": false,
+    "dream_effects": [],
+    "wall_color": [
+      237,
+      230,
+      182
+    ],
+    "floor_color": [
+      230,
+      213,
+      169
+    ]
+  },
+  "-1,2": {
+    "position": [
+      -1,
+      0,
+      2
+    ],
     "type": "abandoned",
     "has_furniture": true,
     "furniture": [
       {
-        "type": "lamp",
+        "type": "bookshelf",
         "position": [
-          -0.9607499719520867,
+          0.05227607258842282,
           0.5,
-          1.3169204395412724
-        ],
-        "rotation": 90
-      },
-      {
-        "type": "couch",
-        "position": [
-          2.9762078591630434,
-          0.5,
-          1.7578925463272395
-        ],
-        "rotation": 0
-      },
-      {
-        "type": "couch",
-        "position": [
-          1.39914943111593,
-          0.5,
-          -0.18762484342930819
+          -1.8363607744606743
         ],
         "rotation": 270
       },
       {
-        "type": "couch",
+        "type": "chair",
         "position": [
-          -0.4020094384979158,
+          1.2434700049828509,
           0.5,
-          2.605392890294853
+          -0.26695876917055106
+        ],
+        "rotation": 0
+      }
+    ],
+    "has_light": false,
+    "light": null,
+    "dream_zone": false,
+    "dream_effects": [],
+    "wall_color": [
+      223,
+      220,
+      181
+    ],
+    "floor_color": [
+      203,
+      212,
+      168
+    ]
+  },
+  "-1,3": {
+    "position": [
+      -1,
+      0,
+      3
+    ],
+    "type": "abandoned",
+    "has_furniture": true,
+    "furniture": [
+      {
+        "type": "plant",
+        "position": [
+          2.1631669106750984,
+          0.5,
+          -0.7227475420050062
+        ],
+        "rotation": 90
+      },
+      {
+        "type": "plant",
+        "position": [
+          -1.5272911007871603,
+          0.5,
+          -0.12611731735826925
+        ],
+        "rotation": 270
+      },
+      {
+        "type": "lamp",
+        "position": [
+          -2.270602488881127,
+          0.5,
+          -2.187073587923231
+        ],
+        "rotation": 0
+      }
+    ],
+    "has_light": true,
+    "light": {
+      "type": "point",
+      "color": [
+        203,
+        209,
+        193
+      ],
+      "intensity": 1.4517396506982387
+    },
+    "dream_zone": false,
+    "dream_effects": [],
+    "wall_color": [
+      228,
+      220,
+      200
+    ],
+    "floor_color": [
+      214,
+      215,
+      161
+    ]
+  },
+  "-1,4": {
+    "position": [
+      -1,
+      0,
+      4
+    ],
+    "type": "messy",
+    "has_furniture": true,
+    "furniture": [
+      {
+        "type": "table",
+        "position": [
+          -2.0742080657024387,
+          0.5,
+          -2.521833100758431
         ],
         "rotation": 90
       }
@@ -2306,212 +2797,22 @@
       "type": "ambient",
       "color": [
         205,
-        245,
-        192
+        244,
+        206
       ],
-      "intensity": 0.9219754474536963
+      "intensity": 0.7255724762778212
     },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      231,
-      228,
-      196
+      232,
+      221,
+      187
     ],
     "floor_color": [
       202,
-      208,
-      163
-    ]
-  },
-  "-1,2": {
-    "position": [
-      -1,
-      0,
-      2
-    ],
-    "type": "clean",
-    "has_furniture": true,
-    "furniture": [
-      {
-        "type": "plant",
-        "position": [
-          -2.191978196382358,
-          0.5,
-          0.2740010416232499
-        ],
-        "rotation": 180
-      },
-      {
-        "type": "plant",
-        "position": [
-          -1.2767651567874228,
-          0.5,
-          0.6499291015180364
-        ],
-        "rotation": 180
-      }
-    ],
-    "has_light": true,
-    "light": {
-      "type": "ambient",
-      "color": [
-        233,
-        207,
-        210
-      ],
-      "intensity": 1.3442828735066463
-    },
-    "dream_zone": false,
-    "dream_effects": [],
-    "wall_color": [
-      237,
       222,
-      196
-    ],
-    "floor_color": [
-      224,
-      200,
-      173
-    ]
-  },
-  "-1,3": {
-    "position": [
-      -1,
-      0,
-      3
-    ],
-    "type": "messy",
-    "has_furniture": true,
-    "furniture": [
-      {
-        "type": "lamp",
-        "position": [
-          -1.8356845845221474,
-          0.5,
-          -0.22461055938501495
-        ],
-        "rotation": 180
-      },
-      {
-        "type": "lamp",
-        "position": [
-          0.006708419629922524,
-          0.5,
-          0.1405994781816018
-        ],
-        "rotation": 270
-      },
-      {
-        "type": "table",
-        "position": [
-          0.6277969710967195,
-          0.5,
-          -2.260351197075436
-        ],
-        "rotation": 180
-      },
-      {
-        "type": "chair",
-        "position": [
-          1.0249531298736247,
-          0.5,
-          -2.2206326962414833
-        ],
-        "rotation": 270
-      }
-    ],
-    "has_light": false,
-    "light": null,
-    "dream_zone": false,
-    "dream_effects": [],
-    "wall_color": [
-      222,
-      225,
-      181
-    ],
-    "floor_color": [
-      230,
-      227,
-      178
-    ]
-  },
-  "-1,4": {
-    "position": [
-      -1,
-      0,
-      4
-    ],
-    "type": "abandoned",
-    "has_furniture": true,
-    "furniture": [
-      {
-        "type": "table",
-        "position": [
-          -1.6457071832947263,
-          0.5,
-          -1.6685099256022309
-        ],
-        "rotation": 180
-      },
-      {
-        "type": "plant",
-        "position": [
-          1.460431338438858,
-          0.5,
-          0.6035820199929809
-        ],
-        "rotation": 90
-      },
-      {
-        "type": "table",
-        "position": [
-          0.987746664755802,
-          0.5,
-          -0.3310887660617312
-        ],
-        "rotation": 90
-      },
-      {
-        "type": "chair",
-        "position": [
-          -0.22103428577048323,
-          0.5,
-          -0.916506001995538
-        ],
-        "rotation": 180
-      },
-      {
-        "type": "plant",
-        "position": [
-          -2.6212481704786597,
-          0.5,
-          0.7787863275708462
-        ],
-        "rotation": 0
-      }
-    ],
-    "has_light": true,
-    "light": {
-      "type": "ambient",
-      "color": [
-        240,
-        248,
-        183
-      ],
-      "intensity": 0.9579747965028698
-    },
-    "dream_zone": false,
-    "dream_effects": [],
-    "wall_color": [
-      234,
-      233,
-      195
-    ],
-    "floor_color": [
-      226,
-      202,
-      163
+      167
     ]
   },
   "0,-5": {
@@ -2524,72 +2825,28 @@
     "has_furniture": true,
     "furniture": [
       {
-        "type": "bookshelf",
+        "type": "couch",
         "position": [
-          -1.3299919101035926,
+          -2.50633530391449,
           0.5,
-          -0.06563248805692679
+          -0.0982033841515717
         ],
-        "rotation": 270
-      },
-      {
-        "type": "chair",
-        "position": [
-          -2.7001242690965754,
-          0.5,
-          -0.10774363210876281
-        ],
-        "rotation": 270
-      },
-      {
-        "type": "chair",
-        "position": [
-          -1.894369537163749,
-          0.5,
-          0.7989574140952107
-        ],
-        "rotation": 0
-      },
-      {
-        "type": "plant",
-        "position": [
-          1.4416957883463404,
-          0.5,
-          -0.979942034503376
-        ],
-        "rotation": 270
-      },
-      {
-        "type": "plant",
-        "position": [
-          1.7191873084215263,
-          0.5,
-          1.7305993209104855
-        ],
-        "rotation": 270
+        "rotation": 180
       }
     ],
-    "has_light": true,
-    "light": {
-      "type": "ambient",
-      "color": [
-        214,
-        219,
-        204
-      ],
-      "intensity": 1.2198093668597347
-    },
+    "has_light": false,
+    "light": null,
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
       230,
-      225,
-      197
+      226,
+      185
     ],
     "floor_color": [
-      207,
       230,
-      180
+      223,
+      161
     ]
   },
   "0,-4": {
@@ -2598,58 +2855,76 @@
       0,
       -4
     ],
-    "type": "empty",
+    "type": "messy",
     "has_furniture": true,
     "furniture": [
       {
-        "type": "plant",
-        "position": [
-          -0.6113874089387412,
-          0.5,
-          1.9910813408884271
-        ],
-        "rotation": 270
-      },
-      {
         "type": "bookshelf",
         "position": [
-          0.4729634115746242,
+          -0.9003934574854231,
           0.5,
-          -2.887336455936051
+          -1.5005774862344767
+        ],
+        "rotation": 90
+      },
+      {
+        "type": "table",
+        "position": [
+          1.424013703325521,
+          0.5,
+          1.9817727673992689
         ],
         "rotation": 0
       },
       {
         "type": "table",
         "position": [
-          -2.3606320577134907,
+          0.0027310953193930843,
           0.5,
-          0.8930993566467582
+          -1.4301433457991077
+        ],
+        "rotation": 90
+      },
+      {
+        "type": "table",
+        "position": [
+          -1.2242310502879132,
+          0.5,
+          -0.7786864030297513
+        ],
+        "rotation": 180
+      },
+      {
+        "type": "chair",
+        "position": [
+          -1.374272936193961,
+          0.5,
+          1.4993113273409495
         ],
         "rotation": 270
       }
     ],
     "has_light": true,
     "light": {
-      "type": "point",
+      "type": "ambient",
       "color": [
-        216,
-        244,
-        209
+        242,
+        222,
+        207
       ],
-      "intensity": 0.8866386163313058
+      "intensity": 1.3692123751957483
     },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      239,
-      231,
-      185
+      220,
+      236,
+      197
     ],
     "floor_color": [
-      211,
+      215,
       222,
-      169
+      186
     ]
   },
   "0,-3": {
@@ -2662,29 +2937,38 @@
     "has_furniture": true,
     "furniture": [
       {
-        "type": "table",
+        "type": "plant",
         "position": [
-          -0.021259875358672353,
+          -2.9642212979932774,
           0.5,
-          -2.677546590529526
+          -1.9216192237834713
         ],
         "rotation": 0
       },
       {
-        "type": "bookshelf",
+        "type": "couch",
         "position": [
-          1.6200583715762935,
+          -0.12063826103780251,
           0.5,
-          -0.9062141569042392
+          -2.518349515875707
+        ],
+        "rotation": 180
+      },
+      {
+        "type": "couch",
+        "position": [
+          0.43441515117119245,
+          0.5,
+          0.6136591197500745
         ],
         "rotation": 90
       },
       {
-        "type": "bookshelf",
+        "type": "lamp",
         "position": [
-          2.3517763552716406,
+          -2.245944981448341,
           0.5,
-          0.3483012413704687
+          2.7442789971682364
         ],
         "rotation": 270
       }
@@ -2693,23 +2977,23 @@
     "light": {
       "type": "ambient",
       "color": [
-        227,
-        219,
-        214
+        208,
+        222,
+        220
       ],
-      "intensity": 1.3938211369631928
+      "intensity": 0.6696489199476187
     },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      231,
-      220,
-      181
+      229,
+      225,
+      189
     ],
     "floor_color": [
-      209,
-      211,
-      184
+      228,
+      205,
+      178
     ]
   },
   "0,-2": {
@@ -2718,51 +3002,22 @@
       0,
       -2
     ],
-    "type": "empty",
-    "has_furniture": true,
-    "furniture": [
-      {
-        "type": "table",
-        "position": [
-          0.3799389088832017,
-          0.5,
-          -0.9537404157544467
-        ],
-        "rotation": 0
-      },
-      {
-        "type": "lamp",
-        "position": [
-          -0.009107828471374368,
-          0.5,
-          -2.2550069290606687
-        ],
-        "rotation": 0
-      }
-    ],
-    "has_light": true,
-    "light": {
-      "type": "directional",
-      "color": [
-        202,
-        216,
-        182
-      ],
-      "intensity": 0.7001498616885415
-    },
-    "dream_zone": true,
-    "dream_effects": [
-      "slow"
-    ],
+    "type": "clean",
+    "has_furniture": false,
+    "furniture": [],
+    "has_light": false,
+    "light": null,
+    "dream_zone": false,
+    "dream_effects": [],
     "wall_color": [
-      236,
-      225,
-      191
+      221,
+      222,
+      181
     ],
     "floor_color": [
-      220,
+      208,
       214,
-      189
+      162
     ]
   },
   "0,-1": {
@@ -2771,67 +3026,22 @@
       0,
       -1
     ],
-    "type": "clean",
-    "has_furniture": true,
-    "furniture": [
-      {
-        "type": "bookshelf",
-        "position": [
-          2.7144289812051117,
-          0.5,
-          2.020318616255529
-        ],
-        "rotation": 270
-      },
-      {
-        "type": "table",
-        "position": [
-          2.718032871696747,
-          0.5,
-          -2.7948070595097034
-        ],
-        "rotation": 0
-      },
-      {
-        "type": "chair",
-        "position": [
-          -0.34646412900077417,
-          0.5,
-          -1.811969776769869
-        ],
-        "rotation": 0
-      },
-      {
-        "type": "lamp",
-        "position": [
-          0.8291872383027812,
-          0.5,
-          -2.351451211096097
-        ],
-        "rotation": 0
-      }
-    ],
-    "has_light": true,
-    "light": {
-      "type": "point",
-      "color": [
-        248,
-        204,
-        184
-      ],
-      "intensity": 0.7132456701588297
-    },
+    "type": "messy",
+    "has_furniture": false,
+    "furniture": [],
+    "has_light": false,
+    "light": null,
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      238,
-      229,
-      185
+      223,
+      230,
+      190
     ],
     "floor_color": [
-      217,
-      218,
-      171
+      220,
+      210,
+      184
     ]
   },
   "0,0": {
@@ -2840,40 +3050,76 @@
       0,
       0
     ],
-    "type": "messy",
+    "type": "abandoned",
     "has_furniture": true,
     "furniture": [
       {
-        "type": "chair",
+        "type": "table",
         "position": [
-          0.5516077236073476,
+          -2.979390736524878,
           0.5,
-          -1.783070791931439
+          1.7687419655926737
         ],
-        "rotation": 0
+        "rotation": 180
+      },
+      {
+        "type": "table",
+        "position": [
+          2.824472334989238,
+          0.5,
+          1.7062543138389579
+        ],
+        "rotation": 180
+      },
+      {
+        "type": "lamp",
+        "position": [
+          2.714819088262699,
+          0.5,
+          2.529364784967008
+        ],
+        "rotation": 90
+      },
+      {
+        "type": "couch",
+        "position": [
+          2.3872942098559964,
+          0.5,
+          0.2924284542454516
+        ],
+        "rotation": 270
+      },
+      {
+        "type": "lamp",
+        "position": [
+          -1.5036481920883615,
+          0.5,
+          2.8090204477814638
+        ],
+        "rotation": 180
       }
     ],
     "has_light": true,
     "light": {
       "type": "point",
       "color": [
-        221,
-        246,
-        212
+        214,
+        225,
+        203
       ],
-      "intensity": 1.391422541525941
+      "intensity": 0.5632968539704964
     },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      237,
-      230,
-      195
+      226,
+      225,
+      199
     ],
     "floor_color": [
-      201,
-      205,
-      167
+      206,
+      228,
+      188
     ]
   },
   "0,1": {
@@ -2886,44 +3132,62 @@
     "has_furniture": true,
     "furniture": [
       {
-        "type": "table",
+        "type": "bookshelf",
         "position": [
-          -0.5355491907736334,
+          -2.4800320834004936,
           0.5,
-          1.956259614128232
+          0.2855036923684282
+        ],
+        "rotation": 0
+      },
+      {
+        "type": "lamp",
+        "position": [
+          -2.7257101779744843,
+          0.5,
+          -2.026099072892105
         ],
         "rotation": 0
       },
       {
         "type": "chair",
         "position": [
-          0.6801475414453604,
+          -2.864505818644118,
           0.5,
-          0.9685906264325146
+          -2.680138987309519
         ],
         "rotation": 180
+      },
+      {
+        "type": "plant",
+        "position": [
+          2.887426212177054,
+          0.5,
+          -0.8718493931621922
+        ],
+        "rotation": 270
       }
     ],
     "has_light": true,
     "light": {
       "type": "point",
       "color": [
-        213,
-        202,
-        192
+        252,
+        255,
+        197
       ],
-      "intensity": 1.3167851315280021
+      "intensity": 1.1818477138702765
     },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      238,
-      233,
-      195
+      235,
+      226,
+      187
     ],
     "floor_color": [
-      221,
-      203,
+      229,
+      206,
       162
     ]
   },
@@ -2933,30 +3197,76 @@
       0,
       2
     ],
-    "type": "messy",
-    "has_furniture": false,
-    "furniture": [],
+    "type": "clean",
+    "has_furniture": true,
+    "furniture": [
+      {
+        "type": "chair",
+        "position": [
+          0.9358816811651689,
+          0.5,
+          -2.7550639375304673
+        ],
+        "rotation": 180
+      },
+      {
+        "type": "plant",
+        "position": [
+          1.630585449785782,
+          0.5,
+          -2.9167324721938344
+        ],
+        "rotation": 180
+      },
+      {
+        "type": "couch",
+        "position": [
+          -0.5638350739072866,
+          0.5,
+          -1.1147394144128073
+        ],
+        "rotation": 0
+      },
+      {
+        "type": "plant",
+        "position": [
+          -0.9454921146044666,
+          0.5,
+          0.05316836046821383
+        ],
+        "rotation": 180
+      },
+      {
+        "type": "table",
+        "position": [
+          0.9899760621582745,
+          0.5,
+          -0.8412274781755702
+        ],
+        "rotation": 180
+      }
+    ],
     "has_light": true,
     "light": {
       "type": "ambient",
       "color": [
-        227,
-        226,
-        202
+        237,
+        237,
+        218
       ],
-      "intensity": 0.6029041077274532
+      "intensity": 0.9872423632562154
     },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      226,
-      222,
-      191
+      229,
+      240,
+      192
     ],
     "floor_color": [
-      214,
-      224,
-      165
+      201,
+      204,
+      175
     ]
   },
   "0,3": {
@@ -2965,76 +3275,34 @@
       0,
       3
     ],
-    "type": "empty",
+    "type": "abandoned",
     "has_furniture": true,
     "furniture": [
       {
-        "type": "chair",
-        "position": [
-          -1.0088777434691851,
-          0.5,
-          -0.7596389584436318
-        ],
-        "rotation": 0
-      },
-      {
-        "type": "bookshelf",
-        "position": [
-          0.16714314706532907,
-          0.5,
-          -2.1251382855824446
-        ],
-        "rotation": 90
-      },
-      {
-        "type": "plant",
-        "position": [
-          -1.7940596092503587,
-          0.5,
-          1.3797754226373158
-        ],
-        "rotation": 270
-      },
-      {
-        "type": "chair",
-        "position": [
-          -1.4889977217625765,
-          0.5,
-          -2.006907147916626
-        ],
-        "rotation": 0
-      },
-      {
         "type": "lamp",
         "position": [
-          0.3371582494723553,
+          -0.537847488731205,
           0.5,
-          0.1361096644153008
+          1.7667025741628946
         ],
-        "rotation": 270
+        "rotation": 180
       }
     ],
-    "has_light": true,
-    "light": {
-      "type": "ambient",
-      "color": [
-        235,
-        215,
-        203
-      ],
-      "intensity": 0.5345049566992861
-    },
-    "dream_zone": false,
-    "dream_effects": [],
+    "has_light": false,
+    "light": null,
+    "dream_zone": true,
+    "dream_effects": [
+      "glitch"
+    ],
     "wall_color": [
-      238,
-      227,
-      198
+      230,
+      228,
+      185
     ],
     "floor_color": [
-      218,
-      200,
-      165
+      212,
+      225,
+      161
     ]
   },
   "0,4": {
@@ -3047,55 +3315,54 @@
     "has_furniture": true,
     "furniture": [
       {
-        "type": "lamp",
+        "type": "table",
         "position": [
-          0.33866195157246715,
+          0.9184098654369808,
           0.5,
-          -0.6183667503456514
+          -0.3984889412456587
+        ],
+        "rotation": 180
+      },
+      {
+        "type": "table",
+        "position": [
+          -0.47377427239301007,
+          0.5,
+          0.9789682092772964
         ],
         "rotation": 0
       },
       {
-        "type": "chair",
+        "type": "table",
         "position": [
-          -0.4744224041885339,
+          -2.4060781063728096,
           0.5,
-          -2.6100581916527146
-        ],
-        "rotation": 0
-      },
-      {
-        "type": "plant",
-        "position": [
-          -2.0605964355803548,
-          0.5,
-          -2.7407698483264005
-        ],
-        "rotation": 270
-      },
-      {
-        "type": "couch",
-        "position": [
-          0.3527814704964882,
-          0.5,
-          1.011740564389319
+          2.618926711973212
         ],
         "rotation": 180
       }
     ],
-    "has_light": false,
-    "light": null,
+    "has_light": true,
+    "light": {
+      "type": "ambient",
+      "color": [
+        249,
+        246,
+        207
+      ],
+      "intensity": 0.8093723681405998
+    },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      231,
-      231,
-      181
+      228,
+      220,
+      192
     ],
     "floor_color": [
-      200,
-      228,
-      161
+      214,
+      214,
+      180
     ]
   },
   "1,-5": {
@@ -3105,29 +3372,67 @@
       -5
     ],
     "type": "messy",
-    "has_furniture": false,
-    "furniture": [],
-    "has_light": true,
-    "light": {
-      "type": "point",
-      "color": [
-        217,
-        245,
-        187
-      ],
-      "intensity": 1.40460529287124
-    },
+    "has_furniture": true,
+    "furniture": [
+      {
+        "type": "lamp",
+        "position": [
+          0.46882479278012834,
+          0.5,
+          -1.4518531565785742
+        ],
+        "rotation": 90
+      },
+      {
+        "type": "lamp",
+        "position": [
+          0.616977283185137,
+          0.5,
+          -0.7089805796911475
+        ],
+        "rotation": 270
+      },
+      {
+        "type": "bookshelf",
+        "position": [
+          1.1524225298414965,
+          0.5,
+          -0.5369363207509883
+        ],
+        "rotation": 180
+      },
+      {
+        "type": "table",
+        "position": [
+          1.4314093961278624,
+          0.5,
+          -2.4718354297283955
+        ],
+        "rotation": 270
+      },
+      {
+        "type": "bookshelf",
+        "position": [
+          -1.9177238660933955,
+          0.5,
+          -0.2502557832142469
+        ],
+        "rotation": 90
+      }
+    ],
+    "has_light": false,
+    "light": null,
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      234,
-      227,
-      193
+      224,
+      224,
+      187
     ],
     "floor_color": [
-      206,
-      224,
-      164
+      230,
+      227,
+      161
     ]
   },
   "1,-4": {
@@ -3140,72 +3445,72 @@
     "has_furniture": true,
     "furniture": [
       {
-        "type": "table",
+        "type": "lamp",
         "position": [
-          1.210450121247856,
+          -2.7916980706820502,
           0.5,
-          -0.9158946405073936
+          1.8910295848949197
+        ],
+        "rotation": 90
+      },
+      {
+        "type": "chair",
+        "position": [
+          -0.8611749590486957,
+          0.5,
+          -0.061055872180074466
         ],
         "rotation": 0
       },
       {
         "type": "chair",
         "position": [
-          -2.315523454917006,
+          -1.6903716947966432,
           0.5,
-          -1.0744098257954395
+          -1.0865139142127016
         ],
-        "rotation": 270
-      },
-      {
-        "type": "plant",
-        "position": [
-          -0.6475256277136925,
-          0.5,
-          2.7838087047511593
-        ],
-        "rotation": 270
+        "rotation": 180
       },
       {
         "type": "chair",
         "position": [
-          -0.2918393062953166,
+          0.3149291253044195,
           0.5,
-          0.8220353839916443
+          -1.391330794613661
         ],
-        "rotation": 90
+        "rotation": 0
       },
       {
-        "type": "plant",
+        "type": "table",
         "position": [
-          2.82576586200211,
+          -2.3370852815314285,
           0.5,
-          -2.0735101183653706
+          -2.137022087580718
         ],
-        "rotation": 180
+        "rotation": 90
       }
     ],
     "has_light": true,
     "light": {
-      "type": "ambient",
+      "type": "directional",
       "color": [
-        206,
-        208,
-        184
+        215,
+        212,
+        180
       ],
-      "intensity": 1.245908730867697
+      "intensity": 1.311589885141628
     },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      226,
-      232,
-      186
+      220,
+      239,
+      193
     ],
     "floor_color": [
-      211,
-      223,
-      190
+      207,
+      218,
+      184
     ]
   },
   "1,-3": {
@@ -3214,30 +3519,76 @@
       0,
       -3
     ],
-    "type": "empty",
-    "has_furniture": false,
-    "furniture": [],
+    "type": "abandoned",
+    "has_furniture": true,
+    "furniture": [
+      {
+        "type": "bookshelf",
+        "position": [
+          -0.3428249773505616,
+          0.5,
+          -2.2381909076874744
+        ],
+        "rotation": 0
+      },
+      {
+        "type": "lamp",
+        "position": [
+          1.00180699693923,
+          0.5,
+          -2.238432064825485
+        ],
+        "rotation": 90
+      },
+      {
+        "type": "table",
+        "position": [
+          1.666703178987909,
+          0.5,
+          0.856498102187599
+        ],
+        "rotation": 180
+      },
+      {
+        "type": "couch",
+        "position": [
+          -1.6615406965013744,
+          0.5,
+          -0.47915654607264946
+        ],
+        "rotation": 180
+      },
+      {
+        "type": "bookshelf",
+        "position": [
+          2.5937209028492907,
+          0.5,
+          -1.2734734430652843
+        ],
+        "rotation": 90
+      }
+    ],
     "has_light": true,
     "light": {
-      "type": "ambient",
+      "type": "point",
       "color": [
-        221,
-        221,
-        185
+        244,
+        218,
+        200
       ],
-      "intensity": 0.9075471056727729
+      "intensity": 1.2672747995384026
     },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      228,
-      230,
-      189
+      229,
+      229,
+      190
     ],
     "floor_color": [
-      205,
       228,
-      171
+      229,
+      169
     ]
   },
   "1,-2": {
@@ -3246,40 +3597,68 @@
       0,
       -2
     ],
-    "type": "empty",
+    "type": "messy",
     "has_furniture": true,
     "furniture": [
       {
-        "type": "table",
+        "type": "chair",
         "position": [
-          -2.790950020649706,
+          -2.8175141892332944,
           0.5,
-          -1.262740949024195
+          2.8943721429249827
         ],
-        "rotation": 90
+        "rotation": 0
+      },
+      {
+        "type": "bookshelf",
+        "position": [
+          -0.7091009991852202,
+          0.5,
+          1.609720121139544
+        ],
+        "rotation": 270
+      },
+      {
+        "type": "lamp",
+        "position": [
+          1.4031463254868068,
+          0.5,
+          -1.9282599228876227
+        ],
+        "rotation": 180
+      },
+      {
+        "type": "bookshelf",
+        "position": [
+          1.3020007319922788,
+          0.5,
+          -2.343885304303428
+        ],
+        "rotation": 180
+      },
+      {
+        "type": "plant",
+        "position": [
+          -0.7083811957275281,
+          0.5,
+          -1.0201761399423213
+        ],
+        "rotation": 0
       }
     ],
-    "has_light": true,
-    "light": {
-      "type": "ambient",
-      "color": [
-        214,
-        201,
-        194
-      ],
-      "intensity": 1.4320317720182798
-    },
+    "has_light": false,
+    "light": null,
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      231,
-      240,
-      192
+      222,
+      236,
+      185
     ],
     "floor_color": [
-      227,
-      230,
-      190
+      213,
+      220,
+      165
     ]
   },
   "1,-1": {
@@ -3289,75 +3668,29 @@
       -1
     ],
     "type": "messy",
-    "has_furniture": true,
-    "furniture": [
-      {
-        "type": "lamp",
-        "position": [
-          2.309867530793138,
-          0.5,
-          -2.054235629049458
-        ],
-        "rotation": 0
-      },
-      {
-        "type": "plant",
-        "position": [
-          -1.119253408510331,
-          0.5,
-          -2.727827079801087
-        ],
-        "rotation": 270
-      },
-      {
-        "type": "couch",
-        "position": [
-          2.5731307461379354,
-          0.5,
-          1.0537632813095925
-        ],
-        "rotation": 90
-      },
-      {
-        "type": "lamp",
-        "position": [
-          1.787950636935662,
-          0.5,
-          -2.446929777628651
-        ],
-        "rotation": 270
-      },
-      {
-        "type": "plant",
-        "position": [
-          2.29370371863396,
-          0.5,
-          0.06601871361533096
-        ],
-        "rotation": 270
-      }
-    ],
+    "has_furniture": false,
+    "furniture": [],
     "has_light": true,
     "light": {
       "type": "point",
       "color": [
-        246,
-        202,
-        184
+        254,
+        223,
+        220
       ],
-      "intensity": 1.242099283553544
+      "intensity": 1.4081886661846288
     },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      223,
-      234,
-      187
+      240,
+      228,
+      183
     ],
     "floor_color": [
-      208,
-      217,
-      178
+      209,
+      225,
+      172
     ]
   },
   "1,0": {
@@ -3366,58 +3699,40 @@
       0,
       0
     ],
-    "type": "abandoned",
+    "type": "messy",
     "has_furniture": true,
     "furniture": [
       {
         "type": "plant",
         "position": [
-          0.007429642439473305,
+          1.8833451614150674,
           0.5,
-          2.4903084466562326
-        ],
-        "rotation": 90
-      },
-      {
-        "type": "bookshelf",
-        "position": [
-          1.7023031812388947,
-          0.5,
-          -0.8813206409526186
+          -1.1505168398484955
         ],
         "rotation": 270
-      },
-      {
-        "type": "lamp",
-        "position": [
-          1.4223595587575186,
-          0.5,
-          -2.9837342570337944
-        ],
-        "rotation": 0
       }
     ],
     "has_light": true,
     "light": {
-      "type": "directional",
+      "type": "ambient",
       "color": [
-        222,
-        220,
-        210
+        232,
+        201,
+        208
       ],
-      "intensity": 0.844374795988401
+      "intensity": 0.5239396742199925
     },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      226,
-      225,
-      189
+      228,
+      240,
+      186
     ],
     "floor_color": [
-      225,
-      216,
-      163
+      212,
+      218,
+      167
     ]
   },
   "1,1": {
@@ -3426,30 +3741,22 @@
       0,
       1
     ],
-    "type": "clean",
+    "type": "abandoned",
     "has_furniture": false,
     "furniture": [],
-    "has_light": true,
-    "light": {
-      "type": "point",
-      "color": [
-        202,
-        204,
-        215
-      ],
-      "intensity": 0.6273547926246497
-    },
+    "has_light": false,
+    "light": null,
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      233,
-      240,
-      188
+      220,
+      224,
+      193
     ],
     "floor_color": [
-      211,
-      226,
-      165
+      228,
+      204,
+      170
     ]
   },
   "1,2": {
@@ -3458,22 +3765,58 @@
       0,
       2
     ],
-    "type": "empty",
-    "has_furniture": false,
-    "furniture": [],
-    "has_light": false,
-    "light": null,
+    "type": "messy",
+    "has_furniture": true,
+    "furniture": [
+      {
+        "type": "plant",
+        "position": [
+          -0.9777394968694,
+          0.5,
+          -0.10288227764411673
+        ],
+        "rotation": 270
+      },
+      {
+        "type": "plant",
+        "position": [
+          0.013287054164230483,
+          0.5,
+          0.47477693895337225
+        ],
+        "rotation": 0
+      },
+      {
+        "type": "chair",
+        "position": [
+          -2.6294427942076375,
+          0.5,
+          1.7828306245875067
+        ],
+        "rotation": 270
+      }
+    ],
+    "has_light": true,
+    "light": {
+      "type": "directional",
+      "color": [
+        242,
+        222,
+        209
+      ],
+      "intensity": 1.4730085430514182
+    },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      235,
-      225,
-      184
+      234,
+      230,
+      196
     ],
     "floor_color": [
-      229,
-      200,
-      160
+      223,
+      227,
+      170
     ]
   },
   "1,3": {
@@ -3482,41 +3825,33 @@
       0,
       3
     ],
-    "type": "clean",
-    "has_furniture": true,
-    "furniture": [
-      {
-        "type": "bookshelf",
-        "position": [
-          -2.190190983828879,
-          0.5,
-          1.3810357221804601
-        ],
-        "rotation": 90
-      },
-      {
-        "type": "lamp",
-        "position": [
-          1.979664644723563,
-          0.5,
-          1.7150269772832436
-        ],
-        "rotation": 270
-      }
+    "type": "messy",
+    "has_furniture": false,
+    "furniture": [],
+    "has_light": true,
+    "light": {
+      "type": "point",
+      "color": [
+        205,
+        236,
+        220
+      ],
+      "intensity": 1.4023876038716738
+    },
+    "dream_zone": true,
+    "dream_effects": [
+      "slow",
+      "panic"
     ],
-    "has_light": false,
-    "light": null,
-    "dream_zone": false,
-    "dream_effects": [],
     "wall_color": [
-      224,
-      224,
-      187
+      230,
+      235,
+      181
     ],
     "floor_color": [
+      214,
       209,
-      222,
-      165
+      183
     ]
   },
   "1,4": {
@@ -3525,30 +3860,49 @@
       0,
       4
     ],
-    "type": "clean",
-    "has_furniture": false,
-    "furniture": [],
+    "type": "messy",
+    "has_furniture": true,
+    "furniture": [
+      {
+        "type": "couch",
+        "position": [
+          -2.4696175806315708,
+          0.5,
+          0.7878576858242212
+        ],
+        "rotation": 270
+      },
+      {
+        "type": "lamp",
+        "position": [
+          1.0096298841008924,
+          0.5,
+          -2.4272330504940838
+        ],
+        "rotation": 0
+      }
+    ],
     "has_light": true,
     "light": {
-      "type": "point",
+      "type": "ambient",
       "color": [
-        213,
-        247,
-        199
+        217,
+        251,
+        190
       ],
-      "intensity": 1.2134320864526504
+      "intensity": 0.6858920949740859
     },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      227,
-      228,
-      183
+      233,
+      229,
+      200
     ],
     "floor_color": [
-      225,
-      206,
-      160
+      203,
+      201,
+      166
     ]
   },
   "2,-5": {
@@ -3557,76 +3911,70 @@
       0,
       -5
     ],
-    "type": "empty",
+    "type": "clean",
     "has_furniture": true,
     "furniture": [
       {
-        "type": "plant",
+        "type": "bookshelf",
         "position": [
-          0.30672539188644166,
+          0.5506012944295877,
           0.5,
-          -2.351801487156238
+          -1.8191544089367282
+        ],
+        "rotation": 270
+      },
+      {
+        "type": "chair",
+        "position": [
+          -2.5134011556666165,
+          0.5,
+          0.3688658490718133
         ],
         "rotation": 180
       },
       {
-        "type": "couch",
+        "type": "bookshelf",
         "position": [
-          -2.0210586723695245,
+          0.7680610374171999,
           0.5,
-          2.802326756542472
+          2.554345169956008
         ],
         "rotation": 270
       },
       {
-        "type": "lamp",
+        "type": "plant",
         "position": [
-          2.8603510051283196,
+          -1.3507860822759985,
           0.5,
-          0.15970065092015862
+          0.15079231941796367
         ],
-        "rotation": 90
+        "rotation": 270
       },
       {
         "type": "couch",
         "position": [
-          0.14720926680126212,
+          0.8987654621504761,
           0.5,
-          -0.47799736106324087
-        ],
-        "rotation": 0
-      },
-      {
-        "type": "lamp",
-        "position": [
-          -2.3832643224483148,
-          0.5,
-          -1.0720325388797505
+          0.82481083624688
         ],
         "rotation": 270
       }
     ],
-    "has_light": true,
-    "light": {
-      "type": "ambient",
-      "color": [
-        222,
-        206,
-        183
-      ],
-      "intensity": 1.143295608818035
-    },
-    "dream_zone": false,
-    "dream_effects": [],
+    "has_light": false,
+    "light": null,
+    "dream_zone": true,
+    "dream_effects": [
+      "panic"
+    ],
     "wall_color": [
-      221,
-      238,
-      194
+      233,
+      224,
+      185
     ],
     "floor_color": [
-      206,
-      208,
-      167
+      213,
+      213,
+      180
     ]
   },
   "2,-4": {
@@ -3635,68 +3983,58 @@
       0,
       -4
     ],
-    "type": "clean",
+    "type": "empty",
     "has_furniture": true,
     "furniture": [
       {
-        "type": "bookshelf",
+        "type": "plant",
         "position": [
-          -1.709429632697935,
+          2.8968917836303776,
           0.5,
-          0.6009192987798002
+          2.71284780524055
         ],
-        "rotation": 180
+        "rotation": 0
       },
       {
         "type": "lamp",
         "position": [
-          -0.6866682482101303,
+          2.220574256011357,
           0.5,
-          -0.16964770498813442
+          -1.6199176717445518
         ],
-        "rotation": 90
+        "rotation": 180
       },
       {
-        "type": "bookshelf",
+        "type": "chair",
         "position": [
-          1.59510102065882,
+          1.4488200388855033,
           0.5,
-          0.384787963277466
-        ],
-        "rotation": 90
-      },
-      {
-        "type": "plant",
-        "position": [
-          -2.7560749589075435,
-          0.5,
-          0.916631964066565
-        ],
-        "rotation": 90
-      },
-      {
-        "type": "bookshelf",
-        "position": [
-          0.7723776105944031,
-          0.5,
-          0.9663925006560437
+          0.10175192461031468
         ],
         "rotation": 90
       }
     ],
-    "has_light": false,
-    "light": null,
+    "has_light": true,
+    "light": {
+      "type": "point",
+      "color": [
+        243,
+        255,
+        200
+      ],
+      "intensity": 0.9352882511630892
+    },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      239,
-      223,
-      181
+      230,
+      234,
+      185
     ],
     "floor_color": [
-      201,
-      214,
-      174
+      212,
+      227,
+      176
     ]
   },
   "2,-3": {
@@ -3705,43 +4043,49 @@
       0,
       -3
     ],
-    "type": "messy",
+    "type": "empty",
     "has_furniture": true,
     "furniture": [
       {
-        "type": "chair",
+        "type": "plant",
         "position": [
-          -2.723024930591566,
+          1.9317867186981736,
           0.5,
-          -1.5749354141002454
+          -1.3552367492652342
         ],
-        "rotation": 90
+        "rotation": 270
+      },
+      {
+        "type": "bookshelf",
+        "position": [
+          -2.8554973234118917,
+          0.5,
+          -1.996386532514358
+        ],
+        "rotation": 180
       }
     ],
     "has_light": true,
     "light": {
-      "type": "point",
+      "type": "directional",
       "color": [
+        211,
         206,
-        242,
-        219
+        212
       ],
-      "intensity": 0.842958100233572
+      "intensity": 1.2239711528487844
     },
-    "dream_zone": true,
-    "dream_effects": [
-      "slow",
-      "panic"
-    ],
+    "dream_zone": false,
+    "dream_effects": [],
     "wall_color": [
-      232,
+      227,
       220,
-      196
+      200
     ],
     "floor_color": [
-      216,
-      225,
-      187
+      219,
+      224,
+      176
     ]
   },
   "2,-2": {
@@ -3750,79 +4094,70 @@
       0,
       -2
     ],
-    "type": "empty",
+    "type": "abandoned",
     "has_furniture": true,
     "furniture": [
       {
-        "type": "plant",
-        "position": [
-          1.0983355766709906,
-          0.5,
-          2.677416164071748
-        ],
-        "rotation": 180
-      },
-      {
         "type": "chair",
         "position": [
-          1.2870978851362587,
+          -2.6307055210973807,
           0.5,
-          1.16553413883969
+          2.0943825063789214
         ],
         "rotation": 270
       },
       {
-        "type": "lamp",
+        "type": "chair",
         "position": [
-          1.632557223692345,
+          -1.1003605071218316,
           0.5,
-          1.6389579071471232
+          2.1269081193336667
         ],
         "rotation": 90
-      },
-      {
-        "type": "table",
-        "position": [
-          0.7500441749886018,
-          0.5,
-          2.251626919559822
-        ],
-        "rotation": 180
       },
       {
         "type": "plant",
         "position": [
-          2.6429488362133435,
+          1.6155197065393043,
           0.5,
-          2.223969605075599
+          -2.9201495391450827
         ],
-        "rotation": 90
+        "rotation": 0
+      },
+      {
+        "type": "plant",
+        "position": [
+          -2.584995725377011,
+          0.5,
+          0.045845649475523054
+        ],
+        "rotation": 270
       }
     ],
     "has_light": true,
     "light": {
       "type": "directional",
       "color": [
-        209,
         254,
-        196
+        253,
+        207
       ],
-      "intensity": 1.3069376976684102
+      "intensity": 1.2877823202892633
     },
     "dream_zone": true,
     "dream_effects": [
-      "fast",
-      "panic"
+      "panic",
+      "slow"
     ],
     "wall_color": [
-      233,
-      230,
+      224,
+      238,
       188
     ],
     "floor_color": [
-      225,
-      206,
-      170
+      211,
+      211,
+      168
     ]
   },
   "2,-1": {
@@ -3831,22 +4166,60 @@
       0,
       -1
     ],
-    "type": "clean",
-    "has_furniture": false,
-    "furniture": [],
-    "has_light": false,
-    "light": null,
-    "dream_zone": false,
-    "dream_effects": [],
+    "type": "messy",
+    "has_furniture": true,
+    "furniture": [
+      {
+        "type": "bookshelf",
+        "position": [
+          1.9753359830481063,
+          0.5,
+          2.2548138007872325
+        ],
+        "rotation": 270
+      },
+      {
+        "type": "couch",
+        "position": [
+          0.6175457697805142,
+          0.5,
+          -0.2581231975356433
+        ],
+        "rotation": 180
+      },
+      {
+        "type": "chair",
+        "position": [
+          1.4025893357747083,
+          0.5,
+          0.3732101751534671
+        ],
+        "rotation": 180
+      }
+    ],
+    "has_light": true,
+    "light": {
+      "type": "ambient",
+      "color": [
+        208,
+        213,
+        181
+      ],
+      "intensity": 0.912765688970961
+    },
+    "dream_zone": true,
+    "dream_effects": [
+      "slow"
+    ],
     "wall_color": [
+      223,
       224,
-      229,
-      189
+      196
     ],
     "floor_color": [
-      210,
-      216,
-      178
+      215,
+      224,
+      189
     ]
   },
   "2,0": {
@@ -3855,60 +4228,49 @@
       0,
       0
     ],
-    "type": "abandoned",
+    "type": "empty",
     "has_furniture": true,
     "furniture": [
       {
-        "type": "couch",
-        "position": [
-          1.7635837636953093,
-          0.5,
-          2.831328448565735
-        ],
-        "rotation": 0
-      },
-      {
         "type": "bookshelf",
         "position": [
-          2.3599288975028765,
+          -0.6622588239946747,
           0.5,
-          -1.2474017558999433
+          -1.0333088833231705
         ],
-        "rotation": 0
+        "rotation": 180
       },
       {
-        "type": "lamp",
+        "type": "plant",
         "position": [
-          -2.019383765582463,
+          1.2126228540954669,
           0.5,
-          2.4213948724998797
+          1.6158739510519728
         ],
-        "rotation": 90
+        "rotation": 270
       }
     ],
     "has_light": true,
     "light": {
-      "type": "ambient",
+      "type": "point",
       "color": [
-        214,
-        231,
-        185
+        216,
+        237,
+        219
       ],
-      "intensity": 1.2555161153900762
+      "intensity": 1.0331275333260859
     },
-    "dream_zone": true,
-    "dream_effects": [
-      "slow"
-    ],
+    "dream_zone": false,
+    "dream_effects": [],
     "wall_color": [
-      239,
       225,
-      184
+      232,
+      191
     ],
     "floor_color": [
-      219,
-      209,
-      173
+      211,
+      204,
+      182
     ]
   },
   "2,1": {
@@ -3917,58 +4279,52 @@
       0,
       1
     ],
-    "type": "clean",
+    "type": "empty",
     "has_furniture": true,
     "furniture": [
       {
-        "type": "lamp",
+        "type": "table",
         "position": [
-          -2.0100826274699912,
+          0.7508227500294762,
           0.5,
-          2.214216942801526
-        ],
-        "rotation": 90
-      },
-      {
-        "type": "plant",
-        "position": [
-          -0.4752486830027114,
-          0.5,
-          1.300820036994394
-        ],
-        "rotation": 270
-      },
-      {
-        "type": "couch",
-        "position": [
-          -0.7552100686746588,
-          0.5,
-          -2.8407997805722442
+          -1.5036177891962084
         ],
         "rotation": 180
+      },
+      {
+        "type": "table",
+        "position": [
+          -0.5261912040064223,
+          0.5,
+          -0.44397590090852646
+        ],
+        "rotation": 0
       }
     ],
     "has_light": true,
     "light": {
-      "type": "point",
+      "type": "ambient",
       "color": [
-        219,
-        211,
-        181
+        253,
+        231,
+        208
       ],
-      "intensity": 1.118199589181103
+      "intensity": 0.6540964605138717
     },
-    "dream_zone": false,
-    "dream_effects": [],
+    "dream_zone": true,
+    "dream_effects": [
+      "slow",
+      "fast"
+    ],
     "wall_color": [
+      233,
       221,
-      228,
-      190
+      183
     ],
     "floor_color": [
-      206,
-      202,
-      185
+      215,
+      224,
+      190
     ]
   },
   "2,2": {
@@ -3977,30 +4333,30 @@
       0,
       2
     ],
-    "type": "clean",
+    "type": "messy",
     "has_furniture": false,
     "furniture": [],
     "has_light": true,
     "light": {
       "type": "directional",
       "color": [
-        228,
-        222,
-        197
+        208,
+        203,
+        186
       ],
-      "intensity": 0.8364591710025406
+      "intensity": 0.9729895827559165
     },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      234,
-      224,
-      190
+      239,
+      229,
+      192
     ],
     "floor_color": [
-      213,
-      205,
-      179
+      208,
+      207,
+      177
     ]
   },
   "2,3": {
@@ -4009,67 +4365,58 @@
       0,
       3
     ],
-    "type": "messy",
+    "type": "empty",
     "has_furniture": true,
     "furniture": [
       {
         "type": "table",
         "position": [
-          1.9863822621407587,
+          -0.250580551184433,
           0.5,
-          0.9295687445188903
-        ],
-        "rotation": 0
-      },
-      {
-        "type": "lamp",
-        "position": [
-          0.35727614486455384,
-          0.5,
-          -1.7524501946954876
-        ],
-        "rotation": 270
-      },
-      {
-        "type": "couch",
-        "position": [
-          2.8029685027095095,
-          0.5,
-          -1.5003744772701944
+          2.9829052502676454
         ],
         "rotation": 90
       },
       {
-        "type": "bookshelf",
+        "type": "table",
         "position": [
-          -2.5504040934398793,
+          2.559057943525792,
           0.5,
-          -2.252992082093954
+          0.20492578397803074
         ],
-        "rotation": 180
+        "rotation": 270
+      },
+      {
+        "type": "table",
+        "position": [
+          -0.46888700134231964,
+          0.5,
+          -1.7726559187242403
+        ],
+        "rotation": 0
       }
     ],
     "has_light": true,
     "light": {
-      "type": "directional",
+      "type": "ambient",
       "color": [
-        228,
-        222,
-        199
+        233,
+        235,
+        218
       ],
-      "intensity": 1.2327815674620228
+      "intensity": 0.8104205920546232
     },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      220,
-      231,
-      192
+      225,
+      222,
+      190
     ],
     "floor_color": [
       201,
-      227,
-      166
+      223,
+      186
     ]
   },
   "2,4": {
@@ -4078,68 +4425,49 @@
       0,
       4
     ],
-    "type": "empty",
+    "type": "clean",
     "has_furniture": true,
     "furniture": [
       {
         "type": "table",
         "position": [
-          -1.4334978273845345,
+          -0.2653603667280535,
           0.5,
-          -1.4860735493504342
-        ],
-        "rotation": 90
-      },
-      {
-        "type": "bookshelf",
-        "position": [
-          0.6395461414368171,
-          0.5,
-          -2.163458865479443
+          -2.1141629624327325
         ],
         "rotation": 180
       },
       {
-        "type": "couch",
+        "type": "plant",
         "position": [
-          -2.191725263083038,
+          1.9261477664169018,
           0.5,
-          -2.1773060732461476
-        ],
-        "rotation": 0
-      },
-      {
-        "type": "lamp",
-        "position": [
-          -2.417234745170772,
-          0.5,
-          1.5350141914520332
-        ],
-        "rotation": 90
-      },
-      {
-        "type": "bookshelf",
-        "position": [
-          1.9968925661999233,
-          0.5,
-          1.511868294466984
+          -2.279310227759149
         ],
         "rotation": 270
       }
     ],
-    "has_light": false,
-    "light": null,
+    "has_light": true,
+    "light": {
+      "type": "directional",
+      "color": [
+        208,
+        242,
+        213
+      ],
+      "intensity": 0.6827435618704327
+    },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      223,
-      233,
-      193
+      236,
+      228,
+      192
     ],
     "floor_color": [
-      201,
-      226,
-      180
+      213,
+      222,
+      186
     ]
   },
   "3,-5": {
@@ -4148,30 +4476,58 @@
       0,
       -5
     ],
-    "type": "abandoned",
-    "has_furniture": false,
-    "furniture": [],
+    "type": "empty",
+    "has_furniture": true,
+    "furniture": [
+      {
+        "type": "table",
+        "position": [
+          2.7907391269878854,
+          0.5,
+          1.6857169212652057
+        ],
+        "rotation": 0
+      },
+      {
+        "type": "plant",
+        "position": [
+          -1.2927736059205008,
+          0.5,
+          1.7465485446692446
+        ],
+        "rotation": 0
+      },
+      {
+        "type": "couch",
+        "position": [
+          -2.620232378684187,
+          0.5,
+          -2.6611016792120767
+        ],
+        "rotation": 90
+      }
+    ],
     "has_light": true,
     "light": {
-      "type": "ambient",
+      "type": "point",
       "color": [
-        213,
-        241,
-        220
+        223,
+        246,
+        198
       ],
-      "intensity": 1.0491924744406225
+      "intensity": 0.6984946703842625
     },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      234,
-      237,
-      183
+      240,
+      223,
+      193
     ],
     "floor_color": [
       208,
-      213,
-      182
+      212,
+      187
     ]
   },
   "3,-4": {
@@ -4181,49 +4537,21 @@
       -4
     ],
     "type": "messy",
-    "has_furniture": true,
-    "furniture": [
-      {
-        "type": "couch",
-        "position": [
-          -1.7063696098778485,
-          0.5,
-          1.220193808713188
-        ],
-        "rotation": 90
-      },
-      {
-        "type": "couch",
-        "position": [
-          1.1623540976642666,
-          0.5,
-          1.215110515193456
-        ],
-        "rotation": 270
-      },
-      {
-        "type": "lamp",
-        "position": [
-          0.8478600503770997,
-          0.5,
-          2.591462403183633
-        ],
-        "rotation": 270
-      }
-    ],
+    "has_furniture": false,
+    "furniture": [],
     "has_light": false,
     "light": null,
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      227,
-      225,
-      196
+      229,
+      236,
+      191
     ],
     "floor_color": [
-      202,
-      229,
-      163
+      225,
+      225,
+      183
     ]
   },
   "3,-3": {
@@ -4232,40 +4560,40 @@
       0,
       -3
     ],
-    "type": "abandoned",
+    "type": "messy",
     "has_furniture": true,
     "furniture": [
       {
-        "type": "couch",
+        "type": "lamp",
         "position": [
-          -1.799952367633354,
+          -1.6271635598754055,
           0.5,
-          1.2397331897217265
+          -2.700263534216995
         ],
-        "rotation": 180
+        "rotation": 90
       }
     ],
     "has_light": true,
     "light": {
-      "type": "ambient",
+      "type": "point",
       "color": [
-        214,
-        200,
-        197
+        223,
+        211,
+        193
       ],
-      "intensity": 1.035306060201859
+      "intensity": 1.446106656112845
     },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      227,
-      237,
+      226,
+      223,
       187
     ],
     "floor_color": [
-      200,
-      230,
-      190
+      225,
+      215,
+      183
     ]
   },
   "3,-2": {
@@ -4274,20 +4602,28 @@
       0,
       -2
     ],
-    "type": "messy",
+    "type": "abandoned",
     "has_furniture": false,
     "furniture": [],
-    "has_light": false,
-    "light": null,
+    "has_light": true,
+    "light": {
+      "type": "directional",
+      "color": [
+        246,
+        255,
+        190
+      ],
+      "intensity": 1.2717836887559226
+    },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      221,
+      228,
       238,
-      181
+      200
     ],
     "floor_color": [
-      222,
+      221,
       212,
       187
     ]
@@ -4298,22 +4634,30 @@
       0,
       -1
     ],
-    "type": "empty",
+    "type": "abandoned",
     "has_furniture": false,
     "furniture": [],
-    "has_light": false,
-    "light": null,
+    "has_light": true,
+    "light": {
+      "type": "ambient",
+      "color": [
+        203,
+        223,
+        218
+      ],
+      "intensity": 1.0712061486706768
+    },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
+      220,
       228,
-      226,
-      188
+      195
     ],
     "floor_color": [
-      222,
-      204,
-      162
+      201,
+      229,
+      186
     ]
   },
   "3,0": {
@@ -4326,54 +4670,74 @@
     "has_furniture": true,
     "furniture": [
       {
-        "type": "plant",
+        "type": "couch",
         "position": [
-          1.0487879948686096,
+          1.1193728918780863,
           0.5,
-          1.8888494834094214
+          -1.2007681848820362
         ],
-        "rotation": 90
+        "rotation": 270
       },
       {
-        "type": "bookshelf",
+        "type": "couch",
         "position": [
-          1.3333636939303588,
+          -0.7655393251764124,
           0.5,
-          -1.900557449449618
+          0.7780242575063725
         ],
-        "rotation": 90
+        "rotation": 0
       },
       {
-        "type": "plant",
+        "type": "chair",
         "position": [
-          -1.2687077564423166,
+          -1.4102721064517374,
           0.5,
-          2.2727959573779497
+          -0.12690861209541682
         ],
-        "rotation": 90
+        "rotation": 270
+      },
+      {
+        "type": "table",
+        "position": [
+          0.7076239833570925,
+          0.5,
+          -0.044521415498348205
+        ],
+        "rotation": 180
+      },
+      {
+        "type": "chair",
+        "position": [
+          -0.6523724573923855,
+          0.5,
+          -0.4458604129154278
+        ],
+        "rotation": 180
       }
     ],
     "has_light": true,
     "light": {
-      "type": "point",
+      "type": "ambient",
       "color": [
-        230,
-        241,
-        217
+        201,
+        234,
+        193
       ],
-      "intensity": 0.7607468082833175
+      "intensity": 0.6674714590793505
     },
-    "dream_zone": false,
-    "dream_effects": [],
+    "dream_zone": true,
+    "dream_effects": [
+      "fast"
+    ],
     "wall_color": [
-      228,
-      237,
-      186
+      240,
+      233,
+      199
     ],
     "floor_color": [
-      201,
-      227,
-      169
+      211,
+      226,
+      190
     ]
   },
   "3,1": {
@@ -4382,30 +4746,50 @@
       0,
       1
     ],
-    "type": "abandoned",
-    "has_furniture": false,
-    "furniture": [],
-    "has_light": true,
-    "light": {
-      "type": "point",
-      "color": [
-        219,
-        241,
-        188
-      ],
-      "intensity": 1.0314572336141614
-    },
+    "type": "messy",
+    "has_furniture": true,
+    "furniture": [
+      {
+        "type": "bookshelf",
+        "position": [
+          -2.302086559688763,
+          0.5,
+          -1.240493920678561
+        ],
+        "rotation": 270
+      },
+      {
+        "type": "lamp",
+        "position": [
+          2.0653986456851987,
+          0.5,
+          1.6820250697278887
+        ],
+        "rotation": 0
+      },
+      {
+        "type": "chair",
+        "position": [
+          2.9768566602447404,
+          0.5,
+          0.4684153700040059
+        ],
+        "rotation": 180
+      }
+    ],
+    "has_light": false,
+    "light": null,
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      231,
-      229,
-      183
+      238,
+      226,
+      197
     ],
     "floor_color": [
-      223,
-      211,
-      160
+      205,
+      220,
+      163
     ]
   },
   "3,2": {
@@ -4414,50 +4798,30 @@
       0,
       2
     ],
-    "type": "messy",
-    "has_furniture": true,
-    "furniture": [
-      {
-        "type": "bookshelf",
-        "position": [
-          2.203665988288213,
-          0.5,
-          1.0493299987478766
-        ],
-        "rotation": 90
-      },
-      {
-        "type": "lamp",
-        "position": [
-          0.10747870599436204,
-          0.5,
-          -1.7745069978769596
-        ],
-        "rotation": 90
-      },
-      {
-        "type": "plant",
-        "position": [
-          -0.1541190701767814,
-          0.5,
-          2.7585732664771854
-        ],
-        "rotation": 270
-      }
-    ],
-    "has_light": false,
-    "light": null,
+    "type": "empty",
+    "has_furniture": false,
+    "furniture": [],
+    "has_light": true,
+    "light": {
+      "type": "ambient",
+      "color": [
+        237,
+        206,
+        213
+      ],
+      "intensity": 0.8764778885202688
+    },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      239,
-      238,
+      222,
+      227,
       189
     ],
     "floor_color": [
-      226,
-      206,
-      188
+      208,
+      200,
+      162
     ]
   },
   "3,3": {
@@ -4466,49 +4830,70 @@
       0,
       3
     ],
-    "type": "clean",
+    "type": "empty",
     "has_furniture": true,
     "furniture": [
       {
-        "type": "table",
+        "type": "couch",
         "position": [
-          0.05319868938630812,
+          1.7966190007566976,
           0.5,
-          2.3523214356739555
+          0.5978810538470003
         ],
-        "rotation": 180
+        "rotation": 0
       },
       {
-        "type": "bookshelf",
+        "type": "chair",
         "position": [
-          -0.32373705517653084,
+          -1.548203041095672,
           0.5,
-          2.5988938592584585
+          2.746754109877565
         ],
-        "rotation": 90
+        "rotation": 0
+      },
+      {
+        "type": "couch",
+        "position": [
+          1.3102565514430946,
+          0.5,
+          1.9729547582667184
+        ],
+        "rotation": 270
+      },
+      {
+        "type": "chair",
+        "position": [
+          -0.39954602212439916,
+          0.5,
+          0.3606180936918917
+        ],
+        "rotation": 270
       }
     ],
     "has_light": true,
     "light": {
-      "type": "ambient",
+      "type": "point",
       "color": [
-        253,
-        242,
-        213
+        222,
+        244,
+        218
       ],
-      "intensity": 0.9134183169291636
+      "intensity": 1.045692386371933
     },
-    "dream_zone": false,
-    "dream_effects": [],
+    "dream_zone": true,
+    "dream_effects": [
+      "slow",
+      "panic"
+    ],
     "wall_color": [
-      227,
-      238,
-      182
+      226,
+      235,
+      184
     ],
     "floor_color": [
-      200,
-      213,
-      176
+      203,
+      204,
+      170
     ]
   },
   "3,4": {
@@ -4517,30 +4902,58 @@
       0,
       4
     ],
-    "type": "messy",
-    "has_furniture": false,
-    "furniture": [],
+    "type": "empty",
+    "has_furniture": true,
+    "furniture": [
+      {
+        "type": "chair",
+        "position": [
+          -0.7568155609638971,
+          0.5,
+          2.673782608971962
+        ],
+        "rotation": 90
+      },
+      {
+        "type": "lamp",
+        "position": [
+          1.1273262609025405,
+          0.5,
+          -2.3887952590153505
+        ],
+        "rotation": 0
+      },
+      {
+        "type": "bookshelf",
+        "position": [
+          1.5637742531237038,
+          0.5,
+          -0.2017486864048914
+        ],
+        "rotation": 0
+      }
+    ],
     "has_light": true,
     "light": {
       "type": "ambient",
       "color": [
-        252,
-        252,
-        212
+        228,
+        240,
+        220
       ],
-      "intensity": 1.1697938837528525
+      "intensity": 1.36522082747309
     },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      234,
-      220,
-      197
+      237,
+      238,
+      200
     ],
     "floor_color": [
-      211,
-      218,
-      187
+      228,
+      222,
+      162
     ]
   },
   "4,-5": {
@@ -4549,67 +4962,68 @@
       0,
       -5
     ],
-    "type": "abandoned",
+    "type": "messy",
     "has_furniture": true,
     "furniture": [
       {
-        "type": "couch",
+        "type": "lamp",
         "position": [
-          -2.84584032345556,
+          1.1142041474116553,
           0.5,
-          -0.5070347982465178
+          0.9315724491267479
+        ],
+        "rotation": 0
+      },
+      {
+        "type": "chair",
+        "position": [
+          -2.287431816026694,
+          0.5,
+          1.6219389452317419
+        ],
+        "rotation": 90
+      },
+      {
+        "type": "chair",
+        "position": [
+          -1.027955926611498,
+          0.5,
+          -2.437420463407366
         ],
         "rotation": 0
       },
       {
         "type": "plant",
         "position": [
-          2.9175724710436324,
+          -1.1449175311258422,
           0.5,
-          -2.3595401856648595
+          -0.6617617727287808
         ],
-        "rotation": 180
+        "rotation": 90
       },
       {
-        "type": "bookshelf",
+        "type": "lamp",
         "position": [
-          0.010066781190884111,
+          -2.7169455349118263,
           0.5,
-          -0.27953118509720376
-        ],
-        "rotation": 270
-      },
-      {
-        "type": "chair",
-        "position": [
-          0.6904336944036666,
-          0.5,
-          -2.029299324694298
+          1.629779195026889
         ],
         "rotation": 0
       }
     ],
-    "has_light": true,
-    "light": {
-      "type": "directional",
-      "color": [
-        230,
-        249,
-        213
-      ],
-      "intensity": 0.904449847268159
-    },
+    "has_light": false,
+    "light": null,
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      232,
-      223,
-      181
+      227,
+      233,
+      185
     ],
     "floor_color": [
-      210,
+      203,
       227,
-      180
+      161
     ]
   },
   "4,-4": {
@@ -4618,29 +5032,77 @@
       0,
       -4
     ],
-    "type": "messy",
-    "has_furniture": false,
-    "furniture": [],
+    "type": "empty",
+    "has_furniture": true,
+    "furniture": [
+      {
+        "type": "couch",
+        "position": [
+          -2.1750581674977494,
+          0.5,
+          1.985939729118357
+        ],
+        "rotation": 270
+      },
+      {
+        "type": "table",
+        "position": [
+          -2.673489899527933,
+          0.5,
+          0.972795716978367
+        ],
+        "rotation": 0
+      },
+      {
+        "type": "couch",
+        "position": [
+          -1.4873379317413153,
+          0.5,
+          1.6943387268935641
+        ],
+        "rotation": 180
+      },
+      {
+        "type": "table",
+        "position": [
+          -2.8633932290032336,
+          0.5,
+          1.541046733118229
+        ],
+        "rotation": 0
+      },
+      {
+        "type": "bookshelf",
+        "position": [
+          1.301311163005284,
+          0.5,
+          -2.7255545808910817
+        ],
+        "rotation": 180
+      }
+    ],
     "has_light": true,
     "light": {
-      "type": "ambient",
+      "type": "directional",
       "color": [
-        235,
-        225,
-        217
+        233,
+        253,
+        180
       ],
-      "intensity": 1.2632681008314972
+      "intensity": 1.411695708131019
     },
-    "dream_zone": false,
-    "dream_effects": [],
+    "dream_zone": true,
+    "dream_effects": [
+      "panic"
+    ],
     "wall_color": [
-      239,
-      221,
-      193
+      233,
+      234,
+      192
     ],
     "floor_color": [
-      224,
-      209,
+      212,
+      200,
       174
     ]
   },
@@ -4654,45 +5116,63 @@
     "has_furniture": true,
     "furniture": [
       {
+        "type": "table",
+        "position": [
+          2.2943720428352385,
+          0.5,
+          1.3439097332181111
+        ],
+        "rotation": 90
+      },
+      {
+        "type": "plant",
+        "position": [
+          2.240831746665892,
+          0.5,
+          -1.6254708220047036
+        ],
+        "rotation": 90
+      },
+      {
         "type": "bookshelf",
         "position": [
-          0.1417750708888157,
+          -1.6259524150284184,
           0.5,
-          -2.1485598926116567
+          -0.31775997384927734
         ],
         "rotation": 180
       },
       {
         "type": "table",
         "position": [
-          2.0529109575084012,
+          1.396201410885868,
           0.5,
-          -0.6093070428809959
+          0.5341572723510524
         ],
-        "rotation": 0
+        "rotation": 180
       }
     ],
     "has_light": true,
     "light": {
-      "type": "point",
+      "type": "directional",
       "color": [
-        245,
-        241,
-        187
+        225,
+        239,
+        202
       ],
-      "intensity": 0.9594398865999842
+      "intensity": 0.5317229095919282
     },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      221,
       222,
-      193
+      224,
+      195
     ],
     "floor_color": [
-      224,
-      207,
-      174
+      227,
+      227,
+      164
     ]
   },
   "4,-2": {
@@ -4701,67 +5181,30 @@
       0,
       -2
     ],
-    "type": "clean",
-    "has_furniture": true,
-    "furniture": [
-      {
-        "type": "chair",
-        "position": [
-          -1.125681310335027,
-          0.5,
-          1.064191067706071
-        ],
-        "rotation": 90
-      },
-      {
-        "type": "lamp",
-        "position": [
-          -0.8497758447691002,
-          0.5,
-          -0.1912413619554183
-        ],
-        "rotation": 90
-      },
-      {
-        "type": "plant",
-        "position": [
-          -0.6695069978991439,
-          0.5,
-          -2.187857752377912
-        ],
-        "rotation": 0
-      },
-      {
-        "type": "chair",
-        "position": [
-          -2.199766721499894,
-          0.5,
-          -1.3852013835380441
-        ],
-        "rotation": 270
-      }
-    ],
+    "type": "abandoned",
+    "has_furniture": false,
+    "furniture": [],
     "has_light": true,
     "light": {
-      "type": "point",
+      "type": "ambient",
       "color": [
-        238,
-        237,
-        187
+        245,
+        200,
+        188
       ],
-      "intensity": 1.384704198673437
+      "intensity": 0.6197638299858885
     },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      225,
-      226,
-      190
+      229,
+      234,
+      189
     ],
     "floor_color": [
       220,
-      207,
-      162
+      216,
+      168
     ]
   },
   "4,-1": {
@@ -4770,30 +5213,52 @@
       0,
       -1
     ],
-    "type": "messy",
-    "has_furniture": false,
-    "furniture": [],
-    "has_light": true,
-    "light": {
-      "type": "ambient",
-      "color": [
-        205,
-        201,
-        213
-      ],
-      "intensity": 1.3757260668928881
-    },
-    "dream_zone": false,
-    "dream_effects": [],
+    "type": "clean",
+    "has_furniture": true,
+    "furniture": [
+      {
+        "type": "plant",
+        "position": [
+          2.831802011987233,
+          0.5,
+          2.5540281714182305
+        ],
+        "rotation": 270
+      },
+      {
+        "type": "lamp",
+        "position": [
+          -2.638811326250603,
+          0.5,
+          -1.6452826176134345
+        ],
+        "rotation": 90
+      },
+      {
+        "type": "plant",
+        "position": [
+          0.2311264409666851,
+          0.5,
+          -2.2175282659414037
+        ],
+        "rotation": 180
+      }
+    ],
+    "has_light": false,
+    "light": null,
+    "dream_zone": true,
+    "dream_effects": [
+      "slow"
+    ],
     "wall_color": [
-      234,
-      224,
-      180
+      225,
+      227,
+      188
     ],
     "floor_color": [
-      227,
+      220,
       205,
-      181
+      172
     ]
   },
   "4,0": {
@@ -4802,58 +5267,49 @@
       0,
       0
     ],
-    "type": "empty",
+    "type": "clean",
     "has_furniture": true,
     "furniture": [
       {
         "type": "chair",
         "position": [
-          2.1577225866680445,
+          2.919304725017266,
           0.5,
-          1.502293700681344
+          -0.9341063357607231
         ],
         "rotation": 180
       },
       {
-        "type": "table",
+        "type": "chair",
         "position": [
-          2.3127916123212273,
+          0.4190282625094892,
           0.5,
-          0.7069429440444193
+          -1.1985816664053015
         ],
-        "rotation": 180
-      },
-      {
-        "type": "plant",
-        "position": [
-          -0.43642184354234637,
-          0.5,
-          2.430207784723324
-        ],
-        "rotation": 0
+        "rotation": 270
       }
     ],
     "has_light": true,
     "light": {
-      "type": "point",
+      "type": "directional",
       "color": [
-        205,
-        233,
-        206
+        221,
+        230,
+        198
       ],
-      "intensity": 0.7028219088624381
+      "intensity": 0.5922848921941154
     },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
       224,
-      239,
-      181
+      238,
+      186
     ],
     "floor_color": [
-      213,
-      210,
-      179
+      201,
+      212,
+      167
     ]
   },
   "4,1": {
@@ -4862,30 +5318,40 @@
       0,
       1
     ],
-    "type": "messy",
-    "has_furniture": false,
-    "furniture": [],
+    "type": "empty",
+    "has_furniture": true,
+    "furniture": [
+      {
+        "type": "table",
+        "position": [
+          1.6453732809321613,
+          0.5,
+          -1.127018651235272
+        ],
+        "rotation": 270
+      }
+    ],
     "has_light": true,
     "light": {
       "type": "point",
       "color": [
-        243,
-        213,
-        217
+        215,
+        241,
+        195
       ],
-      "intensity": 0.7174224146600943
+      "intensity": 1.014259593519678
     },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
       237,
-      227,
-      181
+      230,
+      199
     ],
     "floor_color": [
-      225,
-      226,
-      170
+      204,
+      230,
+      181
     ]
   },
   "4,2": {
@@ -4894,58 +5360,40 @@
       0,
       2
     ],
-    "type": "messy",
+    "type": "empty",
     "has_furniture": true,
     "furniture": [
       {
-        "type": "bookshelf",
-        "position": [
-          -2.3558980806551766,
-          0.5,
-          -2.2218670929242195
-        ],
-        "rotation": 270
-      },
-      {
-        "type": "chair",
-        "position": [
-          0.5745130651316943,
-          0.5,
-          -1.2484796138076715
-        ],
-        "rotation": 0
-      },
-      {
         "type": "couch",
         "position": [
-          1.391158240499574,
+          -2.539618161157126,
           0.5,
-          1.4759825378998936
+          -2.3062986420724507
         ],
-        "rotation": 0
+        "rotation": 90
       }
     ],
     "has_light": true,
     "light": {
-      "type": "point",
+      "type": "ambient",
       "color": [
-        232,
-        252,
-        199
+        224,
+        215,
+        198
       ],
-      "intensity": 1.1445909434177581
+      "intensity": 1.1404321814536833
     },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      223,
-      220,
-      182
+      240,
+      234,
+      185
     ],
     "floor_color": [
-      218,
-      222,
-      167
+      209,
+      214,
+      171
     ]
   },
   "4,3": {
@@ -4954,32 +5402,30 @@
       0,
       3
     ],
-    "type": "abandoned",
+    "type": "clean",
     "has_furniture": false,
     "furniture": [],
     "has_light": true,
     "light": {
-      "type": "ambient",
+      "type": "point",
       "color": [
-        230,
-        217,
-        204
+        228,
+        240,
+        217
       ],
-      "intensity": 1.2414132713503863
+      "intensity": 1.3762853473383774
     },
-    "dream_zone": true,
-    "dream_effects": [
-      "glitch"
-    ],
+    "dream_zone": false,
+    "dream_effects": [],
     "wall_color": [
-      236,
       230,
-      198
+      220,
+      180
     ],
     "floor_color": [
-      205,
-      203,
-      166
+      226,
+      217,
+      162
     ]
   },
   "4,4": {
@@ -4989,21 +5435,57 @@
       4
     ],
     "type": "empty",
-    "has_furniture": false,
-    "furniture": [],
-    "has_light": false,
-    "light": null,
+    "has_furniture": true,
+    "furniture": [
+      {
+        "type": "bookshelf",
+        "position": [
+          2.005394714388025,
+          0.5,
+          -0.049458260766056306
+        ],
+        "rotation": 90
+      },
+      {
+        "type": "chair",
+        "position": [
+          -2.3713920503636636,
+          0.5,
+          1.2372340846963699
+        ],
+        "rotation": 180
+      },
+      {
+        "type": "lamp",
+        "position": [
+          -2.249059406857004,
+          0.5,
+          0.9358708752539946
+        ],
+        "rotation": 180
+      }
+    ],
+    "has_light": true,
+    "light": {
+      "type": "directional",
+      "color": [
+        244,
+        216,
+        217
+      ],
+      "intensity": 0.8575512758092614
+    },
     "dream_zone": false,
     "dream_effects": [],
     "wall_color": [
-      231,
-      229,
-      180
+      240,
+      228,
+      197
     ],
     "floor_color": [
-      229,
-      211,
-      169
+      221,
+      209,
+      161
     ]
   }
 }

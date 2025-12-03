@@ -12,6 +12,7 @@ from direct.interval.IntervalGlobal import Sequence
 from direct.gui.DirectGui import *
 import sys
 
+# for running on windowless terminal testing.
 
 class BackroomsWorld:
     def __init__(self, seed=None):
