@@ -216,7 +216,7 @@ class BackroomsGame(Entity):
         # Create ceiling entity
         ceiling = Entity(
             model='plane',
-            texture='textures/floor_texture.png',
+            texture='textures/wall_texture.png',
             texture_scale=Vec2(10, 10),
             scale=ceiling_size,
             rotation_x=-90,  # Flip to face down
@@ -237,11 +237,11 @@ class BackroomsGame(Entity):
                     # Create a wall at this position
                     wall = Entity(
                         model='cube',
-                        texture='textures/wall_texture.png',
+                        texture='textures/roof_texture.png',
                         texture_scale=Vec2(1, 1),
                         scale=(1, 3, 1),  # Width, height, depth
                         x=x,
-                        y=1.5,  # Center height
+                        y=2,  # Center height
                         z=y,
                         color=color.white
                     )
