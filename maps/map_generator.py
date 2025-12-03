@@ -177,8 +177,8 @@ class MapGenerator:
         }
         
         # Create directory if it doesn't exist
-        os.makedirs(os.path.dirname(filepath), exist_ok=True)
-        
+        # os.makedirs(os.path.dirname(filepath), exist_ok=True)
+
         with open(filepath, 'w') as f:
             json.dump(data, f, indent=2)
     
@@ -242,10 +242,10 @@ def main():
     
     # Ask for filename
     filename = input(f"\nEnter filename to save (default: generated_map.json): ") or "generated_map.json"
-    filepath = os.path.join("maps", filename)
+    # filepath = os.path.join("maps", filename)
     
-    generator.save_to_file(filepath)
-    print(f"Map saved to {filepath}")
+    generator.save_to_file(filename)
+    print(f"Map saved to {filename}")
     
     # Show some stats
     path_count = sum(row.count(0) for row in generator.grid)

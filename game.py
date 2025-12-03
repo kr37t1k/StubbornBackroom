@@ -18,13 +18,14 @@ import sys
 class Config:
     window_size: tuple = (1280, 720)
     window_type = 'windowed'  # ['windowed', 'fullscreen', 'borderless']
-    fps: int = 60
+    fps: int = 70
     title: str = "StubbornBackroom: Psycho Dream"
+    map: Path = "./maps/simulation.json"
     player_speed: float = 5.0
-    mouse_sensitivity: tuple = (40, 40)
-    gravity: float = -9.81
+    mouse_sensitivity: tuple = (75, 75)
+    gravity: float = -8
     reality_decay_rate: float = 0.0001
-    hallucination_threshold: float = 0.7
+    hallucination_threshold: float = 0.3
 
 
 class Map:
@@ -119,8 +120,7 @@ class Map:
         self.end_pos = tuple(data["end_pos"])
         self.grid = data["map"]
 
-
-class BackroomsGame(Ursina):
+class BackroomsGame(Entity):
     def __init__(self):
         # Initialize Ursina
         super().__init__()
@@ -130,7 +130,7 @@ class BackroomsGame(Ursina):
         
         # Set window properties
         window.title = self.config.title
-        window.borderless = False
+        window.borderless = True if self.config.window_type == 'borderless' else False
         window.exit_button.visible = False
         window.fps_counter.enabled = True
         window.size = self.config.window_size
@@ -156,11 +156,12 @@ class BackroomsGame(Ursina):
         
         # Load map
         self.map = Map()
-        if os.path.exists("maps/generated_map.json"):
-            self.map.load_from_file("maps/generated_map.json")
+        if os.path.exists(self.config.map):
+            self.map.load_from_file(self.config.map)
         else:
-            self.map.generate_maze()
-            self.map.save_to_file("maps/generated_map.json")
+            print("Wrong path:  " + self.config.map)
+            # self.map.generate_maze()
+            # self.map.save_to_file(self.config.map)
         
         # Initialize the game
         self.setup_scene()
@@ -266,6 +267,8 @@ class BackroomsGame(Ursina):
                 self.key_states[key] = True
             elif key.endswith(' up') and key[:-3] in self.key_states:
                 self.key_states[key[:-3]] = False
+            elif 'r' in key: #fix plz
+                self.player.position = Vec3(2.5, 2.5, -0.5)  # Reset position
             elif key == 'escape':
                 application.quit()
         
@@ -301,7 +304,7 @@ class BackroomsGame(Ursina):
         """Set up the first person player controller"""
         # Create first person controller
         self.player = FirstPersonController()
-        self.player.position = Vec3(1.5, 1.5, 1.5)  # Start position
+        self.player.position = Vec3(2.5, 2.5, -0.5)  # Start position
         self.player.speed = self.player_speed
         
         # Set mouse sensitivity
@@ -314,6 +317,8 @@ class BackroomsGame(Ursina):
             self.key_states[key] = True
         elif key.endswith(' up') and key[:-3] in self.key_states:
             self.key_states[key[:-3]] = False
+        elif key == 'r':
+            self.player.position = Vec3(2.5, 2.5, 1.5)  # Reset position
         elif key == 'escape':
             application.quit()
     
@@ -357,131 +362,6 @@ class BackroomsGame(Ursina):
 
 if __name__ == "__main__":
     # Create and run the game
+    app = Ursina()
     game = BackroomsGame()
-    game.run()locity[2] += self.gravity * dt
-        
-        # Update vertical position
-        new_pos = self.player_pos + self.player_velocity * dt
-        self.player_pos = new_pos
-        
-        # Simple ground collision
-        if self.player_pos[1] <= 0:
-            self.player_pos[1] = 0
-            self.player_velocity[1] = 0
-            self.on_ground = True
-        
-        # Check if player is near the "exit"
-        exit_x, exit_z = self.map.end_pos
-        distance_to_exit = math.sqrt((self.player_pos[0] - exit_x)**2 + (self.player_pos[2] - exit_z)**2)
-        if distance_to_exit < 1.0:
-            print("You found the exit!")
-            # In a real game, you'd transition to the next level or end the game
-        
-        return Task.cont
-    
-    def update_camera(self, task):
-        """Update camera position and orientation"""
-        dt = globalClock.getDt()
-        
-        # Update camera to follow player
-        self.camera.setPos(self.player_pos[0], self.player_pos[1] + 1.8, self.player_pos[2])  # Eye level
-        
-        # Handle mouse look if enabled
-        if self.mouse_control_enabled and self.mouseWatcherNode.hasMouse():
-            mouse_x = self.mouseWatcherNode.getMouseX()
-            mouse_y = self.mouseWatcherNode.getMouseY()
-            
-            # Calculate mouse movement since last frame
-            if not hasattr(self, 'last_mouse_x'):
-                self.last_mouse_x = mouse_x
-                self.last_mouse_y = mouse_y
-            
-            mouse_dx = mouse_x - self.last_mouse_x
-            mouse_dy = mouse_y - self.last_mouse_y
-            
-            # Update player heading and pitch based on mouse movement
-            self.player_hpr[0] -= mouse_dx * self.mouse_sensitivity * 50
-            self.player_hpr[1] = max(-90, min(90, self.player_hpr[1] - mouse_dy * self.mouse_sensitivity * 50))
-            
-            # Apply rotation to camera
-            self.camera.setHpr(self.player_hpr[0], self.player_hpr[1], 0)
-            
-            # Reset mouse position to center to prevent cursor from leaving window
-            self.win.movePointer(0, 
-                                int(self.win.getProperties().getXSize() / 2),
-                                int(self.win.getProperties().getYSize() / 2))
-            
-            # Update last mouse position
-            self.last_mouse_x = self.win.getProperties().getXSize() / 2
-            self.last_mouse_y = self.win.getProperties().getYSize() / 2
-        else:
-            # Update camera rotation based on player's heading/pitch
-            self.camera.setHpr(self.player_hpr[0], self.player_hpr[1], 0)
-        
-        return Task.cont
-    
-    def update_flashlight(self, task):
-        """Update flashlight position and direction"""
-        # Position the flashlight at the camera
-        self.flashlight_np.set_pos(self.camera.getPos())
-        self.flashlight_np.set_hpr(self.camera.getHpr())
-        return Task.cont
-    
-    def update_reality(self, task):
-        """Update reality stability and hallucination levels"""
-        dt = globalClock.getDt()
-        
-        # Reality decay based on isolation and darkness
-        decay_rate = self.config.reality_decay_rate
-        
-        # Check if player is in a dark area (simplified)
-        # In a real implementation, this would be based on light levels at player position
-        self.time_in_darkness += dt
-        if self.background_music.status() == 2:  # Playing
-            self.last_sound_time = 0
-        else:
-            self.last_sound_time += dt
-        
-        # Increase decay rate if player is alone in darkness for too long
-        if self.time_in_darkness > 10.0:
-            decay_rate *= 2.0
-        
-        # Update reality stability
-        self.reality_stability = max(0.0, self.reality_stability - decay_rate)
-        
-        # Update hallucination level
-        self.hallucination_level = 1.0 - self.reality_stability
-        
-        # Apply visual effects based on hallucination level
-        self.apply_reality_effects()
-        
-        return Task.cont
-    
-    def apply_reality_effects(self):
-        """Apply visual and audio effects based on reality level"""
-        # Change background color based on reality stability
-        base_color = (0.8, 0.75, 0.3)  # Base backrooms yellow
-        distortion_color = (0.9, 0.3, 0.3)  # Red for distortion
-        
-        r = base_color[0] + (distortion_color[0] - base_color[0]) * self.hallucination_level
-        g = base_color[1] + (distortion_color[1] - base_color[1]) * self.hallucination_level
-        b = base_color[2] + (distortion_color[2] - base_color[2]) * self.hallucination_level
-        
-        self.setBackgroundColor(r, g, b)
-    
-    def set_camera_position(self):
-        """Set initial camera position"""
-        self.camera.setPos(self.player_pos[0], self.player_pos[1] + 1.8, self.player_pos[2])  # Eye level
-        self.camera.setHpr(0, 0, 0)
-
-
-def main():
-    """Main function to run the game"""
-    # Create and run the game
-    game = BackroomsGame()
-    game.run()
-
-
-if __name__ == "__main__":
-    main()
-
+    app.run()
