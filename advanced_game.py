@@ -511,20 +511,18 @@ class AdvancedBackroomsGame(Entity):
         self.directional_light.rotation = Vec3(45, -45, 0)
         
         # Player flashlight will be handled by the player controller
-    
+
     def setup_audio(self):
         """Set up audio system"""
         # Ursina doesn't have built-in audio manager, so we'll use pygame.mixer for background music
         try:
-            import pygame.mixer
-            pygame.mixer.init()
-            
+            from pydub import AudioSegment
+            from pydub.playback import play
             if os.path.exists("audio/atomiste.mp3"):
-                pygame.mixer.music.load("audio/atomiste.mp3")
-                pygame.mixer.music.set_volume(0.3)
-                pygame.mixer.music.play(-1)  # Loop indefinitely
+                background_music = AudioSegment.from_file("audio/atomiste.mp3")
+                play(background_music)
         except ImportError:
-            print("pygame not available for audio playback")
+            print("pydub not available for audio playback")
     
     def setup_player(self):
         """Set up the first person player controller with enhanced physics"""
