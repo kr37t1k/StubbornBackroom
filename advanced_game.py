@@ -1,606 +1,446 @@
 #!/usr/bin/env python3
-# Advanced Backrooms Game with Fog, Physics, and Advanced Entities
-# 3D Backrooms Python 3.11 Prototype with Ursina
+# Backrooms Horror Escape Game
+# A terrifying 3D Backrooms experience with escape objectives
 
-import math
 import random
-from dataclasses import dataclass
-from typing import Tuple, List, Dict, Optional
+import sys
+import time
 from ursina import *
 from ursina.prefabs.first_person_controller import FirstPersonController
+from ursina.shaders import lit_with_shadows_shader
 import json
 import os
-import sys
 
 
-@dataclass
-class Config:
-    window_size: tuple = (1280, 720)
-    window_type = 'windowed'  # ['windowed', 'fullscreen', 'borderless']
-    fps: int = 70
-    title: str = "Advanced Backrooms: Psycho Dream"
-    map: Path = "./maps/simulation.json"
-    player_speed: float = 5.0
-    mouse_sensitivity: tuple = (75, 75)
-    gravity: float = -8
-    reality_decay_rate: float = 0.0001
-    hallucination_threshold: float = 0.3
-    fog_density: float = 0.02  # Fog density for atmosphere
-    max_entities: int = 1000  # For optimization
+app = Ursina()
 
+# Seed for reproducible randomization
+random.seed(0)
+Entity.default_shader = lit_with_shadows_shader
 
-class Entity3D:
-    """Base class for all 3D entities in the game"""
-    def __init__(self, x: float, y: float, z: float, entity_type: str = "generic"):
-        self.x = x
-        self.y = y
-        self.z = z
-        self.entity_type = entity_type
-        self.entity = None
-        self.active = True
-        self.health = 100
-        self.collidable = True
-    
-    def create_entity(self):
-        """Create the actual 3D entity - to be overridden by subclasses"""
-        pass
-    
-    def update(self):
-        """Update the entity - to be overridden by subclasses"""
-        pass
+# Backrooms-specific variables
+backrooms_timer = 0
+sanity = 100
+sanity_decrease_rate = 0.1
+escape_objectives = []
+current_objective = 0
+game_over = False
+vignette = None
 
-
-class Wall(Entity3D):
-    """Wall entity with collision"""
-    def __init__(self, x: float, y: float, z: float, height: float = 3.0, width: float = 1.0, depth: float = 1.0):
-        super().__init__(x, y, z, "wall")
-        self.height = height
-        self.width = width
-        self.depth = depth
-    
-    def create_entity(self):
-        self.entity = Entity(
-            model='cube',
-            texture='textures/wall_texture.png',
-            texture_scale=Vec2(1, 1),
-            scale=(self.width, self.height, self.depth),
-            x=self.x,
-            y=self.y,
-            z=self.z,
-            color=color.white
-        )
-        self.entity.collider = 'box'
-        return self.entity
-
-
-class Floor(Entity3D):
-    """Floor entity"""
-    def __init__(self, x: float, z: float, size: float = 1.0):
-        super().__init__(x, 0, z, "floor")
-        self.size = size
-    
-    def create_entity(self):
-        self.entity = Entity(
-            model='plane',
-            texture='textures/floor_texture.png',
-            texture_scale=Vec2(10, 10),
-            scale=self.size,
-            rotation_x=90,
-            x=self.x,
-            z=self.z,
-            color=color.white
-        )
-        self.entity.collider = 'mesh'
-        return self.entity
-
-
-class Ceiling(Entity3D):
-    """Ceiling entity"""
-    def __init__(self, x: float, z: float, size: float = 1.0):
-        super().__init__(x, 3, z, "ceiling")  # Fixed height at 3
-        self.size = size
-    
-    def create_entity(self):
-        self.entity = Entity(
-            model='plane',
-            texture='textures/roof_texture.png',
-            texture_scale=Vec2(10, 10),
-            scale=self.size,
-            rotation_x=-90,  # Flip to face down
-            y=3,  # 3 units above floor
-            x=self.x,
-            z=self.z,
-            color=color.white
-        )
-        self.entity.collider = 'mesh'
-        return self.entity
-
-
-class Door(Entity3D):
-    """Interactive door entity"""
-    def __init__(self, x: float, y: float, z: float, is_open: bool = False, locked: bool = False):
-        super().__init__(x, y, z, "door")
-        self.is_open = is_open
-        self.locked = locked
-        self.rotation = 0  # For opening animation
-    
-    def create_entity(self):
-        # Create door frame
-        self.frame = Entity(
-            model='cube',
-            texture='textures/wall_texture.png',
-            scale=(0.1, 3, 2.2),
-            x=self.x - 1,
-            y=self.y,
-            z=self.z,
-            color=color.gray
-        )
-        self.frame.collider = 'box'
-        
-        # Create door panel
-        self.door_panel = Entity(
-            model='cube',
-            texture='textures/door_texture.png',
-            scale=(0.1, 2.8, 2),
-            x=self.x,
-            y=self.y,
-            z=self.z,
-            color=color.brown
-        )
-        self.door_panel.collider = 'box'
-        
-        # Set initial rotation based on open state
-        if self.is_open:
-            self.door_panel.rotation_y = 90
-        
-        self.entity = [self.frame, self.door_panel]
-        return self.entity
-    
-    def toggle_door(self):
-        """Toggle door open/closed state"""
-        if not self.locked:
-            self.is_open = not self.is_open
-            if self.is_open:
-                self.door_panel.animate_rotation_y(90, duration=0.5)
-            else:
-                self.door_panel.animate_rotation_y(0, duration=0.5)
-            return True
-        return False
-
-
-class AdvancedMap:
-    """Advanced map with multiple entity types"""
-    def __init__(self, width: int = 100, height: int = 100, seed: int = None):
-        self.width = width
-        self.height = height
-        self.seed = seed or random.randint(0, 999999)
-        self.grid = [[0 for _ in range(width)] for _ in range(height)]
-        self.entities = []  # List of all entities in the map
-        self.start_pos = (1, 1)
-        self.end_pos = (width-2, height-2)
-    
-    def generate_maze(self):
-        """Generate a maze-like structure"""
-        random.seed(self.seed)
-        
-        # Initialize with walls
-        for y in range(self.height):
-            for x in range(self.width):
-                self.grid[y][x] = 1  # Wall
-        
-        # Create maze using recursive backtracking
-        stack = []
-        visited = [[False for _ in range(self.width)] for _ in range(self.height)]
-        
-        # Start at (1,1)
-        start_x, start_y = 1, 1
-        stack.append((start_x, start_y))
-        visited[start_y][start_x] = True
-        self.grid[start_y][start_x] = 0  # Path
-        
-        directions = [(0, -2), (2, 0), (0, 2), (-2, 0)]  # Up, Right, Down, Left (skip 1 for walls)
-        
-        while stack:
-            current_x, current_y = stack[-1]
-            
-            # Find unvisited neighbors
-            neighbors = []
-            for dx, dy in directions:
-                nx, ny = current_x + dx, current_y + dy
-                if 0 < nx < self.width-1 and 0 < ny < self.height-1 and not visited[ny][nx]:
-                    neighbors.append((nx, ny, current_x + dx//2, current_y + dy//2))  # Also include wall to remove
-            
-            if neighbors:
-                # Choose random neighbor
-                nx, ny, wall_x, wall_y = random.choice(neighbors)
-                
-                # Carve path
-                self.grid[ny][nx] = 0
-                self.grid[wall_y][wall_x] = 0  # Remove wall between
-                visited[ny][nx] = True
-                stack.append((nx, ny))
-            else:
-                # Backtrack
-                stack.pop()
-        
-        # Add some random connections to make it less perfect
-        for _ in range(int(self.width * self.height * 0.02)):
-            x = random.randint(2, self.width - 3)
-            y = random.randint(2, self.height - 3)
-            if self.grid[y][x] == 1:  # Wall
-                self.grid[y][x] = 0  # Make it a path
-        
-        # Set start and end
-        self.grid[1][1] = 0  # Start
-        self.grid[self.height-2][self.width-2] = 0  # End
-        self.start_pos = (1, 1)
-        self.end_pos = (self.width-2, self.height-2)
-    
-    def add_doors_randomly(self, count: int = 5):
-        """Add doors randomly to the map"""
-        for _ in range(count):
-            # Find a wall to replace with a door
-            valid_positions = []
-            for y in range(1, self.height-1):
-                for x in range(1, self.width-1):
-                    if self.grid[y][x] == 1:  # Wall
-                        # Check if it's a vertical wall (has paths on both sides horizontally)
-                        if (x > 0 and x < self.width-1 and 
-                            self.grid[y][x-1] == 0 and self.grid[y][x+1] == 0):
-                            valid_positions.append((x, y))
-                        # Check if it's a horizontal wall (has paths on both sides vertically)
-                        elif (y > 0 and y < self.height-1 and 
-                              self.grid[y-1][x] == 0 and self.grid[y+1][x] == 0):
-                            valid_positions.append((x, y))
-            
-            if valid_positions:
-                x, y = random.choice(valid_positions)
-                self.grid[y][x] = 2  # Door identifier
-    
-    def save_to_file(self, filepath: str):
-        """Save map to JSON file with entities"""
-        # Convert entities to serializable format
-        entities_data = []
-        for entity in self.entities:
-            if isinstance(entity, Door):
-                entities_data.append({
-                    "type": "door",
-                    "x": entity.x,
-                    "y": entity.y,
-                    "z": entity.z,
-                    "is_open": entity.is_open,
-                    "locked": entity.locked
-                })
-        
-        data = {
-            "width": self.width,
-            "height": self.height,
-            "seed": self.seed,
-            "start_pos": self.start_pos,
-            "end_pos": self.end_pos,
-            "map": self.grid,
-            "entities": entities_data
+# Load map data
+def load_map(map_path):
+    """Load map from JSON file with walls, floor, and other entities"""
+    if os.path.exists(map_path):
+        with open(map_path, 'r') as f:
+            return json.load(f)
+    else:
+        print(f"Map file not found: {map_path}")
+        # Return a default Backrooms map
+        return {
+            "width": 20,
+            "height": 20,
+            "map": [[1 if (x == 0 or x == 19 or y == 0 or y == 19) else 0 for x in range(20)] for y in range(20)],
+            "start_pos": [1, 1],
+            "end_pos": [18, 18],
+            "objectives": [{"type": "exit", "x": 18, "z": 18, "description": "Find the exit"}]
         }
-        with open(filepath, 'w') as f:
-            json.dump(data, f, indent=2)
-    
-    def load_from_file(self, filepath: str):
-        """Load map from JSON file with entities"""
-        with open(filepath, 'r') as f:
-            data = json.load(f)
-        
-        self.width = data["width"]
-        self.height = data["height"]
-        self.seed = data["seed"]
-        self.start_pos = tuple(data["start_pos"])
-        self.end_pos = tuple(data["end_pos"])
-        self.grid = data["map"]
-        
-        # Load entities
-        if "entities" in data:
-            for entity_data in data["entities"]:
-                if entity_data["type"] == "door":
-                    door = Door(
-                        x=entity_data["x"],
-                        y=entity_data["y"],
-                        z=entity_data["z"],
-                        is_open=entity_data["is_open"],
-                        locked=entity_data["locked"]
-                    )
-                    self.entities.append(door)
 
+# Load the map
+map_data = load_map("./maps/first.json")
 
-class AdvancedBackroomsGame(Entity):
-    def __init__(self):
-        # Initialize Ursina
-        super().__init__()
-        
-        # Configuration
-        self.config = Config()
-        
-        # Set window properties
-        window.title = self.config.title
-        window.borderless = True if self.config.window_type == 'borderless' else False
-        window.exit_button.visible = False
-        window.fps_counter.enabled = True
-        window.size = self.config.window_size
-        
-        # Enable fog for atmosphere
-        self.enable_fog()
-        
-        # Player properties
-        self.player_speed = self.config.player_speed
-        self.mouse_sensitivity = self.config.mouse_sensitivity
-        
-        # Reality system
-        self.reality_stability = 1.0  # 1.0 = stable, 0.0 = completely distorted
-        self.hallucination_level = 0.0
-        self.time_in_darkness = 0.0
-        self.last_sound_time = 0.0
-        
-        # Game state
-        self.keys = {
-            "forward": False,
-            "backward": False,
-            "left": False,
-            "right": False,
-            "jump": False
-        }
-        
-        # Load map
-        self.map = AdvancedMap()
-        if os.path.exists(self.config.map):
-            self.map.load_from_file(self.config.map)
-        else:
-            print("Wrong path:  " + self.config.map)
-            self.map.generate_maze()
-            self.map.add_doors_randomly(10)  # Add 10 doors
-            self.map.save_to_file(self.config.map)
-        
-        # Initialize the game
-        self.setup_scene()
-        self.setup_controls()
-        self.setup_lighting()
-        self.setup_audio()
-        self.setup_player()
-        
-        # For optimization - limit entity updates
-        self.entity_update_counter = 0
-    
-    def enable_fog(self):
-        """Enable fog for atmospheric effect"""
-        # Set background color to backrooms yellow
-        window.color = color.rgb(204, 191, 77)  # Distinctive backrooms yellow
-        
-        # Enable fog in the renderer
-        from panda3d.core import Fog
-        from ursina import scene
-        
-        fog = Fog("fog")
-        fog.setColor(204/255, 191/255, 77/255)  # Backrooms yellow
-        fog.setExpDensity(self.config.fog_density)
-        
-        render.setFog(fog)
-    
-    def setup_scene(self):
-        """Set up the 3D scene with walls, floors, ceilings, and other entities"""
-        # Create the floor
-        self.create_floor()
-        
-        # Create walls and other entities based on map
-        self.create_entities_from_map()
-        
-        # Create ceiling
-        self.create_ceiling()
-    
-    def create_floor(self):
-        """Create the floor of the backrooms"""
-        # Create a large plane for the floor
-        floor_size = max(self.map.width, self.map.height) * 2
-        floor_center_x = (self.map.width - 1) / 2
-        floor_center_z = (self.map.height - 1) / 2
-        
-        # Create floor entity
-        floor = Entity(
-            model='plane',
-            texture='textures/floor_texture.png',
-            texture_scale=Vec2(10, 10),
-            scale=floor_size,
-            rotation_x=90,
-            x=floor_center_x,
-            z=floor_center_z,
-            color=color.white
-        )
-        
-        # Make it solid for collision
-        floor.collider = 'mesh'
-    
-    def create_ceiling(self):
-        """Create the ceiling of the backrooms"""
-        # Create a large plane for the ceiling
-        ceiling_size = max(self.map.width, self.map.height) * 2
-        ceiling_center_x = (self.map.width - 1) / 2
-        ceiling_center_z = (self.map.height - 1) / 2
-        
-        # Create ceiling entity
-        ceiling = Entity(
-            model='plane',
-            texture='textures/roof_texture.png',
-            texture_scale=Vec2(10, 10),
-            scale=ceiling_size,
-            rotation_x=-90,  # Flip to face down
-            y=3,  # 3 units above floor
-            x=ceiling_center_x,
-            z=ceiling_center_z,
-            color=color.white
-        )
-        
-        # Make it solid for collision
-        ceiling.collider = 'mesh'
-    
-    def create_entities_from_map(self):
-        """Create 3D entities based on the 2D map and entity list"""
-        # Create walls from grid
-        for y in range(self.map.height):
-            for x in range(self.map.width):
-                if self.map.grid[y][x] == 1:  # Wall
-                    # Create a wall at this position
-                    wall = Entity(
-                        model='cube',
-                        texture='textures/wall_texture.png',
-                        texture_scale=Vec2(1, 1),
-                        scale=(1, 3, 1),  # Width, height, depth
-                        x=x,
-                        y=2,  # Center height
-                        z=y,
-                        color=color.white
-                    )
-                    
-                    # Make wall solid for collision
-                    wall.collider = 'box'
-                elif self.map.grid[y][x] == 2:  # Door
-                    # Create a door at this position
-                    door = Door(x, 2, y, is_open=False, locked=False)
-                    door.create_entity()
-                    self.map.entities.append(door)
-        
-        # Create any additional entities from the map's entity list
-        for entity in self.map.entities:
-            entity.create_entity()
-    
-    def setup_controls(self):
-        """Set up keyboard and mouse controls"""
-        # Keyboard controls are handled by Ursina's input system
-        # We'll track key states manually
-        self.key_states = {
-            'w': False,
-            's': False,
-            'a': False,
-            'd': False,
-            'space': False
-        }
-        
-        # Ursina's input handling
-        def on_input(key):
-            if key in self.key_states:
-                self.key_states[key] = True
-            elif key.endswith(' up') and key[:-3] in self.key_states:
-                self.key_states[key[:-3]] = False
-            elif 'r' in key: # Reset player position
-                self.player.position = Vec3(2.5, 2.5, -0.5)  # Reset position
-            elif key == 'escape':
-                application.quit()
-            elif key == 'f':  # Toggle fog
-                self.toggle_fog()
-        
-        self.input_handler = on_input
-    
-    def toggle_fog(self):
-        """Toggle fog on/off"""
-        # For now, just print a message - actual fog toggle would require more complex implementation
-        print("Fog toggled")
-    
-    def setup_lighting(self):
-        """Set up basic lighting for the scene"""
-        # Ambient light
-        AmbientLight(color=color.rgb(77, 77, 51))  # Slightly yellowish ambient
-        
-        # Directional light (sun-like)
-        self.directional_light = DirectionalLight()
-        self.directional_light.color = color.rgb(204, 191, 128)  # Warm yellow light
-        self.directional_light.rotation = Vec3(45, -45, 0)
-        
-        # Player flashlight will be handled by the player controller
+# Create floor based on map dimensions
+map_width = map_data["width"]
+map_height = map_data["height"]
+floor = Entity(
+    model='plane', 
+    collider='box', 
+    scale=max(map_width, map_height) * 2, 
+    texture='textures/backrooms_floor.jpg', 
+    texture_scale=(4, 4),
+    rotation_x=90,
+    y=0,
+    color=color.rgb(200, 190, 150)  # Yellowish tone for Backrooms
+)
 
-    def setup_audio(self):
-        """Set up audio system"""
-        # Ursina doesn't have built-in audio manager, so we'll use pygame.mixer for background music
-        try:
-            from pydub import AudioSegment
-            from pydub.playback import play
-            if os.path.exists("audio/atomiste.mp3"):
-                background_music = AudioSegment.from_file("audio/atomiste.mp3")
-                play(background_music)
-        except ImportError:
-            print("pydub not available for audio playback")
+# Create walls from map data
+for y in range(map_height):
+    for x in range(map_width):
+        if map_data["map"][y][x] == 1:  # Wall
+            wall = Entity(
+                model='cube',
+                texture='textures/backrooms_wall.jpg',
+                texture_scale=(2, 1),
+                scale=(1, 3, 1),
+                x=x,
+                y=1.5,
+                z=y,
+                color=color.rgb(200, 190, 150),  # Yellowish tone for Backrooms
+                collider='box'
+            )
+
+# Create ceiling
+ceiling = Entity(
+    model='plane',
+    texture='textures/backrooms_ceiling.jpg',
+    texture_scale=(4, 4),
+    scale=max(map_width, map_height) * 2,
+    rotation_x=-90,
+    y=3,
+    color=color.rgb(200, 190, 150)  # Yellowish tone for Backrooms
+)
+
+# Add flickering fluorescent lights to ceiling
+for y in range(0, map_height, 3):
+    for x in range(0, map_width, 3):
+        if random.random() > 0.7:  # Only place lights in some spots
+            light_panel = Entity(
+                model='cube',
+                texture='textures/fluorescent_light.png',
+                scale=(1, 0.1, 1),
+                x=x,
+                y=2.95,
+                z=y,
+                color=color.rgb(255, 255, 200),
+                parent=ceiling
+            )
+            # Make some lights flicker
+            if random.random() > 0.5:
+                light_panel.original_color = light_panel.color
+                light_panel.flicker_state = True
+                light_panel.flicker_timer = 0
+
+# Editor camera for debugging
+editor_camera = EditorCamera(enabled=False, ignore_paused=True)
+
+# Create player with FirstPersonController
+start_pos = map_data["start_pos"]
+player = FirstPersonController(model='cube', x=start_pos[0], z=start_pos[1], y=1.5, color=color.rgb(100, 100, 100), origin_y=-.5, speed=5, collider='box')  # Slower movement for tension
+player.collider = BoxCollider(player, Vec3(0,1,0), Vec3(1,2,1))
+
+# Create flashlight for the player
+flashlight = Entity(model='point_light', parent=camera, position=(0,0,0), color=color.rgb(255, 255, 200), intensity=1.5)
+
+# Create a parent entity for interactive objects
+interactive_parent = Entity()
+mouse.traverse_target = interactive_parent
+
+# Add Backrooms-style environmental props
+for i in range(10):
+    x = random.uniform(2, map_width-2)
+    z = random.uniform(2, map_height-2)
+    # Make sure the position is not a wall
+    map_x, map_z = int(x), int(z)
+    if 0 <= map_x < map_width and 0 <= map_z < map_height and map_data["map"][map_z][map_x] == 0:
+        prop_type = random.choice(['chair', 'table', 'box'])
+        if prop_type == 'chair':
+            chair = Entity(
+                model='cube', 
+                origin_y=-.5, 
+                scale=(0.8, 1.2, 0.8), 
+                texture='textures/chair_texture.jpg', 
+                x=x,
+                z=z,
+                y=0.6,
+                collider='box',
+                color=color.rgb(180, 170, 140)
+            )
+        elif prop_type == 'table':
+            table = Entity(
+                model='cube', 
+                origin_y=-.5, 
+                scale=(1.5, 0.8, 1), 
+                texture='textures/table_texture.jpg', 
+                x=x,
+                z=z,
+                y=0.4,
+                collider='box',
+                color=color.rgb(190, 180, 150)
+            )
+        else:  # box
+            box = Entity(
+                model='cube', 
+                origin_y=-.5, 
+                scale=(1, 1, 1), 
+                texture='textures/cardboard_box.jpg', 
+                x=x,
+                z=z,
+                y=0.5,
+                collider='box',
+                color=color.rgb(200, 190, 160)
+            )
+
+# Backrooms update function
+def update():
+    global backrooms_timer, sanity, game_over
     
-    def setup_player(self):
-        """Set up the first person player controller with enhanced physics"""
-        # Create first person controller
-        self.player = FirstPersonController()
-        self.player.position = Vec3(2.5, 2.5, -0.5)  # Start position
-        self.player.speed = self.player_speed
-        self.player.jump_height = 3  # Jump height for better physics
-        self.player.gravity = self.config.gravity  # Custom gravity
-        self.player.ground_y = 0  # Ground level
+    if game_over:
+        return
+    
+    # Update timer
+    backrooms_timer += time.dt
+    
+    # Decrease sanity over time
+    sanity = max(0, sanity - sanity_decrease_rate * time.dt)
+    
+    # Update flickering lights
+    for entity in ceiling.children:
+        if hasattr(entity, 'flicker_state'):
+            entity.flicker_timer += time.dt
+            if entity.flicker_timer > 0.1:  # Flicker interval
+                entity.flicker_timer = 0
+                if entity.flicker_state:
+                    entity.color = color.random.color()
+                    entity.intensity = random.uniform(0.5, 2.0)
+                else:
+                    entity.color = entity.original_color
+                    entity.intensity = 1.0
+                entity.flicker_state = not entity.flicker_state
+    
+    # Add visual effects based on sanity
+    update_sanity_effects()
+    
+    # Check win condition
+    if current_objective >= len(map_data.get("objectives", [])):
+        display_message("You escaped the Backrooms!", duration=5)
+        application.quit()
+
+def input(key):
+    global game_over
+    if key == 'escape':
+        application.quit()
+        sys.exit()
+    elif key == 'e' and not game_over:  # Interact key
+        interact_with_object()
+
+def interact_with_object():
+    """Allow player to interact with objects in the environment"""
+    hit_info = raycast(player.position, player.forward, distance=3, ignore=(player,))
+    if hit_info.entity:
+        if hasattr(hit_info.entity, 'interactable') and hit_info.entity.interactable:
+            # Handle interaction based on object type
+            if hit_info.entity.object_type == 'objective':
+                complete_objective(hit_info.entity.objective_id)
+            elif hit_info.entity.object_type == 'document':
+                display_document(hit_info.entity.doc_content)
+
+def complete_objective(objective_id):
+    """Complete an escape objective"""
+    global current_objective
+    if objective_id == current_objective:
+        current_objective += 1
+        display_message(f"Objective completed: {map_data['objectives'][objective_id]['description']}", duration=3)
         
-        # Set mouse sensitivity
-        mouse_sensitivity = Vec2(self.mouse_sensitivity[0], self.mouse_sensitivity[1])
-        self.player.mouse_sensitivity = mouse_sensitivity
-    
-    def input(self, key):
-        """Handle input events"""
-        if key in self.key_states:
-            self.key_states[key] = True
-        elif key.endswith(' up') and key[:-3] in self.key_states:
-            self.key_states[key[:-3]] = False
-        elif key == 'r':
-            self.player.position = Vec3(2.5, 2.5, 1.5)  # Reset position
-        elif key == 'escape':
+        # Check if all objectives are complete
+        if current_objective >= len(map_data.get("objectives", [])):
+            display_message("You escaped the Backrooms!", duration=5)
             application.quit()
-        elif key == 'f':  # Toggle fog
-            self.toggle_fog()
+
+def display_message(text, duration=3):
+    """Display a message to the player"""
+    message = Text(text=text, origin=(0,0), scale=2, color=color.red, background=True)
+    invoke(destroy, message, delay=duration)
+
+def display_document(content):
+    """Display a found document"""
+    doc_window = Text(text=content, origin=(0,0), scale=1.5, color=color.white, background=True, line_height=1.5)
+    invoke(destroy, doc_window, delay=10)
+
+def update_sanity_effects():
+    """Update visual and audio effects based on player sanity"""
+    global vignette
     
+    # Create or update vignette effect based on sanity
+    if sanity < 30:
+        if vignette is None:
+            vignette = Entity(parent=camera.ui, model='quad', texture='white_cube', 
+                             color=color.rgb(50, 0, 0, a=0.2), scale=10, z=1)
+        else:
+            # Increase red tint as sanity decreases
+            vignette.color = color.rgb(50, 0, 0, a=(1 - sanity/30) * 0.4)
+    elif vignette:
+        destroy(vignette)
+        vignette = None
+    
+    # Add visual distortions when sanity is low
+    if sanity < 20:
+        camera.rotation_x += random.uniform(-0.5, 0.5)
+        camera.rotation_y += random.uniform(-0.5, 0.5)
+
+# Entity classes for Backrooms
+class EntityBase(Entity):
+    def __init__(self, x=0, z=0, **kwargs):
+        super().__init__(
+            parent=interactive_parent, 
+            model='cube', 
+            scale_y=2, 
+            origin_y=-.5, 
+            color=color.rgb(100, 100, 100), 
+            highlight_color=color.red, 
+            collider='box',
+            x=x,
+            z=z,
+            y=1,
+            **kwargs
+        )
+
+class Hinder(EntityBase):
+    """A threatening entity in the Backrooms that follows the player"""
+    def __init__(self, x=0, z=0, **kwargs):
+        super().__init__(
+            model='cube',
+            scale_y=2.5,
+            color=color.rgb(30, 30, 30),  # Dark, menacing color
+            x=x,
+            z=z,
+            y=1.25,
+            **kwargs
+        )
+        self.original_color = self.color
+        self.detection_range = 15
+        self.chase_speed = 1.5
+        self.sanity_drain_rate = 0.2  # Drains player sanity when nearby
+        
     def update(self):
-        """Update game logic every frame"""
-        # Update reality distortion effects
-        self.update_reality()
-        
-        # Update hallucination effects
-        self.update_hallucinations()
-        
-        # Update entities periodically (for optimization)
-        self.entity_update_counter += 1
-        if self.entity_update_counter % 10 == 0:  # Only update entities every 10 frames
-            self.update_entities()
-    
-    def update_entities(self):
-        """Update all entities in the map"""
-        for entity in self.map.entities:
-            entity.update()
-    
-    def update_reality(self):
-        """Update reality distortion effects"""
-        # Gradually decrease reality stability
-        self.reality_stability -= self.config.reality_decay_rate
-        
-        # Randomly increase hallucination level
-        self.hallucination_level += random.uniform(-0.001, 0.002)
-        self.hallucination_level = max(0, min(1.0, self.hallucination_level))
-        
-        # Apply reality distortion effects
-        if self.hallucination_level > self.config.hallucination_threshold:
-            # Apply visual distortion effects
-            self.apply_visual_distortion()
-    
-    def update_hallucinations(self):
-        """Update hallucination effects"""
-        # Change lighting randomly when hallucinating
-        if self.hallucination_level > 0.5:
-            flicker = random.random() < 0.02  # 2% chance each frame
-            if flicker:
-                new_light_color = color.hsv(random.randint(0, 360), random.uniform(0.5, 1.0), random.uniform(0.3, 1.0))
-                self.directional_light.color = new_light_color
-    
-    def apply_visual_distortion(self):
-        """Apply visual distortion effects when reality is unstable"""
-        # For now, just print a message to indicate distortion
-        # In a full implementation, we would modify the camera or shader effects
-        pass
+        # Only act if player is within detection range
+        dist = distance_xz(player.position, self.position)
+        if dist > self.detection_range:
+            # Slowly move back to original position if player is far
+            return
 
+        # Drain player sanity when nearby
+        if dist < 5:
+            global sanity
+            sanity = max(0, sanity - self.sanity_drain_rate * time.dt)
+            
+            # Visual effect when Hinder is close
+            if dist < 3:
+                self.color = color.rgb(255, 50, 50)  # Red when close
+                # Add visual distortion
+                camera.rotation_x += random.uniform(-1, 1)
+                camera.rotation_y += random.uniform(-1, 1)
+            else:
+                self.color = self.original_color
+        else:
+            self.color = self.original_color
 
-if __name__ == "__main__":
-    # Create and run the game
-    app = Ursina()
-    game = AdvancedBackroomsGame()
-    app.run()
+        # Move toward player
+        self.look_at_2d(player.position, 'y')
+        hit_info = raycast(self.world_position + Vec3(0,1,0), self.forward, 30, ignore=(self,))
+        
+        if hit_info.entity == player and dist > 1.5:
+            self.position += self.forward * time.dt * self.chase_speed
+
+class Objective(EntityBase):
+    """An escape objective that player needs to find"""
+    def __init__(self, x=0, z=0, objective_id=0, description="", **kwargs):
+        super().__init__(
+            model='cube',
+            color=color.rgb(255, 255, 0),  # Yellow for visibility
+            scale=(0.8, 0.8, 0.8),
+            x=x,
+            z=z,
+            y=0.4,
+            **kwargs
+        )
+        self.object_type = 'objective'
+        self.objective_id = objective_id
+        self.description = description
+        self.interactable = True
+        # Add a pulsing effect
+        self.pulse_direction = 1
+        self.pulse_speed = 1
+
+    def update(self):
+        # Pulsing effect to make it more noticeable
+        current_scale = self.scale_x
+        new_scale = current_scale + time.dt * self.pulse_speed * self.pulse_direction
+        if new_scale > 1.0 or new_scale < 0.8:
+            self.pulse_direction *= -1
+            new_scale = current_scale - time.dt * self.pulse_speed * self.pulse_direction
+        self.scale = (new_scale, new_scale, new_scale)
+
+class Document(EntityBase):
+    """A document the player can find with lore information"""
+    def __init__(self, x=0, z=0, content="", **kwargs):
+        super().__init__(
+            model='cube',
+            color=color.rgb(255, 255, 255),  # White for paper
+            scale=(0.5, 0.1, 0.7),
+            x=x,
+            z=z,
+            y=0.05,
+            texture='textures/paper_doc.png',
+            **kwargs
+        )
+        self.object_type = 'document'
+        self.doc_content = content
+        self.interactable = True
+
+# Create Hinder entities at random positions on the map
+hindering_entities = []
+for i in range(3):  # Fewer but more threatening entities
+    x = random.uniform(3, map_width-3)
+    z = random.uniform(3, map_height-3)
+    # Make sure the position is not a wall
+    map_x, map_z = int(x), int(z)
+    if 0 <= map_x < map_width and 0 <= map_z < map_height and map_data["map"][map_z][map_x] == 0:
+        hindering_entities.append(Hinder(x=x, z=z))
+
+# Create objectives based on map data
+objectives = []
+if "objectives" in map_data:
+    for idx, obj_data in enumerate(map_data["objectives"]):
+        if obj_data["type"] == "exit":
+            exit_obj = Objective(
+                x=obj_data["x"], 
+                z=obj_data["z"], 
+                objective_id=idx, 
+                description=obj_data["description"]
+            )
+            objectives.append(exit_obj)
+
+# Create some documents with Backrooms lore
+documents = []
+for i in range(5):
+    x = random.uniform(2, map_width-2)
+    z = random.uniform(2, map_height-2)
+    # Make sure the position is not a wall
+    map_x, map_z = int(x), int(z)
+    if 0 <= map_x < map_width and 0 <= map_z < map_height and map_data["map"][map_z][map_x] == 0:
+        # Check it's not too close to player start
+        start_dist = distance_xz(Vec3(start_pos[0], 0, start_pos[1]), Vec3(x, 0, z))
+        if start_dist > 5:
+            doc_content = [
+                "ENTRY LOG: Day 1 - I don't know where I am. The walls are yellow, endless. The fluorescent lights buzz overhead.",
+                "WARNING: Do not stare at the walls for too long. They seem to... shift when you're not looking directly.",
+                "THEY are here. I can hear footsteps in the distance. No matter which direction I go, I always end up in the same place.",
+                "THEORY: This place exists outside normal reality. Time moves differently here. My watch stopped working.",
+                "EXIT RUMOR: Someone mentioned there's a way out through a maintenance door. Look for signs of civilization."
+            ][i % 5]
+            document = Document(x=x, z=z, content=doc_content)
+            documents.append(document)
+
+# Toggle between editor and game mode
+def pause_input(key):
+    if key == 'tab':    # press tab to toggle edit/play mode
+        editor_camera.enabled = not editor_camera.enabled
+
+        player.visible_self = editor_camera.enabled
+        player.cursor.enabled = not editor_camera.enabled
+        mouse.locked = not editor_camera.enabled
+        editor_camera.position = player.position
+
+        application.paused = editor_camera.enabled
+
+pause_handler = Entity(ignore_paused=True, input=pause_input)
+
+# Backrooms lighting - more atmospheric
+ambient_light = AmbientLight(color=color.rgb(80, 80, 40))  # Yellowish ambient light
+flicker_light = PointLight(position=(0, 5, 0), color=color.rgb(200, 200, 100), intensity=0.5)
+
+# Create a subtle fog effect
+Sky()
+sky = Sky()
+sky.color = color.rgb(50, 50, 30)  # Dark yellowish sky for the void above
+
+app.run()
