@@ -45,7 +45,7 @@ shoot_sfx = AudioSegment.from_file("C:\\Users\\user\\Documents\\Audacity\\puff.w
 Thread(target=play, args=(background_music,)).start()
 def input(key):
     if key == 'escape':
-        application.quit()
+        # application.quit()
         sys.exit()
 def shoot():
     if not gun.on_cooldown:
