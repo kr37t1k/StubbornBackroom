@@ -83,7 +83,7 @@ class DebugManager:
         
         # Update performance info
         if self.performance_monitor:
-            self.perf_text.text = f"Entities: {len(scene.entities)} | Render: {render.get_num_geoms()}"
+            self.perf_text.text = f"Entities: {len(scene.entities)} | Render: {render}"
         else:
             self.perf_text.text = ""
         
@@ -106,12 +106,12 @@ class QualityManager:
         self.current_level = QualityLevel.NORMAL
         self.settings = {
             QualityLevel.LOW: {
-                'render_distance': 10,
+                'render_distance': 4,
                 'lighting_quality': 0.3,
                 'texture_quality': 0.5,
                 'shadows': False,
-                'particles': 5,
-                'fog_density': 0.025
+                'particles': 3,
+                'fog_density': 0.045
             },
             QualityLevel.NORMAL: {
                 'render_distance': 20,
@@ -207,10 +207,10 @@ class BackroomsGenerator:
         self.last_generation_position = (0, 0)
         self.current_room_pos = (0, 0)
         self.current_connections = []
-        self.loaded_map = None
+        self.loaded_map = "first_map_from_AdvancedMapEditor.json"
         self.map_directory = "maps"
         self.map_files = self.get_map_files()
-        self.current_map_index = 0
+        self.current_map_index = 3
         self.load_map_from_file()  # Load default map
     
     def get_map_files(self):
@@ -548,7 +548,7 @@ class BackroomsGenerator:
             model='cube',
             parent=wall,
             scale=wall.scale * 1.03,
-            color=color.rgba(255, 240, 220, 30),
+            color=(255, 240, 220, 30),
             unlit=True
         )
         
@@ -599,7 +599,7 @@ class BackroomsGenerator:
                     model='cube',
                     parent=wall_ent,
                     scale=wall_ent.scale * 1.03,
-                    color=color.rgba(255, 240, 220, 30),
+                    color=(255, 240, 220, 30),
                     unlit=True
                 )
                 
@@ -646,7 +646,7 @@ class BackroomsGenerator:
                     model='cube',
                     parent=wall_ent,
                     scale=wall_ent.scale * 1.03,
-                    color=color.rgba(255, 240, 220, 30),
+                    color=(255, 240, 220, 30),
                     unlit=True
                 )
                 
@@ -755,7 +755,7 @@ class LiminalPlayer(FirstPersonController):
     
     def update(self):
         # Store previous position for movement detection
-        prev_position = self.position.copy()
+        prev_position = self.position
         
         # Update physics first
         super().update()
@@ -1045,16 +1045,6 @@ def input(key):
     # Debug toggles
     if key == 'f5':
         debug_manager.debug_mode = not debug_manager.debug_mode
-    if key == 'f6':
-        debug_manager.performance_monitor = not debug_manager.performance_monitor
-    if key == 'f7':
-        debug_manager.map_debug = not debug_manager.map_debug
-    if key == 'f8':
-        debug_manager.entity_debug = not debug_manager.entity_debug
-    if key == 'f9':
-        debug_manager.reality_debug = not debug_manager.reality_debug
-    if key == 'f10':
-        debug_manager.show_fps = not debug_manager.show_fps
     
     # Reality manipulation
     if key == 'tab':
@@ -1120,7 +1110,7 @@ window.position = (50, 50)
 # Start player in a hallway for better initial experience
 player.position = Vec3(0, 1.0, 0)
 
-print("Liminalcore Backrooms Game Loaded!")
+print("StubbornBackrooms • Psycho Dream")
 print("Controls:")
 print("- WASD: Move")
 print("- Mouse: Look around")
