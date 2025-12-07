@@ -84,9 +84,9 @@ class DreamVoxel(Button):
 # 🌈 OPTIMIZED WORLD GENERATION (Chunk-based)
 class DreamWorld:
     def __init__(self):
-        self.chunk_size = 8
+        self.chunk_size = 32
         self.loaded_chunks = {}
-        self.max_chunks = 12  # Memory limit
+        self.max_chunks = 8  # Memory limit
         self.voxels = []  # Track all voxels for cleanup
 
     def generate_chunk(self, chunk_x, chunk_z):
@@ -354,7 +354,7 @@ def input(key):
             destroy(bullet)
             destroy(trail)
 
-        invoke(cleanup, delay=0.8)
+        invoke(cleanup, delay=0.3)
 
     elif key == 'z':
         player.save_point = player.position

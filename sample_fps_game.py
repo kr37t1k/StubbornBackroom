@@ -3,7 +3,10 @@ from ursina.shaders import lit_with_shadows_shader
 from ursina.prefabs.first_person_controller import FirstPersonController
 import random
 import math
+from audio.audio_module import play_winsound, play_nava
 from collections import deque
+
+play_winsound("audio/atomiste.wav", loop=True)
 
 app = Ursina()
 random.seed(0)
@@ -14,8 +17,8 @@ Entity.default_shader = lit_with_shadows_shader
 ground = Entity(
     model='plane',
     position=(20, 25, 20),
-    scale=(100,10,100),
-    color=color.yellow.tint(-.2),
+    scale=(100,2,100),
+    color=color.light_gray.tint(-.2),
     texture='white_cube',
     texture_scale=(100,100),
     collider='box'
@@ -62,7 +65,7 @@ class HealthPack(Entity):
         self.animate_scale(0.4, duration=1, loop=True, curve=curve.in_out_sine)
 
 
-# 🎮 PLAYER CLASS (Enhanced)
+# 🎮 PLAYER CLASS
 class Player(FirstPersonController):
     def __init__(self):
         super().__init__(
@@ -84,14 +87,6 @@ class Player(FirstPersonController):
             origin_z=-0.5,
             color=color.red,
             on_cooldown=False
-        )
-        self.gun.muzzle_flash = Entity(
-            parent=self.gun,
-            z=1,
-            world_scale=0.5,
-            model='quad',
-            color=color.yellow,
-            enabled=False
         )
 
         # 📦 INVENTORY
@@ -119,8 +114,9 @@ class Player(FirstPersonController):
 
         # 🏠 SPAWN POINT
         self.gravity = 1
-        self.spawn_point = Vec3(0, 35, 0)
+        self.spawn_point = Vec3(0, 24, 0)
         self.position = self.spawn_point
+
 
     def shoot(self):
         if self.knife_only:
@@ -131,9 +127,15 @@ class Player(FirstPersonController):
             self.ammo_text.text = f'Ammo: {self.ammo}'
 
             self.gun.on_cooldown = True
-            self.gun.muzzle_flash.enabled = True
-            invoke(self.gun.muzzle_flash.disable, delay=0.05)
-            invoke(setattr, self.gun, 'on_cooldown', False, delay=0.15)
+            self.gun.blink(color.green)
+            # bullet
+            bullet = Entity(parent=self.gun, position=(0,0,0), model="cube", scale=0.3, color=color.white)
+            bullet.world_parent = scene
+            bullet.animate_position(bullet.position * (self.forward * 50),
+                                    curve=curve.linear, duration=0.5)
+
+            invoke(setattr, self.gun, 'on_cooldown', False, delay=0.1)
+            invoke(destroy, bullet, delay=1)
 
             # Hit detection
             hit_info = raycast(
@@ -143,9 +145,12 @@ class Player(FirstPersonController):
                 ignore=(self,)
             )
 
-            if hit_info.entity and hasattr(hit_info.entity, 'hp'):
-                hit_info.entity.take_damage(25)
-                hit_info.entity.blink(color.red)
+            if hit_info.entity:
+                if hasattr(hit_info.entity, 'hp'):
+                    hit_info.entity.take_damage(25)
+                    hit_info.entity.blink(color.red)
+                # if hasattr(hit_info.entity, that-when-you-shoot-in-a-wall-or-something-solid-here-need-to-create-little-hits-effect-like-infpsgames)
+
 
     def update(self):
         super().update()
@@ -153,22 +158,24 @@ class Player(FirstPersonController):
         # 🔫 SHOOTING
         if held_keys['left mouse']:
             self.shoot()
+        if self.position[1] < -10:
+            self.position = self.spawn_point
+            self.gravity = -100
+            self.position = self.spawn_point
+            self.gravity = 1
 
-        # 🧠 ENEMY DETECTION (for debugging)
-        try:
-            for enemy in enemies:
-                dist = distance_xz(self.position, enemy.position)
-                if dist < 30 and enemy.can_see_player():
-                    enemy.state = 'chasing'
-                elif dist > 30:
-                    enemy.state = 'patrolling'
-        except:
-            for enemy in enemies:
-                dist = distance_xz(self.position, enemy.position)
-                if dist < 30 and enemy.can_see_player():
-                    enemy.state = 'chasing'
-                elif dist > 30:
-                    enemy.state = 'patrolling'
+        # 🧠 ENEMY DETECTION (for debugging) and for so laggy game its not need but it work =-/
+        # try:
+        #     for entity in scene.entities[:]:
+        #         check_for_attr = isinstance(entity, Enemy)
+        #         if check_for_attr and hasattr(entity, 'position'):
+        #             dist = distance_xz(self.position, entity.position)
+        #             if dist < 30 and entity.can_see_player():
+        #                 entity.state = 'chasing'
+        #             elif dist > 30:
+        #                 entity.state = 'patrolling'
+        # except Exception as err:
+        #     raise err
 
     def take_damage(self, amount):
         self.health -= amount
@@ -214,6 +221,13 @@ class Enemy(Entity):
             **kwargs
         )
 
+        self.gun = Entity(
+            model='cube',
+            parent=self,
+            position=(1, 1, -1),
+            scale=(0.3, 0.3, 0.6),
+            color=color.black,
+        )
         # 🧠 AI STATES
         self.state = 'patrolling'  # patrolling, chasing, shooting
         self.patrol_points = self.generate_patrol_points()
@@ -247,7 +261,7 @@ class Enemy(Entity):
     def generate_patrol_points(self):
         """Generate random patrol points around base"""
         points = []
-        for _ in range(4):
+        for _ in range(10):
             angle = random.uniform(0, math.pi * 2)
             distance = random.uniform(5, 15)
             x = self.x + math.cos(angle) * distance
@@ -260,7 +274,7 @@ class Enemy(Entity):
         hit_info = raycast(
             self.world_position + Vec3(0, 1, 0),
             player.position - (self.world_position + Vec3(0, 1, 0)),
-            distance=30,
+            distance=20,
             ignore=(self,)
         )
         return hit_info.entity == player
@@ -298,7 +312,7 @@ class Enemy(Entity):
         player_dist = distance_xz(player.position, self.position)
 
         # State transitions
-        if player_dist < 15 and self.can_see_player():
+        if player_dist < 20 and self.can_see_player():
             self.state = 'shooting'
         elif player_dist < 30 and self.can_see_player():
             self.state = 'chasing'
@@ -322,7 +336,7 @@ class Enemy(Entity):
             self.look_at_2d(player.position, 'y')
 
             # Shooting cooldown
-            if time.time() - self.last_shot_time > 1.5:
+            if time.time() - self.last_shot_time > 0.9:
                 self.shoot_at_player()
                 self.last_shot_time = time.time()
 
@@ -353,33 +367,26 @@ class Enemy(Entity):
 
     def shoot_at_player(self):
         """Enemy shoots at player"""
-        # Create enemy bullet
-        bullet = Entity(
-            model='sphere',
-            color=color.red,
-            scale=0.1,
-            position=self.world_position + Vec3(0, 1, 0),
-            collider='sphere'
-        )
-
         # Direction toward player
-        direction = player.position - bullet.position
+        direction = player.position - self.position
         direction = direction.normalized()
+        # Create enemy bullet
+        self.gun.blink(color.red, duration=0.5)
 
-        # Move bullet
-        bullet.animate_position(
-            bullet.position + direction * 50,
-            duration=1,
-            curve=curve.linear
-        )
+        bullet = Entity(parent=self.gun, position=self.position, model="cube", scale=0.3, color=color.white)
+        bullet.world_parent = scene
+        bullet.animate_position(bullet.position + (direction if direction else bullet.forward * 20),
+                                curve=curve.linear, duration=0.5)
 
         # Damage player on hit
         def check_hit():
             try:
-                if bullet.enabled and distance(bullet.position, player.position) < 1.5:
+                if distance(bullet.position, player.position) < 1.5:
                     player.take_damage(10)
-            except:
-                if bullet.enabled: player.take_damage(10)
+            except Exception as exc:
+                # if raycast(bullet.position, bullet.forward.entity).entity == player: player.take_damage(10)
+
+                print(exc)
             destroy(bullet)
 
         invoke(check_hit, delay=0.1)
@@ -419,21 +426,20 @@ for i in range(32):  # Start with 5 enemies
 
 # 🎵 INPUT HANDLING
 def input(key):
+    if key == 'x':
+        player.saved_point = player.position
     if key == 'z':
-        player.position = player.spawn_point
+        try:
+            if player.saved_point:
+                player.position = player.saved_point
+        except:
+            player.position = player.spawn_point
+        player.gravity = 1
     if key == 'f':
         player.y += 10
+        player.gravity = -1
     if key == 'escape':
         application.quit()
-    if key == 'tab':
-        # Toggle editor camera - its doent work + its not needed for now
-        editor_camera.enabled = not editor_camera.enabled
-        player.visible_self = editor_camera.enabled
-        player.cursor.enabled = not editor_camera.enabled
-        player.gun.enabled = not editor_camera.enabled
-        mouse.locked = not editor_camera.enabled
-        editor_camera.position = player.position
-        application.paused = editor_camera.enabled
 
 
 editor_camera = EditorCamera(enabled=False, ignore_paused=True)
@@ -442,7 +448,7 @@ pause_handler = Entity(ignore_paused=True, input=input)
 # 🌞 LIGHTING
 sun = DirectionalLight()
 sun.look_at(Vec3(1, -1, -1))
-Sky()
+# Sky()
 
 
 # 🎯 AUTO-COLLECT SYSTEM
@@ -463,7 +469,7 @@ def update():
 
 # 📋 INSTRUCTIONS
 instructions = Text(
-    text="WASD: Move | MOUSE: Aim | LMB: Shoot\nRMB: Not used | TAB: Editor mode",
+    text="WASD: Move | MOUSE: Aim | LMB: Shoot\nRMB: Not used",
     position=(0, -0.45),
     origin=(0, 0),
     scale=1.2,

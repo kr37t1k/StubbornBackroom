@@ -1,10 +1,10 @@
 {
   "game_settings": {
     "window": {
-      "width": 1400,
-      "height": 900,
+      "width": 1280,
+      "height": 960,
       "fullscreen": false,
-      "vsync": true,
+      "vsync": false,
       "borderless": false
     },
     "quality_levels": {
@@ -55,7 +55,7 @@
     },
     "debug_settings": {
       "show_fps": true,
-      "show_coords": false,
+      "show_coords": true,
       "show_collision_boxes": false,
       "enable_profiler": false,
       "log_level": "info"

@@ -26,7 +26,7 @@ Text('press tab to toggle slow motion', y=.5)
 def input(key):
     if key == 'left mouse down' and player.gun:
         gun.blink(color.orange)
-        bullet = Entity(parent=gun, model='cube', scale=.1, color=color.black)
+        bullet = Entity(parent=gun, position=(-1,1,0), model='cube', scale=.1, color=color.black)
         bullet.world_parent = scene
         bullet.animate_position(bullet.position+(bullet.forward*50), curve=curve.linear, duration=1)
         destroy(bullet, delay=1)
