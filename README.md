@@ -163,3 +163,77 @@ Map Legend:
 The project was refactored to remove the chunk generation system like Minecraft, focusing instead on pre-made maps for better performance and consistency. The gymnasium integration allows for AI training and reinforcement learning applications.
 
 The liminalcore aesthetic is maintained throughout all versions with careful attention to color palettes, atmosphere, and reality distortion effects that create the characteristic "backrooms" feeling.
+
+## AI Training System
+
+The project now includes a complete AI training system with:
+
+### Player Training
+- **train_backrooms_agent.py** - Trains a player agent using Deep Q-Network (DQN)
+- Uses reinforcement learning to navigate the backrooms environment
+- Optimized for exploration and survival
+
+### Enemy AI System
+- **enemy_ai_system.py** - Advanced enemy AI with multiple enemy types:
+  - WATCHER: Observes from a distance, moves slowly but strategically
+  - SMILER: Fast and aggressive, chases player directly
+  - HUNTER: Highly aggressive, fastest movement, high detection range
+  - FACADE: Deceptive, may hide or pretend to be harmless
+- Each enemy type has unique behaviors and characteristics
+- Neural network-based decision making
+- Adaptable to player strategies
+
+### Enemy Training
+- **train_enemies.py** - Trains enemies to hunt the player
+- Uses adversarial reinforcement learning
+- Enemies learn to predict and intercept player movements
+- Creates challenging opponents that adapt to player behavior
+
+### Integration
+- **integrate_enemy_ai.py** - Demonstrates how to integrate enemy AI into the game
+- **demo_enemy_ai.py** - Shows enemy AI functionality without full game
+
+## Training Commands
+
+### Train Player Agent
+```bash
+python train_backrooms_agent.py
+```
+
+### Train Enemy Agents
+```bash
+python train_enemies.py
+```
+
+### Run Enemy AI Demo
+```bash
+python demo_enemy_ai.py
+```
+
+## Usage Examples
+
+### Training a Player Agent
+```python
+from train_backrooms_agent import train_agent
+
+# Train for 1000 episodes
+agent = train_agent(episodes=1000)
+```
+
+### Using Enemy AI in Your Game
+```python
+from enemy_ai_system import EnemyManager, EnemyType
+
+# Create enemy manager
+enemy_manager = EnemyManager()
+
+# Add enemies
+watcher = enemy_manager.add_enemy(EnemyType.WATCHER, (5.0, 0.0, 5.0))
+hunter = enemy_manager.add_enemy(EnemyType.HUNTER, (-3.0, 0.0, 8.0))
+
+# Update enemies each frame with player position
+enemy_manager.update_all(player_pos)
+
+# Get enemy positions for rendering
+enemy_positions = enemy_manager.get_enemy_positions()
+```
