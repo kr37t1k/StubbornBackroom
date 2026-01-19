@@ -237,3 +237,55 @@ enemy_manager.update_all(player_pos)
 # Get enemy positions for rendering
 enemy_positions = enemy_manager.get_enemy_positions()
 ```
+
+## 🎮 NEW: Advanced Backrooms Game with OOP Framework
+
+We've added a completely redesigned version of the game with a custom OOP game engine framework:
+
+### Features
+- **Object-Oriented Architecture**: Clean separation of concerns with GameObjects and Components
+- **Advanced FPS Controller**: Full first-person shooter mechanics with shooting, ammo management, and weapon handling
+- **Sophisticated AI System**: State machine-based enemy AI with tactical behaviors and team coordination
+- **Reality Distortion Engine**: Dynamic reality system affecting gameplay and visuals
+- **Procedural World Generation**: Infinite backrooms environment with varied room types
+- **Inventory System**: Health and ammo pickups with automatic collection
+- **Combat Mechanics**: Shooting with realistic weapon behavior and hit detection
+
+### Core Framework Components
+The game engine framework consists of:
+
+1. **core/engine.py**: Core game engine classes including GameObject, Component, EntityManager, and GameEngine
+2. **core/fps_controller.py**: Advanced FPS controller with movement, aiming, and combat systems
+3. **core/ai_system.py**: Sophisticated AI system with state machines, tactical behaviors, and team coordination
+4. **advanced_backrooms_game.py**: Main game implementation using the OOP framework
+
+### Running the New OOP Version
+```bash
+python advanced_backrooms_game.py
+```
+
+### Key Improvements in OOP Version
+- **Modularity**: Components can be mixed and matched to create different types of entities
+- **Maintainability**: Clear separation between game logic and rendering
+- **Scalability**: Easy to add new features and game mechanics
+- **Performance**: Optimized update loops and entity management
+- **Reusability**: Components can be reused across different game projects
+
+### GameObject System
+The GameObject system allows for flexible entity composition:
+```python
+# Create a player with multiple components
+player = GameObject(name="Player")
+player.add_component(FPSController())
+player.add_component(Weapon(damage=25))
+# Add more components as needed
+```
+
+### AI Behavior System
+Enemies have sophisticated behaviors:
+- **State Machine**: Idle → Patrol → Chase → Attack → Flee based on conditions
+- **Sensory System**: Line-of-sight detection and hearing
+- **Tactical Awareness**: Cover seeking, flanking, and team coordination
+- **Adaptive Difficulty**: Enemies learn and adapt to player strategies
+
+Enjoy exploring both the classic gymnasium version and the new OOP-powered advanced version!
