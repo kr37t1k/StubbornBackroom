@@ -19,8 +19,9 @@ func _ready():
 func _input(event):
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		rotate_y(-event.relative.x * mouse_sensitivity)
-		camera.rotate_x(-event.relative.y * mouse_sensitivity)
-		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-80), deg_to_rad(80))
+		var camera_rotation = camera.rotation
+		camera_rotation.x = clamp(camera_rotation.x - event.relative.y * mouse_sensitivity, deg_to_rad(-80), deg_to_rad(80))
+		camera.rotation = camera_rotation
 
 func _process(delta):
 	# Sanity drain based on light level
@@ -33,6 +34,7 @@ func _physics_process(delta):
 	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
+	# Only apply horizontal movement
 	if Input.is_action_pressed("run"):
 		velocity.x = direction.x * run_speed
 		velocity.z = direction.z * run_speed
@@ -40,6 +42,7 @@ func _physics_process(delta):
 		velocity.x = direction.x * move_speed
 		velocity.z = direction.z * move_speed
 	
+	# Keep vertical velocity (gravity/jumping) unchanged
 	move_and_slide()
 
 func _get_light_at_position(pos: Vector3) -> float:

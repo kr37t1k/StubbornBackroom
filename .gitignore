@@ -1,3 +1,37 @@
-# Godot 4+ specific ignores
+```
+# Godot-specific ignores
+*.import
+*.remap
+export_presets.cfg
 .godot/
-/android/
+
+# Dependencies
+addons/
+!.gitignore
+
+# Build artifacts
+*.exe
+*.dll
+*.so
+*.dylib
+*.pdb
+
+# Logs
+*.log
+*.tmp
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment
+.env
+.env.local
+*.env.*
+
+# OS
+.DS_Store
+Thumbs.db
+```

@@ -13,11 +13,17 @@ var is_muted := false
 
 func _ready():
 	# Create players dynamically (no scene dependency)
-	hum_player = _create_3d_player("HumPlayer", HUM_PATH, -15, true)
+	hum_player = _create_3d_player("HumPlayer", HUM_PATH, -15, false)  # Changed autoplay to false to prevent immediate playback
+	if hum_player:
+		hum_player.play()  # Start playing after creation if successful
 	flicker_player = _create_3d_player("FlickerPlayer", FLICKER_PATH, -20, false)
 	
 
 func _create_3d_player(name3d: String, path: String, volume_db: float, autoplay: bool) -> AudioStreamPlayer3D:
+	if not FileAccess.file_exists(path):  # Check if file exists before loading
+		printerr("Audio file does not exist: ", path)
+		return null
+		
 	var player := AudioStreamPlayer3D.new()
 	player.name = name3d
 	player.stream = load(path)
