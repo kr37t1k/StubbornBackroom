@@ -29,5 +29,7 @@ void fragment() {
     
     ALBEDO = final_color;
     ROUGHNESS = 0.85;
+    METALLIC = 0.0;
+    SPECULAR = 0.5;
     AO = 0.9 - moisture * 0.4; // Damp areas = less ambient occlusion
 }"

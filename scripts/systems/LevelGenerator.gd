@@ -54,23 +54,25 @@ func _create_chunk_mesh(chunk_pos: Vector2i) -> Node3D:
 	return chunk
 
 func _create_floor_multimesh(chunk_pos: Vector2i) -> MultiMeshInstance3D:
+	# Create a proper floor plane mesh instead of reusing wall mesh
+	var floor_mesh = PlaneMesh.new()
+	floor_mesh.size = Vector2(CHUNK_SIZE, CHUNK_SIZE)
+	floor_mesh.subdivide_width = 1
+	floor_mesh.subdivide_depth = 1
+
 	var mm = MultiMesh.new()
-	mm.mesh = preload("res://assets/meshes/WallBlack.obj")
+	mm.mesh = floor_mesh
 	mm.transform_format = MultiMesh.TRANSFORM_3D
-	mm.instance_count = 16  # 4x4 grid
-	
+	mm.instance_count = 1  # Single floor plane
+
 	var mmi = MultiMeshInstance3D.new()
 	mmi.multimesh = mm
-	
-	# Position instances in grid
-	var idx = 0
-	for x in 4:
-		for z in 4:
-			var transform = Transform3D.IDENTITY
-			transform.origin = Vector3(x * 4.0, 0, z * 4.0)
-			mm.set_instance_transform(idx, transform)
-			idx += 1
-	
+
+	# Position the floor at y=0
+	var transform = Transform3D.IDENTITY
+	transform.origin = Vector3(CHUNK_SIZE/2, 0, CHUNK_SIZE/2)  # Center the floor in the chunk
+	mm.set_instance_transform(0, transform)
+
 	return mmi
 	
 func _create_walls_multimesh(chunk_pos: Vector2i) -> MultiMeshInstance3D:
@@ -80,11 +82,11 @@ func _create_walls_multimesh(chunk_pos: Vector2i) -> MultiMeshInstance3D:
 	const CHUNK_SEGMENTS := 4  # 4x4 grid of 4m segments = 16m chunk
 	
 	# Preload modular wall segment (single 4m x 3.2m plane facing +Z)
-	# Create this once in Blender: default plane scaled to (4.0, 0.1, 3.2)
+	var wall_segment_mesh = preload("res://assets/meshes/wall_segment.tres")
 	
 	# Setup MultiMesh
 	var mm := MultiMesh.new()
-	mm.mesh = preload("res://assets/meshes/WallBlack.obj")
+	mm.mesh = wall_segment_mesh
 	mm.transform_format = MultiMesh.TRANSFORM_3D
 	mm.use_colors = true  # For moisture variation via vertex colors
 	
@@ -96,10 +98,10 @@ func _create_walls_multimesh(chunk_pos: Vector2i) -> MultiMeshInstance3D:
 	mmi.multimesh = mm
 	mmi.name = "Walls"
 	
-	# Apply procedural yellow shader with moisture variatio
+	# Apply procedural yellow shader with moisture variation
 	var material := preload("res://assets/shaders/yellow_wall.tres")  # ShaderMaterial resource
-	#if material:
-		#mmi.material_override = material
+	if material:
+		mmi.material_override = material
 	
 	# Position wall segments around chunk perimeter
 	var instance_idx := 0
