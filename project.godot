@@ -1,0 +1,32 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
+[application]
+
+config/name="StubbornBackroomGodot"
+run/main_scene="uid://gn1bw37brt2i"
+config/features=PackedStringArray("4.6", "Forward Plus")
+boot_splash/bg_color=Color(0.21080583, 0.00035457924, 0.32904246, 1)
+boot_splash/stretch_mode=4
+boot_splash/image="uid://ba6qkwt5trnrh"
+config/icon="res://icon.svg"
+
+[autoload]
+
+AudioManager="*uid://buxpwgc4ckxy2"
+WallSegment="uid://bue87klt2m7le"
+
+[rendering]
+
+limits/opengl/max_renderable_elements=1024

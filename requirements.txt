@@ -1,4 +1,0 @@
-# Dependencies for 3D Backrooms Python Prototype with Ursina
-ursina>=7.0.0
-pygame>=2.0.0
-panda3d>=1.10.0

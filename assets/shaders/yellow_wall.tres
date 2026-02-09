@@ -1,0 +1,33 @@
+[gd_resource type="Shader" format=3 uid="uid://w8oubp4gjgso"]
+
+[resource]
+code = "// Path: assets/shaders/yellow_wall.shader
+shader_type spatial;
+render_mode unshaded;
+
+// Moisture intensity from vertex color (set by LevelGenerator)
+varying float moisture;
+
+void vertex() {
+    moisture = COLOR.r; // Vertex color drives dampness
+}
+
+void fragment() {
+    // Base Backrooms yellow (slightly desaturated)
+    vec3 base = vec3(0.92, 0.83, 0.55);
+    
+    // Moisture darkening (vertex color controlled)
+    float damp_darken = moisture * 0.35;
+    
+    // Micro-texture: subtle carpet-like noise
+    vec3 pos = VERTEX + vec3(0.0, TIME * 0.2, 0.0); // Slow drift for unease
+    float noise = fract(sin(dot(pos.xz, vec2(12.9898, 78.233))) * 43758.5453);
+    noise = smoothstep(0.4, 0.6, noise);
+    
+    // Final color with moisture variation
+    vec3 final_color = base - vec3(damp_darken) + vec3(noise * 0.02);
+    
+    ALBEDO = final_color;
+    ROUGHNESS = 0.85;
+    AO = 0.9 - moisture * 0.4; // Damp areas = less ambient occlusion
+}"

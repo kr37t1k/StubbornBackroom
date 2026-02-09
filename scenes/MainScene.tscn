@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://gn1bw37brt2i"]
+
+[ext_resource type="Script" uid="uid://bue87klt2m7le" path="res://assets/meshes/wall_segment.gd" id="1_echbf"]
+
+[node name="MainScene" type="Node3D" unique_id=410017595]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=404337167]
+transform = Transform3D(0.30735657, -0.9515944, -4.1595513e-08, 0, -4.371139e-08, 1, -0.9515944, -0.30735657, -1.3434982e-08, 0, 0, 0)
+light_color = Color(0.96320945, 0.82410693, 0.89658976, 1)
+shadow_enabled = true
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=456393742]
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D" unique_id=573953082]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.21656442, 0, 5.5422325)
+
+[node name="WallSegmentMesh" type="Node" parent="." unique_id=842061324]
+script = ExtResource("1_echbf")
+metadata/_custom_type_script = "uid://bue87klt2m7le"
+
+[node name="Node3D" type="Node3D" parent="." unique_id=1170202434]
+
+[node name="Node" type="Node" parent="." unique_id=756741767]

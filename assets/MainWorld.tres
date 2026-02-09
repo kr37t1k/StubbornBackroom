@@ -1,0 +1,12 @@
+[gd_resource type="World3D" format=3 uid="uid://dfr781sxf5a3y"]
+
+[sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_m0oi6"]
+
+[sub_resource type="Environment" id="Environment_xq5l4"]
+
+[sub_resource type="Environment" id="Environment_tb5kw"]
+
+[resource]
+environment = SubResource("Environment_xq5l4")
+fallback_environment = SubResource("Environment_tb5kw")
+camera_attributes = SubResource("CameraAttributesPhysical_m0oi6")

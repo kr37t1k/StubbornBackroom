@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://gn1bw37brt2i"]
+
+[ext_resource type="Script" path="res://scripts/core/GameManager.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/systems/LevelGenerator.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/entities/PlayerViewer.gd" id="3"]
+[ext_resource type="ArrayMesh" path="res://assets/meshes/wall_segment.tres" id="4"]
+[ext_resource type="ShaderMaterial" path="res://assets/shaders/yellow_wall.tres" id="5"]
+
+[sub_resource type="CapsuleShape3D" id="1"]
+height = 2.8
+radius = 0.4
+
+[sub_resource type="Environment" id="2"]
+background_mode = 2
+background_color = Color(0.18, 0.15, 0.09, 1)
+fog_enabled = true
+fog_color = Color(0.28, 0.23, 0.12, 1)
+fog_density = 0.035
+ambient_light_color = Color(0.35, 0.3, 0.2, 1)
+ambient_light_energy = 0.15
+msaa_3d = 0
+
+[node name="Main" type="Node3D" unique_id=410017595]
+script = ExtResource("1")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=404337168]
+environment = SubResource("2")
+
+[node name="LevelGenerator" type="Node3D" parent="." unique_id=404337169]
+script = ExtResource("2")
+metadata = {
+    "CHUNK_SIZE": 16.0,
+    "LOAD_RADIUS": 2
+}
+
+[node name="Player" type="CharacterBody3D" parent="." unique_id=404337170]
+script = ExtResource("3")
+position = Vector3(8, 1.6, 8)
+move_speed = 5.0
+run_speed = 9.0
+mouse_sensitivity = 0.002
+
+[node name="Camera3D" type="Camera3D" parent="Player" unique_id=404337171]
+position = Vector3(0, 1.6, 0)
+current = true
+fov = 85.0
+near = 0.1
+far = 500.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=404337172]
+shape = SubResource("1")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Player" unique_id=404337173]
+position = Vector3(0, 1.7, -0.3)
+light_color = Color(0.95, 0.85, 0.65, 1)
+light_energy = 0.9
+light_indirect_energy = 0.1
+range = 6.0
+shadow_enabled = false
+unique_id=404337174
+
+[node name="FlickerLight" type="OmniLight3D" parent="Player" unique_id=404337175]
+position = Vector3(0, 2.9, 0)
+light_color = Color(1.0, 0.95, 0.75, 1)
+light_energy = 0.3
+range = 12.0
+shadow_enabled = false
+unique_id=404337176
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=404337167]
+transform = Transform3D(0.30735657, -0.9515944, -4.1595513e-08, 0, -4.371139e-08, 1, -0.9515944, -0.30735657, -1.3434982e-08, 0, 0, 0)
+light_color = Color(0.96320945, 0.82410693, 0.89658976, 1)
+light_energy = 0.08
+shadow_enabled = false
