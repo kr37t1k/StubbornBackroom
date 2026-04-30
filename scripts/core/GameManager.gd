@@ -1,16 +1,16 @@
-# scripts/GameManager.gd
+# scripts/core/GameManager.gd
 class_name GameManager extends Node
 
-@onready var player = $PlayerViewer
+@onready var player = $Player
 @onready var level_generator = $LevelGenerator
-@onready var audio_manager = $AudioManager
+@onready var audio_manager = $"/root/AudioManager"
 
 var current_sanity: float = 100.0
 var is_game_over := false
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	level_generator.generate_initial_chunks(player.global_position)
+	# level_generator.generate_initial_chunks(player.global_position)
 
 func decrease_sanity(amount: float):
 	current_sanity = clamp(current_sanity - amount, 0, 100)

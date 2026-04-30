@@ -1,24 +1,28 @@
 [gd_scene format=3 uid="uid://gn1bw37brt2i"]
 
-[ext_resource type="Script" path="res://scripts/core/GameManager.gd" id="1"]
-[ext_resource type="Script" path="res://scripts/systems/LevelGenerator.gd" id="2"]
-[ext_resource type="Script" path="res://scripts/entities/PlayerViewer.gd" id="3"]
-[ext_resource type="ArrayMesh" path="res://assets/meshes/wall_segment.tres" id="4"]
-[ext_resource type="ShaderMaterial" path="res://assets/shaders/yellow_wall.tres" id="5"]
-
-[sub_resource type="CapsuleShape3D" id="1"]
-height = 2.8
-radius = 0.4
+[ext_resource type="Script" uid="uid://p7ncdcj6foev" path="res://scripts/core/GameManager.gd" id="1"]
+[ext_resource type="Script" uid="uid://c7anq1v648bak" path="res://scripts/systems/LevelGenerator.gd" id="2"]
+[ext_resource type="Script" uid="uid://drdpwcsm0wl1e" path="res://scripts/entities/PlayerViewer.gd" id="3"]
+[ext_resource type="Script" uid="uid://djgxvyfgsrfam" path="res://scripts/systems/WindSystem.gd" id="4"]
 
 [sub_resource type="Environment" id="2"]
-background_mode = 2
-background_color = Color(0.18, 0.15, 0.09, 1)
+background_mode = 1
+background_color = Color(0.45, 0.62, 0.73, 1)
+ambient_light_color = Color(0.5, 0.65, 0.55, 1)
+ambient_light_energy = 0.6
+reflected_light_source = 2
+glow_enabled = true
+glow_normalized = true
+glow_strength = 0.3
 fog_enabled = true
-fog_color = Color(0.28, 0.23, 0.12, 1)
-fog_density = 0.035
-ambient_light_color = Color(0.35, 0.3, 0.2, 1)
-ambient_light_energy = 0.15
-msaa_3d = 0
+fog_mode = 1
+fog_light_color = Color(0.6, 0.7, 0.65, 1)
+fog_density = 0.15
+fog_aerial_perspective = 1.0
+
+[sub_resource type="CapsuleShape3D" id="1"]
+radius = 0.4
+height = 2.8
 
 [node name="Main" type="Node3D" unique_id=410017595]
 script = ExtResource("1")
@@ -28,47 +32,55 @@ environment = SubResource("2")
 
 [node name="LevelGenerator" type="Node3D" parent="." unique_id=404337169]
 script = ExtResource("2")
-metadata = {
-    "CHUNK_SIZE": 16.0,
-    "LOAD_RADIUS": 2
-}
+
+[node name="GrassField" type="Node3D" parent="." unique_id=500123456]
+
+[node name="WindSystem" type="Node3D" parent="." unique_id=500123457]
+script = ExtResource("4")
+
+[node name="WindAudioPlayer" type="AudioStreamPlayer3D" parent="WindSystem" unique_id=500123458]
 
 [node name="Player" type="CharacterBody3D" parent="." unique_id=404337170]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 5.0, 8)
 script = ExtResource("3")
-position = Vector3(8, 1.6, 8)
-move_speed = 5.0
-run_speed = 9.0
-mouse_sensitivity = 0.002
 
 [node name="Camera3D" type="Camera3D" parent="Player" unique_id=404337171]
-position = Vector3(0, 1.6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
 current = true
 fov = 85.0
 near = 0.1
 far = 500.0
 
+[node name="SpotLight3D" type="SpotLight3D" parent="Player/Camera3D" unique_id=78359439]
+light_color = Color(0.93620235, 0.70008165, 1, 1)
+light_energy = 4.333
+light_volumetric_fog_energy = 2.833
+shadow_enabled = true
+shadow_opacity = 0.8
+shadow_blur = 2.146
+spot_range = 60.0
+spot_angle = 25.78
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=404337172]
 shape = SubResource("1")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="Player" unique_id=404337173]
-position = Vector3(0, 1.7, -0.3)
-light_color = Color(0.95, 0.85, 0.65, 1)
-light_energy = 0.9
-light_indirect_energy = 0.1
-range = 6.0
-shadow_enabled = false
-unique_id=404337174
-
 [node name="FlickerLight" type="OmniLight3D" parent="Player" unique_id=404337175]
-position = Vector3(0, 2.9, 0)
-light_color = Color(1.0, 0.95, 0.75, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.9, 0)
+visible = false
+light_color = Color(1, 0.95, 0.75, 1)
 light_energy = 0.3
-range = 12.0
-shadow_enabled = false
-unique_id=404337176
+
+[node name="StepSoundPlayer" type="AudioStreamPlayer3D" parent="Player" unique_id=483223521]
+volume_db = -10.0
+max_distance = 2.0
+
+[node name="GrassStepSoundPlayer" type="AudioStreamPlayer3D" parent="Player" unique_id=483223522]
+volume_db = -8.0
+max_distance = 5.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=404337167]
 transform = Transform3D(0.30735657, -0.9515944, -4.1595513e-08, 0, -4.371139e-08, 1, -0.9515944, -0.30735657, -1.3434982e-08, 0, 0, 0)
-light_color = Color(0.96320945, 0.82410693, 0.89658976, 1)
-light_energy = 0.08
-shadow_enabled = false
+light_color = Color(0.7, 0.75, 0.65, 1)
+light_energy = 0.4
+shadow_enabled = true
+shadow_bias = 0.05
